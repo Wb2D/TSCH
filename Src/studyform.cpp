@@ -1,4 +1,4 @@
-#include "studyform.h"
+#include "Include/studyform.h"
 #include "ui_studyform.h"
 
 StudyForm::StudyForm(QWidget *parent) :

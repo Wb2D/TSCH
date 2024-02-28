@@ -4,6 +4,8 @@
 #include <QMainWindow>
 #include <QMouseEvent>
 #include <QPoint>
+#include <QGraphicsOpacityEffect>
+#include <QPropertyAnimation>
 
 #include "studyform.h"
 
@@ -20,7 +22,12 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_pushButton_clicked();
+    //void on_pushButton_clicked();
+    void on_pushButtonClose_clicked();
+    void on_pushButtonLogin_clicked();
+    void on_pushButtonMinimize_clicked();
+    void on_pushButtonsMode_clicked();
+    void on_pushButtonPage_clicked();
 
 protected:
     void mousePressEvent(QMouseEvent*) override;
