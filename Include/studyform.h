@@ -5,6 +5,7 @@
 #include <QMouseEvent>
 #include <QPoint>
 #include <QGraphicsBlurEffect>
+#include <QSizeGrip>
 
 
 namespace Ui {
@@ -22,6 +23,7 @@ public:
 protected:
     void mousePressEvent(QMouseEvent*) override;
     void mouseMoveEvent(QMouseEvent*) override;
+
 
 private slots:
     void on_pushButtonClose_clicked();

@@ -1,12 +1,14 @@
 #include "Include/studyform.h"
 #include "ui_studyform.h"
 
+
 StudyForm::StudyForm(QWidget *parent) :
     QWidget(parent, Qt::Window | Qt::FramelessWindowHint),
     ui(new Ui::StudyForm) {
     ui->setupUi(this);
     setWindowOpacity(0.98);     // прозрачность окна
     mPosition = QPoint();
+    ui->gridLayout->addWidget(new QSizeGrip(this), ui->gridLayout->columnCount(), Qt::AlignBottom | Qt::AlignRight);
 }
 
 StudyForm::~StudyForm() {

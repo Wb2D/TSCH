@@ -2,7 +2,7 @@
 #include "ui_mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent, Qt::Window | Qt::FramelessWindowHint)
+    : QMainWindow(parent, Qt::Window | Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint)
     , ui(new Ui::MainWindow) {
     ui->setupUi(this);
     setWindowOpacity(0.975);     // прозрачность окна
