@@ -5,6 +5,7 @@
 #include <QMouseEvent>
 #include <QPoint>
 #include <QGraphicsBlurEffect>
+#include <QGraphicsDropShadowEffect>
 #include <QSizeGrip>
 
 
@@ -33,8 +34,15 @@ private slots:
     void on_pushSliderNS_clicked();
 
 private:
+    void setShadow(QWidget*);
+    void setBlur(QWidget*, int);
+    void removeEffect(QWidget*);
+
     Ui::StudyForm *ui;
     QPoint mPosition;
+
+    static const int BLUR_RADIUS_1 = 8;
+    static const int BLUR_RADIUS_2 = 4;
 };
 
 #endif // STUDYFORM_H

@@ -2,7 +2,7 @@
 #include "ui_mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent, Qt::Window | Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint)
+    : QMainWindow(parent, Qt::Window | Qt::FramelessWindowHint)
     , ui(new Ui::MainWindow) {
     ui->setupUi(this);
     setWindowOpacity(0.975);     // прозрачность окна
@@ -20,6 +20,7 @@ void MainWindow::mousePressEvent(QMouseEvent *event) {
         if (event->y() < 30) {
             mPosition = event->globalPos() - frameGeometry().topLeft();
         }
+        this->setFocus();
     }
 }
 
@@ -29,6 +30,16 @@ void MainWindow::mouseMoveEvent(QMouseEvent *event) {
         if (event->y() < 30) {
             move(event->globalPos() - mPosition);
             event->accept();
+        }
+    }
+}
+
+void MainWindow::mouseDoubleClickEvent(QMouseEvent *event) {
+    if (event->button() == Qt::LeftButton && event->y() < 30) {
+        if (isFullScreen()) {
+            showNormal();
+        } else {
+            showFullScreen();
         }
     }
 }

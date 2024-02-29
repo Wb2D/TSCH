@@ -32,6 +32,7 @@ private slots:
 protected:
     void mousePressEvent(QMouseEvent*) override;
     void mouseMoveEvent(QMouseEvent*) override;
+    void mouseDoubleClickEvent(QMouseEvent*) override;
 
 private:
     Ui::MainWindow *ui;
