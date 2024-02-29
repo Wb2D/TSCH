@@ -7,35 +7,38 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     setWindowOpacity(0.975);     // прозрачность окна
     mPosition = QPoint();
-    //studyForm = new StudyForm();
-    // подключение к слоту запуска mainwindow по кнопке в studyform (возвращение)
-    //connect(studyForm, &StudyForm::openMainWindow, this, &MainWindow::show);
+
+    studyForm = new StudyForm();
+    studyForm->show();
 }
 
 MainWindow::~MainWindow() { delete ui; }
 
+void MainWindow::mousePressEvent(QMouseEvent *event) {
+    if (event->button() == Qt::LeftButton) {
+        // был ли клик в верхней части окна
+        if (event->y() < 30) {
+            mPosition = event->globalPos() - frameGeometry().topLeft();
+        }
+    }
+}
+
 void MainWindow::mouseMoveEvent(QMouseEvent *event) {
     if (event->buttons() & Qt::LeftButton) {
-        // перемещаю окно на новую позицию
-        move(event->globalPos() - mPosition);
-        event->accept();
+        //  переместить окно только если захвачена верхняя часть
+        if (event->y() < 30) {
+            move(event->globalPos() - mPosition);
+            event->accept();
+        }
     }
 }
 
-void MainWindow::mousePressEvent(QMouseEvent *event) {
-    if (event->buttons() == Qt::LeftButton) {
-        // считываю позицию, в которой была нажата кнопка мыши
-        mPosition = event->globalPos() - frameGeometry().topLeft();
-        event->accept();
-    }
-}
-
-// свернуть приложение
+// свернуть окно
 void MainWindow::on_pushButtonMinimize_clicked() {
     this->showMinimized();
 }
 
-// закрыть приложения
+// закрыть окно
 void MainWindow::on_pushButtonClose_clicked() {
     this->close();
 }

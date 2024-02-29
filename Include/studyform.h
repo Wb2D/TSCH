@@ -2,6 +2,10 @@
 #define STUDYFORM_H
 
 #include <QWidget>
+#include <QMouseEvent>
+#include <QPoint>
+#include <QGraphicsBlurEffect>
+
 
 namespace Ui {
 class StudyForm;
@@ -15,14 +19,20 @@ public:
     explicit StudyForm(QWidget *parent = nullptr);
     ~StudyForm();
 
-signals:
-    void openMainWindow(); // сигнал для mainwindow на открытие
+protected:
+    void mousePressEvent(QMouseEvent*) override;
+    void mouseMoveEvent(QMouseEvent*) override;
 
 private slots:
-    void on_pushButton_1_clicked();
+    void on_pushButtonClose_clicked();
+    void on_pushButtonMinimize_clicked();
+    void on_pushSliderFormInput_clicked();
+    void on_pushSliderDataType_clicked();
+    void on_pushSliderNS_clicked();
 
 private:
     Ui::StudyForm *ui;
+    QPoint mPosition;
 };
 
 #endif // STUDYFORM_H

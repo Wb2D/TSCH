@@ -7,7 +7,7 @@
 #include <QGraphicsOpacityEffect>
 #include <QPropertyAnimation>
 
-#include "studyform.h"
+#include "Include/studyform.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -36,5 +36,6 @@ protected:
 private:
     Ui::MainWindow *ui;
     QPoint mPosition;
+    StudyForm *studyForm;
 };
 #endif // MAINWINDOW_H
