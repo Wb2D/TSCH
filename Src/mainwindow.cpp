@@ -5,19 +5,21 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent, Qt::Window | Qt::FramelessWindowHint)
     , ui(new Ui::MainWindow) {
     ui->setupUi(this);
-    setWindowOpacity(0.975);     // прозрачность окна
+    setWindowOpacity(0.975);
     mPosition = QPoint();
-
     studyForm = new StudyForm();
     studyForm->show();
+    wPosition = QPoint();
+    wSize = QSize();
 }
 
 MainWindow::~MainWindow() { delete ui; }
 
+
 void MainWindow::mousePressEvent(QMouseEvent *event) {
     if (event->button() == Qt::LeftButton) {
         // был ли клик в верхней части окна
-        if (event->y() < 30) {
+        if (event->y() < 30 && !isFullScreen() && event->x() < frameGeometry().width() - 140) {
             mPosition = event->globalPos() - frameGeometry().topLeft();
         }
         this->setFocus();
@@ -27,20 +29,52 @@ void MainWindow::mousePressEvent(QMouseEvent *event) {
 void MainWindow::mouseMoveEvent(QMouseEvent *event) {
     if (event->buttons() & Qt::LeftButton) {
         //  переместить окно только если захвачена верхняя часть
-        if (event->y() < 30) {
+        if (event->y() < 30 && !isFullScreen()) {
             move(event->globalPos() - mPosition);
             event->accept();
         }
     }
 }
 
+#include <QDebug>
+
 void MainWindow::mouseDoubleClickEvent(QMouseEvent *event) {
     if (event->button() == Qt::LeftButton && event->y() < 30) {
         if (isFullScreen()) {
-            showNormal();
+            //ui->centralwidget->setUpdatesEnabled(false);
+            // анимаци перехода в оконный режим
+            //qDebug() << QString::number(size().rheight()) << " " << QString::number(size().rwidth()) << " " << isFullScreen();
+            QPropertyAnimation *animation = new QPropertyAnimation(this, "geometry");
+            animation->setDuration(1000);
+            animation->setEasingCurve(QEasingCurve::OutCubic);
+            animation->setStartValue(QRect(pos(), size()));
+            animation->setEndValue(QRect(wPosition, wSize));
+            qDebug() << "B" << QString::number(size().rheight()) << " " << QString::number(size().rwidth()) << " " << isFullScreen();
+            connect(animation, &QPropertyAnimation::finished, this, [this, animation]() {
+                qDebug() << "A" << QString::number(size().rheight()) << " " << QString::number(size().rwidth()) << " " << isFullScreen();
+                delete animation;
+            });
+            //animation->setDirection(QAbstractAnimation::Forward);
+            animation->start(QAbstractAnimation::DeleteWhenStopped);
+            //showNormal();
         } else {
+            wSize = size();
+            wPosition = pos();
+            // анимаци перехода в полноэкранный режим
+            /*
+            qDebug() << QString::number(size().rheight()) << " " << QString::number(size().rwidth()) << " " << isFullScreen();
+            wSize = size();
+            wPosition = pos();
+            animation->setEndValue(QGuiApplication::primaryScreen()->availableGeometry());
+            connect(animation, &QPropertyAnimation::finished, this, [this]() {
+                //setUpdatesEnabled(true);
+                ui->centralwidget->setUpdatesEnabled(true);
+                showFullScreen();
+            });
+            */
             showFullScreen();
         }
+
     }
 }
 

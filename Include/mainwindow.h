@@ -4,8 +4,11 @@
 #include <QMainWindow>
 #include <QMouseEvent>
 #include <QPoint>
+#include <QAbstractAnimation>
 #include <QGraphicsOpacityEffect>
 #include <QPropertyAnimation>
+#include <QGuiApplication>
+#include <QScreen>
 
 #include "Include/studyform.h"
 
@@ -36,7 +39,10 @@ protected:
 
 private:
     Ui::MainWindow *ui;
-    QPoint mPosition;
     StudyForm *studyForm;
+    QPoint mPosition;
+    QPoint wPosition;
+    QSize wSize;
+
 };
 #endif // MAINWINDOW_H
