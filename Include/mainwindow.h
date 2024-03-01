@@ -7,8 +7,7 @@
 #include <QAbstractAnimation>
 #include <QGraphicsOpacityEffect>
 #include <QPropertyAnimation>
-#include <QGuiApplication>
-#include <QScreen>
+#include <QDesktopWidget>
 
 #include "Include/studyform.h"
 
@@ -41,8 +40,8 @@ private:
     Ui::MainWindow *ui;
     StudyForm *studyForm;
     QPoint mPosition;
-    QPoint wPosition;
-    QSize wSize;
+    QRect wGeometry;
+    bool fsFlag;
 
 };
 #endif // MAINWINDOW_H
