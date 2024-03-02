@@ -16,6 +16,7 @@ SOURCES += \
     Src\studyform.cpp
 
 HEADERS += \
+    Include/frame.h \
     Include\mainwindow.h \
     Include\studyform.h
 

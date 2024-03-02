@@ -8,11 +8,11 @@ StudyForm::StudyForm(QWidget *parent) :
     ui->setupUi(this);
     setWindowOpacity(0.98);     // прозрачность окна
     mPosition = QPoint();
-    //ui->gridLayout->addWidget(new QSizeGrip(this), ui->gridLayout->columnCount(), Qt::AlignBottom | Qt::AlignRight);
-    setShadow(ui->frame_6);
-    setShadow(ui->frame_4);
-    setShadow(ui->frame_5);
-    setShadow(ui->frame_7);
+    ui->gridLayout_9->addWidget(new QSizeGrip(this), ui->gridLayout->columnCount(), Qt::AlignBottom | Qt::AlignRight);
+    ui->frame_6->setStackedWidget(ui->stackedWidget);
+    ui->frame_4->setStackedWidget(ui->stackedWidget);
+    ui->frame_5->setStackedWidget(ui->stackedWidget);
+    ui->frame_7->setStackedWidget(ui->stackedWidget);
 }
 
 StudyForm::~StudyForm() {

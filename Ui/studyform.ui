@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>902</width>
+    <width>906</width>
     <height>833</height>
    </rect>
   </property>
@@ -100,7 +100,7 @@
    <item row="1" column="2" colspan="4">
     <widget class="QStackedWidget" name="stackedWidget">
      <widget class="QWidget" name="page">
-      <widget class="QFrame" name="frame_6">
+      <widget class="Frame" name="frame_6">
        <property name="geometry">
         <rect>
          <x>10</x>
@@ -452,7 +452,7 @@ QSlider::handle:horizontal {
         </item>
        </layout>
       </widget>
-      <widget class="QFrame" name="frame_5">
+      <widget class="Frame" name="frame_5">
        <property name="enabled">
         <bool>true</bool>
        </property>
@@ -705,6 +705,19 @@ QSlider::handle:horizontal {
               </property>
              </spacer>
             </item>
+            <item row="0" column="4">
+             <spacer name="horizontalSpacer_38">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
             <item row="0" column="1">
              <widget class="QSlider" name="horizontalSliderNS10">
               <property name="minimumSize">
@@ -798,19 +811,6 @@ QSlider::handle:horizontal {
                <string>десятичная</string>
               </property>
              </widget>
-            </item>
-            <item row="0" column="4">
-             <spacer name="horizontalSpacer_38">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>20</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
             </item>
            </layout>
           </item>
@@ -1017,6 +1017,19 @@ QSlider::handle:horizontal {
               </property>
              </spacer>
             </item>
+            <item row="0" column="4">
+             <spacer name="horizontalSpacer_20">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
             <item row="0" column="3">
              <widget class="QLabel" name="label_9">
               <property name="minimumSize">
@@ -1052,19 +1065,6 @@ QSlider::handle:horizontal {
                <string>четверичная</string>
               </property>
              </widget>
-            </item>
-            <item row="0" column="4">
-             <spacer name="horizontalSpacer_20">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>20</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
             </item>
            </layout>
           </item>
@@ -1199,7 +1199,7 @@ QSlider::handle:horizontal {
         </item>
        </layout>
       </widget>
-      <widget class="QFrame" name="frame_7">
+      <widget class="Frame" name="frame_7">
        <property name="geometry">
         <rect>
          <x>490</x>
@@ -1627,7 +1627,7 @@ p, li { white-space: pre-wrap; }
         </item>
        </layout>
       </widget>
-      <widget class="QFrame" name="frame_4">
+      <widget class="Frame" name="frame_4">
        <property name="geometry">
         <rect>
          <x>10</x>
@@ -2263,6 +2263,14 @@ QPushButton:pressed {
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>Frame</class>
+   <extends>QFrame</extends>
+   <header location="global">Include/frame.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <tabstops>
   <tabstop>pushButtonClose</tabstop>
   <tabstop>pushButtonMinimize</tabstop>

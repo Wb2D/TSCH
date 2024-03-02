@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QWindow>
 #include <QMouseEvent>
 #include <QPoint>
 #include <QAbstractAnimation>
@@ -10,6 +11,7 @@
 #include <QDesktopWidget>
 
 #include "Include/studyform.h"
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -24,7 +26,6 @@ public:
     ~MainWindow();
 
 private slots:
-    //void on_pushButton_clicked();
     void on_pushButtonClose_clicked();
     void on_pushButtonLogin_clicked();
     void on_pushButtonMinimize_clicked();
@@ -39,9 +40,11 @@ protected:
 private:
     Ui::MainWindow *ui;
     StudyForm *studyForm;
+
+    bool aFlag;
     QPoint mPosition;
     QRect wGeometry;
-    bool fsFlag;
+    bool wFlag;
 
 };
 #endif // MAINWINDOW_H

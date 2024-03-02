@@ -8,7 +8,6 @@
 #include <QGraphicsDropShadowEffect>
 #include <QSizeGrip>
 
-
 namespace Ui {
 class StudyForm;
 }

@@ -21,8 +21,8 @@
   </property>
   <property name="maximumSize">
    <size>
-    <width>5600</width>
-    <height>1000</height>
+    <width>56000</width>
+    <height>10000</height>
    </size>
   </property>
   <property name="baseSize">
@@ -1517,7 +1517,7 @@ QPushButton:pressed {
      <x>0</x>
      <y>0</y>
      <width>390</width>
-     <height>21</height>
+     <height>20</height>
     </rect>
    </property>
   </widget>
