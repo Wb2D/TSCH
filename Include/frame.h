@@ -7,68 +7,76 @@
 #include <QGraphicsDropShadowEffect>
 #include <QStackedWidget>
 
-#include <QDebug>
-
 class Frame : public QFrame {
 public:
     Frame(QWidget *parent = nullptr)
-        : QFrame(parent), flag(false) {
+        : QFrame(parent), flagChange(true) {
         this->setStyleSheet("QFrame { background-color: rgba(80, 80, 105, 0.9); "
                             "border-radius: 35px; border: none;}");
+
         QGraphicsDropShadowEffect *shEffect = new QGraphicsDropShadowEffect();
         shEffect->setOffset(0, 0);
         shEffect->setColor(QColor(255, 255, 255, 155));
         shEffect->setBlurRadius(15);
+
         this->setGraphicsEffect(shEffect);
     }
 
     ~Frame() { delete this->graphicsEffect(); }
 
-    void setStackedWidget(QStackedWidget* stackedWidget) {
-        this->area = stackedWidget;
-    }
+    void setStackedWidget(QStackedWidget* stackedWidget) { this->area = stackedWidget; }
+    void setFlag(bool flag) { this->flagChange = flag; }
 
 protected:
+
+    #include <QDebug>
     void mousePressEvent(QMouseEvent *event) override {
+        event->ignore();
         if (event->button() == Qt::LeftButton) {
-            flag = true;
-            mPosition = event->pos();
+            mPosition = event->pos(); // Используем pos() вместо globalPos()
+            wSize = this->size();
+            if(( event->x() > this->width() - SIZE_BORDER ||
+                 event->y() > this->height() - SIZE_BORDER) &&
+                (this->x() < this->area->width() && this->y() < this->area->height())) {
+                flagResize = true;
+            } else {
+                flagResize = false;
+            }
         }
+        this->setFocus();
     }
 
     void mouseMoveEvent(QMouseEvent *event) override {
-        if (flag) {
-            QPoint delta = event->pos() - mPosition;
-            move(pos() + delta);
-        }
-    }
-
-    void mouseReleaseEvent(QMouseEvent *event) override {
-        if (event->button() == Qt::LeftButton) {
-            flag = false;
-            if (area) {
-                bool intersects = false;
-                int flagA = area->count();
-                qDebug() << QString::number(area->count());
-                QRect thisGeometry = geometry();
-                for (int i = 0; i < area->count(); ++i) {
-                    if (area->widget(i) != this && area->widget(i)->geometry().intersects(thisGeometry)) {
-
-                        intersects = true;
-                        break;
-                    }
-                }
-                if (!intersects) {
-                    move(mPosition);
-                }
+        event->ignore();
+        if (flagChange) {
+            QPoint delta = event->pos() - mPosition; // Используем pos() вместо globalPos()
+            if(flagResize) {
+                this->resize(wSize + QSize(delta.x(), delta.y()));
+            } else {
+                this->move(this->pos() + delta); // Используем текущую позицию окна (pos())
             }
         }
     }
 
+    void mouseReleaseEvent(QMouseEvent *event) override {
+        event->ignore();
+                // Обновляем начальную позицию при изменении размера окна
+                mPosition = event->pos();
+                wSize = this->size();
+                flagResize = false;
+
+    }
+
 private:
-    bool flag;
-    QPoint mPosition;
     QStackedWidget* area;
+
+    bool flagChange;
+    bool flagResize;
+
+    QPoint mPosition;
+    QSize wSize;
+
+    static const int SIZE_BORDER = 15;
 };
 
 #endif // FRAME_H

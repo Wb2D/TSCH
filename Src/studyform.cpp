@@ -8,20 +8,20 @@ StudyForm::StudyForm(QWidget *parent) :
     ui->setupUi(this);
     setWindowOpacity(0.98);     // прозрачность окна
     mPosition = QPoint();
-    ui->gridLayout_9->addWidget(new QSizeGrip(this), ui->gridLayout->columnCount(), Qt::AlignBottom | Qt::AlignRight);
+    wFlag = false;
+    aFlag = false;
+    wGeometry = QRect();
+    sizeGrip = new QSizeGrip(this);
+    ui->gridLayout_9->addWidget(sizeGrip, ui->gridLayout_9->columnCount(), Qt::AlignBottom | Qt::AlignRight);
     ui->frame_6->setStackedWidget(ui->stackedWidget);
     ui->frame_4->setStackedWidget(ui->stackedWidget);
     ui->frame_5->setStackedWidget(ui->stackedWidget);
     ui->frame_7->setStackedWidget(ui->stackedWidget);
 }
 
-StudyForm::~StudyForm() {
-    delete ui->frame_6->graphicsEffect();
-    delete ui->frame_4->graphicsEffect();
-    delete ui->frame_5->graphicsEffect();
-    delete ui->frame_7->graphicsEffect();
-    delete ui;
-}
+
+StudyForm::~StudyForm() { delete ui; }
+
 
 // метод установки тени
 void StudyForm::setShadow(QWidget *widget) {
@@ -32,6 +32,7 @@ void StudyForm::setShadow(QWidget *widget) {
     widget->setGraphicsEffect(shEffect);
 }
 
+
 // метод установки блюра
 void StudyForm::setBlur(QWidget *widget, int blurRadius) {
     QGraphicsBlurEffect *effect = new QGraphicsBlurEffect(widget);
@@ -39,6 +40,7 @@ void StudyForm::setBlur(QWidget *widget, int blurRadius) {
     effect->setBlurHints(QGraphicsBlurEffect::AnimationHint); // нацепил сглаживание
     widget->setGraphicsEffect(effect);
 }
+
 
 // метод удаления блюра
 void StudyForm::removeEffect(QWidget *widget) {
@@ -48,10 +50,13 @@ void StudyForm::removeEffect(QWidget *widget) {
 
 
 void StudyForm::mousePressEvent(QMouseEvent *event) {
-    if (event->button() == Qt::LeftButton) {
-        // Проверяем, был ли клик в верхней части окна (например, в пределах заголовка)
-        if (event->y() < 30) {
+    event->ignore();
+    if (event->button() == Qt::LeftButton && !wFlag) {
+        if (event->y() < 30 && event->x() < this->width() - 120) {
             mPosition = event->globalPos() - frameGeometry().topLeft();
+            aFlag = true;
+        } else {
+            aFlag = false;
         }
         this->setFocus();
     }
@@ -59,12 +64,41 @@ void StudyForm::mousePressEvent(QMouseEvent *event) {
 
 
 void StudyForm::mouseMoveEvent(QMouseEvent *event) {
-    if (event->buttons() & Qt::LeftButton) {
-        // Перемещаем окно только если захвачена верхняя часть
-        if (event->y() < 30) {
+    event->ignore();
+    if (event->buttons() & Qt::LeftButton && aFlag) {
+        //  переместить окно только если захвачена НУЖНА часть окна
             move(event->globalPos() - mPosition);
-            event->accept();
+    }
+}
+
+
+void StudyForm::mouseReleaseEvent(QMouseEvent *event) {
+    if (event->button() == Qt::LeftButton) {
+        aFlag = false; // cброс флага части окна
+    }
+}
+
+
+void StudyForm::mouseDoubleClickEvent(QMouseEvent *event) {
+    if (event->button() == Qt::LeftButton && event->y() < 30) {
+        QPropertyAnimation *animation = new QPropertyAnimation(this, "geometry");
+        animation->setDuration(500);
+        animation->setEasingCurve(QEasingCurve::InOutQuad);
+        animation->setStartValue(this->geometry());
+        //his->setUpdatesEnabled(false);
+        if (wFlag) {
+            animation->setEndValue(this->wGeometry);
+        } else {
+            this->wGeometry = this->geometry();
+            animation->setEndValue(QApplication::desktop()->availableGeometry());
         }
+        connect(animation, &QPropertyAnimation::finished, this, [=]() {
+            //this->setUpdatesEnabled(true);
+            this->sizeGrip->setEnabled(wFlag);
+            this->wFlag ^=true;
+            delete animation;
+        });
+        animation->start();
     }
 }
 
@@ -110,14 +144,23 @@ void StudyForm::on_pushSliderDataType_clicked() {
     }
     bool enableFrame = senderSlider == ui->horizontalSliderDataType_1 ||
                        (senderSlider == ui->horizontalSliderDataType_2 && senderSlider->value() != 0);
-    ui->frame_5->setEnabled(enableFrame);
+    QList<QSlider*> sliders = { ui->horizontalSliderNS2,
+                                ui->horizontalSliderNS4,
+                                ui->horizontalSliderNS8,
+                                ui->horizontalSliderNS10,
+                                ui->horizontalSliderNS16, };
+    // включаю или выключаю слайдеры
+    for (QSlider *slider : sliders) {
+        if (slider != senderSlider) {
+            slider->setEnabled(enableFrame);
+        }
+    }
     if (enableFrame) {
         removeEffect(ui->frame_5);
         setShadow(ui->frame_5);
     } else {
         setBlur(ui->frame_5, BLUR_RADIUS_1);
     }
-    ui->frame_5->setStyleSheet(ui->frame_5->styleSheet());
 }
 
 // выбор системы счисления для числовой информации

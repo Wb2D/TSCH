@@ -9,6 +9,7 @@
 #include <QGraphicsOpacityEffect>
 #include <QPropertyAnimation>
 #include <QDesktopWidget>
+#include <QScreen>
 
 #include "Include/studyform.h"
 
@@ -36,6 +37,7 @@ protected:
     void mousePressEvent(QMouseEvent*) override;
     void mouseMoveEvent(QMouseEvent*) override;
     void mouseDoubleClickEvent(QMouseEvent*) override;
+    void mouseReleaseEvent(QMouseEvent *event) override;
 
 private:
     Ui::MainWindow *ui;

@@ -10,10 +10,11 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     setWindowOpacity(0.975);
     mPosition = QPoint();
-    studyForm = new StudyForm();
-    studyForm->show();
     wGeometry = QRect();
+    studyForm = new StudyForm();
     wFlag = false;
+    wFlag = false;
+    studyForm->show();
 }
 
 
@@ -22,27 +23,31 @@ MainWindow::~MainWindow() {
     delete studyForm;
 }
 
-
 void MainWindow::mousePressEvent(QMouseEvent *event) {
-    if (event->button() == Qt::LeftButton) {
-        if (event->y() < 30 && !wFlag && event->x() < this->width() - 120) {
+    event->ignore();
+    if (event->button() == Qt::LeftButton && !wFlag) {
+        if (event->y() < 30 && event->x() < this->width() - 120) {
             mPosition = event->globalPos() - frameGeometry().topLeft();
-            this->setFocus();
             aFlag = true;
         } else {
             aFlag = false;
         }
+        this->setFocus();
     }
 }
 
 
 void MainWindow::mouseMoveEvent(QMouseEvent *event) {
-    if (event->buttons() & Qt::LeftButton) {
-        //  переместить окно только если захвачена верхняя часть
-        if (event->y() < 30 && !wFlag && event->x() < this->width() - 120 && aFlag) {
+    event->ignore();
+    if (event->buttons() & Qt::LeftButton && aFlag) {
+        //  переместить окно только если захвачена НУЖНА часть окна
             move(event->globalPos() - mPosition);
-            event->accept();
-        }
+    }
+}
+
+void MainWindow::mouseReleaseEvent(QMouseEvent *event) {
+    if (event->button() == Qt::LeftButton) {
+        aFlag = false; // cброс флага части окна
     }
 }
 
@@ -51,13 +56,14 @@ void MainWindow::mouseDoubleClickEvent(QMouseEvent *event) {
     if (event->button() == Qt::LeftButton && event->y() < 30) {
         QPropertyAnimation *animation = new QPropertyAnimation(this, "geometry");
         animation->setDuration(500);
+        animation->setEasingCurve(QEasingCurve::InOutQuad);
         animation->setStartValue(this->geometry());
         ui->centralwidget->setUpdatesEnabled(false);
         if (wFlag) {
             animation->setEndValue(this->wGeometry);
         } else {
             this->wGeometry = this->geometry();
-            animation->setEndValue(QApplication::desktop()->screenGeometry());
+            animation->setEndValue(QApplication::desktop()->availableGeometry());
         }
         connect(animation, &QPropertyAnimation::finished, this, [=]() {
             ui->centralwidget->setUpdatesEnabled(true);
@@ -124,7 +130,7 @@ void MainWindow::on_pushButtonPage_clicked() {
         // соединение сигнал завершения анимации с обработчиком
         connect(animation, &QPropertyAnimation::finished, this, [=]() {
             ui->stackedWidget->setCurrentIndex(index); // установить новый индекс
-            effect->setOpacity(1.0); // сброс прозрачность обратно на 1
+            effect->setOpacity(1.0); // сброс прозрачности обратно на 1
             delete effect; // убрать эффект замыливания после использования
         });
         // запуск анимации
