@@ -18,6 +18,7 @@ StudyForm::StudyForm(QWidget *parent) :
     ui->frame_5->setStackedWidget(ui->stackedWidget);
     ui->frame_7->setStackedWidget(ui->stackedWidget);
     ui->frame_9->setStackedWidget(ui->stackedWidget);
+    ui->frame_10->setStackedWidget(ui->stackedWidget);
 
     // ЗАРАНЕЕ ПРЕДУСМАТРИВАЮ МЕТОД ДЛЯ ЗАПОЛНЕНИЯ (НАДЕЮСЬ, ЧТО НЕ ЗАБУДУ)
     connect(ui->listWidget, &QListWidget::itemClicked, [=](QListWidgetItem *item){
@@ -181,6 +182,12 @@ void StudyForm::on_pushSliderNS_clicked() {
         if (slider != senderSlider) {
             slider->setValue(0);
         }
+    }
+    // НЕ РАБОТАЕТ
+    if(ui->horizontalSliderNS10->value()) {
+        removeEffect(ui->frame_11);
+    } else {
+        setBlur(ui->frame_11, BLUR_RADIUS_1);
     }
 }
 

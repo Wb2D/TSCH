@@ -6,5 +6,6 @@
         <file>genButton.png</file>
         <file>genButtonOff.png</file>
         <file>process.png</file>
+        <file>encode.png</file>
     </qresource>
 </RCC>
