@@ -6,7 +6,7 @@ StudyForm::StudyForm(QWidget *parent) :
     QWidget(parent, Qt::Window | Qt::FramelessWindowHint),
     ui(new Ui::StudyForm) {
     ui->setupUi(this);
-    setWindowOpacity(0.98);     // прозрачность окна
+    setWindowOpacity(0.98); // прозрачность окна
     mPosition = QPoint();
     wFlag = false;
     aFlag = false;
@@ -17,6 +17,12 @@ StudyForm::StudyForm(QWidget *parent) :
     ui->frame_4->setStackedWidget(ui->stackedWidget);
     ui->frame_5->setStackedWidget(ui->stackedWidget);
     ui->frame_7->setStackedWidget(ui->stackedWidget);
+    ui->frame_9->setStackedWidget(ui->stackedWidget);
+
+    // ЗАРАНЕЕ ПРЕДУСМАТРИВАЮ МЕТОД ДЛЯ ЗАПОЛНЕНИЯ (НАДЕЮСЬ, ЧТО НЕ ЗАБУДУ)
+    connect(ui->listWidget, &QListWidget::itemClicked, [=](QListWidgetItem *item){
+        qDebug() << "Clicked on item:" << item->text(); // элемент, по которому был совершен клик
+    });
 }
 
 

@@ -59,6 +59,7 @@ void MainWindow::mouseDoubleClickEvent(QMouseEvent *event) {
         animation->setEasingCurve(QEasingCurve::InOutQuad);
         animation->setStartValue(this->geometry());
         ui->centralwidget->setUpdatesEnabled(false);
+        ui->statusbar->setUpdatesEnabled(false);
         if (wFlag) {
             animation->setEndValue(this->wGeometry);
         } else {
@@ -67,6 +68,7 @@ void MainWindow::mouseDoubleClickEvent(QMouseEvent *event) {
         }
         connect(animation, &QPropertyAnimation::finished, this, [=]() {
             ui->centralwidget->setUpdatesEnabled(true);
+            ui->statusbar->setUpdatesEnabled(true);
             this->statusBar()->setSizeGripEnabled(wFlag);
             this->wFlag ^=true;
             delete animation;
