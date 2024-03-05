@@ -19,6 +19,7 @@ StudyForm::StudyForm(QWidget *parent) :
     ui->frame_7->setStackedWidget(ui->stackedWidget);
     ui->frame_9->setStackedWidget(ui->stackedWidget);
     ui->frame_10->setStackedWidget(ui->stackedWidget);
+    ui->frame_12->setStackedWidget(ui->stackedWidget);
 
     // ЗАРАНЕЕ ПРЕДУСМАТРИВАЮ МЕТОД ДЛЯ ЗАПОЛНЕНИЯ (НАДЕЮСЬ, ЧТО НЕ ЗАБУДУ)
     connect(ui->listWidget, &QListWidget::itemClicked, [=](QListWidgetItem *item){

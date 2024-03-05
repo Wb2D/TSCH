@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1318</width>
-    <height>740</height>
+    <width>1199</width>
+    <height>741</height>
    </rect>
   </property>
   <property name="font">
@@ -390,13 +390,13 @@ QPushButton:pressed {
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>200</width>
+         <width>175</width>
          <height>110</height>
         </rect>
        </property>
        <property name="minimumSize">
         <size>
-         <width>200</width>
+         <width>175</width>
          <height>110</height>
         </size>
        </property>
@@ -743,15 +743,15 @@ QSlider::handle:horizontal {
        </property>
        <property name="geometry">
         <rect>
-         <x>230</x>
+         <x>200</x>
          <y>10</y>
-         <width>240</width>
+         <width>220</width>
          <height>231</height>
         </rect>
        </property>
        <property name="minimumSize">
         <size>
-         <width>240</width>
+         <width>220</width>
          <height>200</height>
         </size>
        </property>
@@ -1490,15 +1490,15 @@ QSlider::handle:horizontal {
       <widget class="Frame" name="frame_7">
        <property name="geometry">
         <rect>
-         <x>490</x>
+         <x>440</x>
          <y>10</y>
-         <width>431</width>
+         <width>231</width>
          <height>231</height>
         </rect>
        </property>
        <property name="minimumSize">
         <size>
-         <width>300</width>
+         <width>200</width>
          <height>220</height>
         </size>
        </property>
@@ -1908,13 +1908,13 @@ QPushButton:pressed {
         <rect>
          <x>10</x>
          <y>130</y>
-         <width>200</width>
+         <width>175</width>
          <height>110</height>
         </rect>
        </property>
        <property name="minimumSize">
         <size>
-         <width>200</width>
+         <width>175</width>
          <height>110</height>
         </size>
        </property>
@@ -2260,14 +2260,14 @@ QSlider::handle:horizontal {
         <rect>
          <x>10</x>
          <y>260</y>
-         <width>1181</width>
-         <height>351</height>
+         <width>1060</width>
+         <height>350</height>
         </rect>
        </property>
        <property name="minimumSize">
         <size>
-         <width>0</width>
-         <height>0</height>
+         <width>1060</width>
+         <height>350</height>
         </size>
        </property>
        <property name="styleSheet">
@@ -17205,6 +17205,916 @@ QSlider::handle:horizontal {
           </widget>
          </widget>
         </item>
+       </layout>
+      </widget>
+      <widget class="Frame" name="frame_10">
+       <property name="geometry">
+        <rect>
+         <x>690</x>
+         <y>10</y>
+         <width>200</width>
+         <height>231</height>
+        </rect>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>200</width>
+         <height>190</height>
+        </size>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QFrame {
+    background-color: rgba(115, 100, 140, 1); /* Красивый? Цвет фона */
+    border-radius: 35px; /* Радиус скругления краев */
+    border: none; /* Убираем границу */
+}</string>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+       <layout class="QGridLayout" name="gridLayout_42">
+        <item row="0" column="0" colspan="2">
+         <layout class="QGridLayout" name="gridLayout_35">
+          <item row="0" column="1" colspan="2">
+           <widget class="QLabel" name="label_18">
+            <property name="minimumSize">
+             <size>
+              <width>140</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>140</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <family>Roboto</family>
+              <pointsize>12</pointsize>
+              <weight>75</weight>
+              <italic>false</italic>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QLabel {
+    color: rgba(255, 255, 255, 1); /* Белый текст */
+    background-color: transparent; /* Прозрачный фон */
+    border: none; /* Убираем рамку */
+	padding-left: 5px; /* Отступ тексту слева */
+}</string>
+            </property>
+            <property name="text">
+             <string> Алгоритм</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="3">
+           <spacer name="horizontalSpacer_257">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="0" column="0">
+           <spacer name="horizontalSpacer_253">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+        <item row="1" column="0">
+         <layout class="QGridLayout" name="gridLayout_37">
+          <item row="0" column="3">
+           <widget class="QLabel" name="label_19">
+            <property name="minimumSize">
+             <size>
+              <width>70</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>70</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <family>Roboto</family>
+              <pointsize>10</pointsize>
+              <weight>75</weight>
+              <italic>false</italic>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QLabel {
+    color: rgba(255, 255, 255, 1); /* Белый текст */
+    background-color: transparent; /* Прозрачный фон */
+    border: none; /* Убираем рамку */
+	padding-left: 5px; /* Отступ тексту слева */
+}</string>
+            </property>
+            <property name="text">
+             <string>7-4</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="4">
+           <spacer name="horizontalSpacer_260">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="0" column="1">
+           <widget class="QSlider" name="horizontalSliderNS2_2">
+            <property name="minimumSize">
+             <size>
+              <width>35</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>35</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QSlider::groove:horizontal {
+    height: 10px;
+    background-color: rgba(30, 30, 55, 1); /* Цвет ползунка */
+    margin: 2px 0;
+    border-radius: 5px; /* Скругление краев дорожки */
+}
+
+QSlider::handle:horizontal {
+    background-color:  rgba(120, 30, 135, 1); /* Цвет ползунка */
+    border: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 10px; /* Скругление краев ползунка */
+    margin: -5px 0; /* Положение ползунка по вертикали */
+}</string>
+            </property>
+            <property name="maximum">
+             <number>1</number>
+            </property>
+            <property name="pageStep">
+             <number>1</number>
+            </property>
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="2">
+           <spacer name="horizontalSpacer_259">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Expanding</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="0" column="0">
+           <spacer name="horizontalSpacer_258">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Fixed</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>15</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+        <item row="2" column="0">
+         <layout class="QGridLayout" name="gridLayout_38">
+          <item row="0" column="4">
+           <spacer name="horizontalSpacer_263">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="0" column="0">
+           <spacer name="horizontalSpacer_261">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Fixed</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>15</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="0" column="1">
+           <widget class="QSlider" name="horizontalSliderNS2_3">
+            <property name="minimumSize">
+             <size>
+              <width>35</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>35</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QSlider::groove:horizontal {
+    height: 10px;
+    background-color: rgba(30, 30, 55, 1); /* Цвет ползунка */
+    margin: 2px 0;
+    border-radius: 5px; /* Скругление краев дорожки */
+}
+
+QSlider::handle:horizontal {
+    background-color:  rgba(120, 30, 135, 1); /* Цвет ползунка */
+    border: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 10px; /* Скругление краев ползунка */
+    margin: -5px 0; /* Положение ползунка по вертикали */
+}</string>
+            </property>
+            <property name="maximum">
+             <number>1</number>
+            </property>
+            <property name="pageStep">
+             <number>1</number>
+            </property>
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="2">
+           <spacer name="horizontalSpacer_262">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Expanding</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="0" column="3">
+           <widget class="QLabel" name="label_20">
+            <property name="minimumSize">
+             <size>
+              <width>70</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>70</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <family>Roboto</family>
+              <pointsize>10</pointsize>
+              <weight>75</weight>
+              <italic>false</italic>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QLabel {
+    color: rgba(255, 255, 255, 1); /* Белый текст */
+    background-color: transparent; /* Прозрачный фон */
+    border: none; /* Убираем рамку */
+	padding-left: 5px; /* Отступ тексту слева */
+}</string>
+            </property>
+            <property name="text">
+             <string>8-4</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item row="2" column="1" rowspan="2">
+         <widget class="QPushButton" name="pushButton">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>60</horstretch>
+            <verstretch>60</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>53</width>
+            <height>52</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>53</width>
+            <height>52</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QPushButton {
+	border-radius: 25px;
+	background-color: rgba(120, 30, 135, 0.5);
+	subcontrol-position: center;
+}
+
+QPushButton:pressed {
+   background-color: rgba(120, 30, 135, 1); /* Цвет фона кнопки */
+}</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="icon">
+           <iconset resource="../Resources/resource.qrc">
+            <normaloff>:/encode.png</normaloff>:/encode.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>50</width>
+            <height>50</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <layout class="QGridLayout" name="gridLayout_39">
+          <item row="0" column="3">
+           <widget class="QLabel" name="label_21">
+            <property name="minimumSize">
+             <size>
+              <width>70</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>70</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <family>Roboto</family>
+              <pointsize>10</pointsize>
+              <weight>75</weight>
+              <italic>false</italic>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QLabel {
+    color: rgba(255, 255, 255, 1); /* Белый текст */
+    background-color: transparent; /* Прозрачный фон */
+    border: none; /* Убираем рамку */
+	padding-left: 5px; /* Отступ тексту слева */
+}</string>
+            </property>
+            <property name="text">
+             <string>15-11</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QSlider" name="horizontalSliderNS2_4">
+            <property name="minimumSize">
+             <size>
+              <width>35</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>35</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QSlider::groove:horizontal {
+    height: 10px;
+    background-color: rgba(30, 30, 55, 1); /* Цвет ползунка */
+    margin: 2px 0;
+    border-radius: 5px; /* Скругление краев дорожки */
+}
+
+QSlider::handle:horizontal {
+    background-color:  rgba(120, 30, 135, 1); /* Цвет ползунка */
+    border: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 10px; /* Скругление краев ползунка */
+    margin: -5px 0; /* Положение ползунка по вертикали */
+}</string>
+            </property>
+            <property name="maximum">
+             <number>1</number>
+            </property>
+            <property name="pageStep">
+             <number>1</number>
+            </property>
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <spacer name="horizontalSpacer_264">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Fixed</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>15</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="0" column="2">
+           <spacer name="horizontalSpacer_265">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Expanding</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="0" column="4">
+           <spacer name="horizontalSpacer_266">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+        <item row="4" column="0">
+         <layout class="QGridLayout" name="gridLayout_40">
+          <item row="0" column="0">
+           <spacer name="horizontalSpacer_267">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Fixed</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>15</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="0" column="3">
+           <widget class="QLabel" name="label_22">
+            <property name="minimumSize">
+             <size>
+              <width>70</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>70</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <family>Roboto</family>
+              <pointsize>10</pointsize>
+              <weight>75</weight>
+              <italic>false</italic>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QLabel {
+    color: rgba(255, 255, 255, 1); /* Белый текст */
+    background-color: transparent; /* Прозрачный фон */
+    border: none; /* Убираем рамку */
+	padding-left: 5px; /* Отступ тексту слева */
+}</string>
+            </property>
+            <property name="text">
+             <string>16-11</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="2">
+           <spacer name="horizontalSpacer_268">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Expanding</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="0" column="4">
+           <spacer name="horizontalSpacer_269">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="0" column="1">
+           <widget class="QSlider" name="horizontalSliderNS2_5">
+            <property name="minimumSize">
+             <size>
+              <width>35</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>35</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QSlider::groove:horizontal {
+    height: 10px;
+    background-color: rgba(30, 30, 55, 1); /* Цвет ползунка */
+    margin: 2px 0;
+    border-radius: 5px; /* Скругление краев дорожки */
+}
+
+QSlider::handle:horizontal {
+    background-color:  rgba(120, 30, 135, 1); /* Цвет ползунка */
+    border: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 10px; /* Скругление краев ползунка */
+    margin: -5px 0; /* Положение ползунка по вертикали */
+}</string>
+            </property>
+            <property name="maximum">
+             <number>1</number>
+            </property>
+            <property name="pageStep">
+             <number>1</number>
+            </property>
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item row="5" column="0">
+         <widget class="QFrame" name="frame_11">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QFrame {
+    border-radius: 15px; /* Радиус скругления краев */
+    border: none; /* Убираем границу */
+}
+
+QFrame[enabled=&quot;false&quot;] {
+    background-color: rgba(80, 80, 105, 0.9); /* Затемняем фон при выключенном состоянии */
+}
+
+QFrame[enabled=&quot;true&quot;] {
+    background-color: transparent;
+}
+</string>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_45">
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+           <property name="spacing">
+            <number>0</number>
+           </property>
+           <item row="0" column="0">
+            <layout class="QGridLayout" name="gridLayout_41">
+             <item row="0" column="1">
+              <widget class="QSlider" name="horizontalSliderNS2_6">
+               <property name="minimumSize">
+                <size>
+                 <width>35</width>
+                 <height>30</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>35</width>
+                 <height>30</height>
+                </size>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">QSlider::groove:horizontal {
+    height: 10px;
+    background-color: rgba(30, 30, 55, 1); /* Цвет ползунка */
+    margin: 2px 0;
+    border-radius: 5px; /* Скругление краев дорожки */
+}
+
+QSlider::handle:horizontal {
+    background-color:  rgba(120, 30, 135, 1); /* Цвет ползунка */
+    border: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 10px; /* Скругление краев ползунка */
+    margin: -5px 0; /* Положение ползунка по вертикали */
+}</string>
+               </property>
+               <property name="maximum">
+                <number>1</number>
+               </property>
+               <property name="pageStep">
+                <number>1</number>
+               </property>
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="2">
+              <spacer name="horizontalSpacer_271">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeType">
+                <enum>QSizePolicy::Expanding</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>20</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item row="0" column="3">
+              <widget class="QLabel" name="label_23">
+               <property name="minimumSize">
+                <size>
+                 <width>70</width>
+                 <height>30</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>70</width>
+                 <height>30</height>
+                </size>
+               </property>
+               <property name="font">
+                <font>
+                 <family>Roboto</family>
+                 <pointsize>10</pointsize>
+                 <weight>75</weight>
+                 <italic>false</italic>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">QLabel {
+    color: rgba(255, 255, 255, 1); /* Белый текст */
+    background-color: transparent; /* Прозрачный фон */
+    border: none; /* Убираем рамку */
+	padding-left: 5px; /* Отступ тексту слева */
+}</string>
+               </property>
+               <property name="text">
+                <string>dec15-11</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="0">
+              <spacer name="horizontalSpacer_270">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeType">
+                <enum>QSizePolicy::Fixed</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>15</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item row="0" column="4">
+              <spacer name="horizontalSpacer_272">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>20</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="Frame" name="frame_12">
+       <property name="geometry">
+        <rect>
+         <x>910</x>
+         <y>10</y>
+         <width>160</width>
+         <height>230</height>
+        </rect>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>160</width>
+         <height>230</height>
+        </size>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QFrame {
+    background-color: rgba(115, 100, 140, 1); /* Красивый? Цвет фона */
+    border-radius: 35px; /* Радиус скругления краев */
+    border: none; /* Убираем границу */
+}</string>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+       <layout class="QGridLayout" name="gridLayout_10">
+        <item row="0" column="0">
+         <spacer name="horizontalSpacer_200">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="0" column="2">
+         <spacer name="horizontalSpacer_251">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
         <item row="0" column="1">
          <widget class="QListWidget" name="listWidget">
           <property name="minimumSize">
@@ -17215,7 +18125,7 @@ QSlider::handle:horizontal {
           </property>
           <property name="maximumSize">
            <size>
-            <width>120</width>
+            <width>16777215</width>
             <height>16777215</height>
            </size>
           </property>
@@ -17237,8 +18147,8 @@ QSlider::handle:horizontal {
     border-radius: 10px; /* Закругление углов */
     padding: 5px; /* Отступы внутри поля */
     color: rgba(255, 255, 255, 1); /* Цвет текста */
-	margin-top: 10px;
-	margin-bottom: 10px;
+	margin-top: 5px;
+	margin-bottom: 5px;
 }
 
 QListWidget::item {
@@ -17364,916 +18274,6 @@ QScrollBar::sub-line:vertical {
            </property>
           </item>
          </widget>
-        </item>
-       </layout>
-      </widget>
-      <widget class="Frame" name="frame_10">
-       <property name="geometry">
-        <rect>
-         <x>940</x>
-         <y>10</y>
-         <width>251</width>
-         <height>231</height>
-        </rect>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>240</width>
-         <height>190</height>
-        </size>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">QFrame {
-    background-color: rgba(115, 100, 140, 1); /* Красивый? Цвет фона */
-    border-radius: 35px; /* Радиус скругления краев */
-    border: none; /* Убираем границу */
-}</string>
-       </property>
-       <property name="frameShape">
-        <enum>QFrame::StyledPanel</enum>
-       </property>
-       <property name="frameShadow">
-        <enum>QFrame::Raised</enum>
-       </property>
-       <layout class="QGridLayout" name="gridLayout_42">
-        <property name="rightMargin">
-         <number>9</number>
-        </property>
-        <item row="1" column="1">
-         <layout class="QHBoxLayout" name="horizontalLayout_29">
-          <item>
-           <layout class="QGridLayout" name="gridLayout_43">
-            <item row="1" column="0">
-             <layout class="QGridLayout" name="gridLayout_38">
-              <item row="0" column="4">
-               <spacer name="horizontalSpacer_263">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>20</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item row="0" column="0">
-               <spacer name="horizontalSpacer_261">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeType">
-                 <enum>QSizePolicy::Fixed</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>15</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item row="0" column="1">
-               <widget class="QSlider" name="horizontalSliderNS2_3">
-                <property name="minimumSize">
-                 <size>
-                  <width>35</width>
-                  <height>30</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>35</width>
-                  <height>30</height>
-                 </size>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">QSlider::groove:horizontal {
-    height: 10px;
-    background-color: rgba(30, 30, 55, 1); /* Цвет ползунка */
-    margin: 2px 0;
-    border-radius: 5px; /* Скругление краев дорожки */
-}
-
-QSlider::handle:horizontal {
-    background-color:  rgba(120, 30, 135, 1); /* Цвет ползунка */
-    border: none;
-    width: 20px;
-    height: 20px;
-    border-radius: 10px; /* Скругление краев ползунка */
-    margin: -5px 0; /* Положение ползунка по вертикали */
-}</string>
-                </property>
-                <property name="maximum">
-                 <number>1</number>
-                </property>
-                <property name="pageStep">
-                 <number>1</number>
-                </property>
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="2">
-               <spacer name="horizontalSpacer_262">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeType">
-                 <enum>QSizePolicy::Expanding</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>20</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item row="0" column="3">
-               <widget class="QLabel" name="label_20">
-                <property name="minimumSize">
-                 <size>
-                  <width>70</width>
-                  <height>30</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>70</width>
-                  <height>30</height>
-                 </size>
-                </property>
-                <property name="font">
-                 <font>
-                  <family>Roboto</family>
-                  <pointsize>10</pointsize>
-                  <weight>75</weight>
-                  <italic>false</italic>
-                  <bold>true</bold>
-                 </font>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">QLabel {
-    color: rgba(255, 255, 255, 1); /* Белый текст */
-    background-color: transparent; /* Прозрачный фон */
-    border: none; /* Убираем рамку */
-	padding-left: 5px; /* Отступ тексту слева */
-}</string>
-                </property>
-                <property name="text">
-                 <string>8-4</string>
-                </property>
-                <property name="alignment">
-                 <set>Qt::AlignCenter</set>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item row="2" column="0">
-             <layout class="QGridLayout" name="gridLayout_39">
-              <item row="0" column="3">
-               <widget class="QLabel" name="label_21">
-                <property name="minimumSize">
-                 <size>
-                  <width>70</width>
-                  <height>30</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>70</width>
-                  <height>30</height>
-                 </size>
-                </property>
-                <property name="font">
-                 <font>
-                  <family>Roboto</family>
-                  <pointsize>10</pointsize>
-                  <weight>75</weight>
-                  <italic>false</italic>
-                  <bold>true</bold>
-                 </font>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">QLabel {
-    color: rgba(255, 255, 255, 1); /* Белый текст */
-    background-color: transparent; /* Прозрачный фон */
-    border: none; /* Убираем рамку */
-	padding-left: 5px; /* Отступ тексту слева */
-}</string>
-                </property>
-                <property name="text">
-                 <string>15-11</string>
-                </property>
-                <property name="alignment">
-                 <set>Qt::AlignCenter</set>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="1">
-               <widget class="QSlider" name="horizontalSliderNS2_4">
-                <property name="minimumSize">
-                 <size>
-                  <width>35</width>
-                  <height>30</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>35</width>
-                  <height>30</height>
-                 </size>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">QSlider::groove:horizontal {
-    height: 10px;
-    background-color: rgba(30, 30, 55, 1); /* Цвет ползунка */
-    margin: 2px 0;
-    border-radius: 5px; /* Скругление краев дорожки */
-}
-
-QSlider::handle:horizontal {
-    background-color:  rgba(120, 30, 135, 1); /* Цвет ползунка */
-    border: none;
-    width: 20px;
-    height: 20px;
-    border-radius: 10px; /* Скругление краев ползунка */
-    margin: -5px 0; /* Положение ползунка по вертикали */
-}</string>
-                </property>
-                <property name="maximum">
-                 <number>1</number>
-                </property>
-                <property name="pageStep">
-                 <number>1</number>
-                </property>
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="0">
-               <spacer name="horizontalSpacer_264">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeType">
-                 <enum>QSizePolicy::Fixed</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>15</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item row="0" column="2">
-               <spacer name="horizontalSpacer_265">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeType">
-                 <enum>QSizePolicy::Expanding</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>20</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item row="0" column="4">
-               <spacer name="horizontalSpacer_266">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>20</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-             </layout>
-            </item>
-            <item row="3" column="0">
-             <layout class="QGridLayout" name="gridLayout_40">
-              <item row="0" column="0">
-               <spacer name="horizontalSpacer_267">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeType">
-                 <enum>QSizePolicy::Fixed</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>15</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item row="0" column="3">
-               <widget class="QLabel" name="label_22">
-                <property name="minimumSize">
-                 <size>
-                  <width>70</width>
-                  <height>30</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>70</width>
-                  <height>30</height>
-                 </size>
-                </property>
-                <property name="font">
-                 <font>
-                  <family>Roboto</family>
-                  <pointsize>10</pointsize>
-                  <weight>75</weight>
-                  <italic>false</italic>
-                  <bold>true</bold>
-                 </font>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">QLabel {
-    color: rgba(255, 255, 255, 1); /* Белый текст */
-    background-color: transparent; /* Прозрачный фон */
-    border: none; /* Убираем рамку */
-	padding-left: 5px; /* Отступ тексту слева */
-}</string>
-                </property>
-                <property name="text">
-                 <string>16-11</string>
-                </property>
-                <property name="alignment">
-                 <set>Qt::AlignCenter</set>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="2">
-               <spacer name="horizontalSpacer_268">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeType">
-                 <enum>QSizePolicy::Expanding</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>20</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item row="0" column="4">
-               <spacer name="horizontalSpacer_269">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>20</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item row="0" column="1">
-               <widget class="QSlider" name="horizontalSliderNS2_5">
-                <property name="minimumSize">
-                 <size>
-                  <width>35</width>
-                  <height>30</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>35</width>
-                  <height>30</height>
-                 </size>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">QSlider::groove:horizontal {
-    height: 10px;
-    background-color: rgba(30, 30, 55, 1); /* Цвет ползунка */
-    margin: 2px 0;
-    border-radius: 5px; /* Скругление краев дорожки */
-}
-
-QSlider::handle:horizontal {
-    background-color:  rgba(120, 30, 135, 1); /* Цвет ползунка */
-    border: none;
-    width: 20px;
-    height: 20px;
-    border-radius: 10px; /* Скругление краев ползунка */
-    margin: -5px 0; /* Положение ползунка по вертикали */
-}</string>
-                </property>
-                <property name="maximum">
-                 <number>1</number>
-                </property>
-                <property name="pageStep">
-                 <number>1</number>
-                </property>
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item row="0" column="0">
-             <layout class="QGridLayout" name="gridLayout_37">
-              <item row="0" column="3">
-               <widget class="QLabel" name="label_19">
-                <property name="minimumSize">
-                 <size>
-                  <width>70</width>
-                  <height>30</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>70</width>
-                  <height>30</height>
-                 </size>
-                </property>
-                <property name="font">
-                 <font>
-                  <family>Roboto</family>
-                  <pointsize>10</pointsize>
-                  <weight>75</weight>
-                  <italic>false</italic>
-                  <bold>true</bold>
-                 </font>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">QLabel {
-    color: rgba(255, 255, 255, 1); /* Белый текст */
-    background-color: transparent; /* Прозрачный фон */
-    border: none; /* Убираем рамку */
-	padding-left: 5px; /* Отступ тексту слева */
-}</string>
-                </property>
-                <property name="text">
-                 <string>7-4</string>
-                </property>
-                <property name="alignment">
-                 <set>Qt::AlignCenter</set>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="4">
-               <spacer name="horizontalSpacer_260">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>20</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item row="0" column="1">
-               <widget class="QSlider" name="horizontalSliderNS2_2">
-                <property name="minimumSize">
-                 <size>
-                  <width>35</width>
-                  <height>30</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>35</width>
-                  <height>30</height>
-                 </size>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">QSlider::groove:horizontal {
-    height: 10px;
-    background-color: rgba(30, 30, 55, 1); /* Цвет ползунка */
-    margin: 2px 0;
-    border-radius: 5px; /* Скругление краев дорожки */
-}
-
-QSlider::handle:horizontal {
-    background-color:  rgba(120, 30, 135, 1); /* Цвет ползунка */
-    border: none;
-    width: 20px;
-    height: 20px;
-    border-radius: 10px; /* Скругление краев ползунка */
-    margin: -5px 0; /* Положение ползунка по вертикали */
-}</string>
-                </property>
-                <property name="maximum">
-                 <number>1</number>
-                </property>
-                <property name="pageStep">
-                 <number>1</number>
-                </property>
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="2">
-               <spacer name="horizontalSpacer_259">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeType">
-                 <enum>QSizePolicy::Expanding</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>20</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item row="0" column="0">
-               <spacer name="horizontalSpacer_258">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeType">
-                 <enum>QSizePolicy::Fixed</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>15</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-             </layout>
-            </item>
-            <item row="4" column="0">
-             <widget class="QFrame" name="frame_11">
-              <property name="enabled">
-               <bool>true</bool>
-              </property>
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>16777215</width>
-                <height>16777215</height>
-               </size>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">QFrame {
-    border-radius: 15px; /* Радиус скругления краев */
-    border: none; /* Убираем границу */
-}
-
-QFrame[enabled=&quot;false&quot;] {
-    background-color: rgba(80, 80, 105, 0.9); /* Затемняем фон при выключенном состоянии */
-}
-
-QFrame[enabled=&quot;true&quot;] {
-    background-color: transparent;
-}
-</string>
-              </property>
-              <property name="frameShape">
-               <enum>QFrame::StyledPanel</enum>
-              </property>
-              <property name="frameShadow">
-               <enum>QFrame::Raised</enum>
-              </property>
-              <layout class="QGridLayout" name="gridLayout_45">
-               <property name="leftMargin">
-                <number>0</number>
-               </property>
-               <property name="topMargin">
-                <number>0</number>
-               </property>
-               <property name="rightMargin">
-                <number>0</number>
-               </property>
-               <property name="bottomMargin">
-                <number>0</number>
-               </property>
-               <property name="spacing">
-                <number>0</number>
-               </property>
-               <item row="0" column="0">
-                <layout class="QGridLayout" name="gridLayout_41">
-                 <item row="0" column="1">
-                  <widget class="QSlider" name="horizontalSliderNS2_6">
-                   <property name="minimumSize">
-                    <size>
-                     <width>35</width>
-                     <height>30</height>
-                    </size>
-                   </property>
-                   <property name="maximumSize">
-                    <size>
-                     <width>35</width>
-                     <height>30</height>
-                    </size>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">QSlider::groove:horizontal {
-    height: 10px;
-    background-color: rgba(30, 30, 55, 1); /* Цвет ползунка */
-    margin: 2px 0;
-    border-radius: 5px; /* Скругление краев дорожки */
-}
-
-QSlider::handle:horizontal {
-    background-color:  rgba(120, 30, 135, 1); /* Цвет ползунка */
-    border: none;
-    width: 20px;
-    height: 20px;
-    border-radius: 10px; /* Скругление краев ползунка */
-    margin: -5px 0; /* Положение ползунка по вертикали */
-}</string>
-                   </property>
-                   <property name="maximum">
-                    <number>1</number>
-                   </property>
-                   <property name="pageStep">
-                    <number>1</number>
-                   </property>
-                   <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="0" column="2">
-                  <spacer name="horizontalSpacer_271">
-                   <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
-                   </property>
-                   <property name="sizeType">
-                    <enum>QSizePolicy::Expanding</enum>
-                   </property>
-                   <property name="sizeHint" stdset="0">
-                    <size>
-                     <width>20</width>
-                     <height>20</height>
-                    </size>
-                   </property>
-                  </spacer>
-                 </item>
-                 <item row="0" column="3">
-                  <widget class="QLabel" name="label_23">
-                   <property name="minimumSize">
-                    <size>
-                     <width>70</width>
-                     <height>30</height>
-                    </size>
-                   </property>
-                   <property name="maximumSize">
-                    <size>
-                     <width>70</width>
-                     <height>30</height>
-                    </size>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <family>Roboto</family>
-                     <pointsize>10</pointsize>
-                     <weight>75</weight>
-                     <italic>false</italic>
-                     <bold>true</bold>
-                    </font>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">QLabel {
-    color: rgba(255, 255, 255, 1); /* Белый текст */
-    background-color: transparent; /* Прозрачный фон */
-    border: none; /* Убираем рамку */
-	padding-left: 5px; /* Отступ тексту слева */
-}</string>
-                   </property>
-                   <property name="text">
-                    <string>dec15-11</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignCenter</set>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="0" column="0">
-                  <spacer name="horizontalSpacer_270">
-                   <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
-                   </property>
-                   <property name="sizeType">
-                    <enum>QSizePolicy::Fixed</enum>
-                   </property>
-                   <property name="sizeHint" stdset="0">
-                    <size>
-                     <width>15</width>
-                     <height>20</height>
-                    </size>
-                   </property>
-                  </spacer>
-                 </item>
-                 <item row="0" column="4">
-                  <spacer name="horizontalSpacer_272">
-                   <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
-                   </property>
-                   <property name="sizeHint" stdset="0">
-                    <size>
-                     <width>20</width>
-                     <height>20</height>
-                    </size>
-                   </property>
-                  </spacer>
-                 </item>
-                </layout>
-               </item>
-              </layout>
-             </widget>
-            </item>
-           </layout>
-          </item>
-          <item>
-           <layout class="QVBoxLayout" name="verticalLayout_21">
-            <item>
-             <spacer name="verticalSpacer_7">
-              <property name="orientation">
-               <enum>Qt::Vertical</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>20</width>
-                <height>40</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item>
-             <widget class="QPushButton" name="pushButton">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                <horstretch>60</horstretch>
-                <verstretch>60</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="minimumSize">
-               <size>
-                <width>53</width>
-                <height>52</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>53</width>
-                <height>52</height>
-               </size>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">QPushButton {
-	border-radius: 25px;
-	background-color: rgba(120, 30, 135, 0.5);
-	subcontrol-position: center;
-}
-
-QPushButton:pressed {
-   background-color: rgba(120, 30, 135, 1); /* Цвет фона кнопки */
-}</string>
-              </property>
-              <property name="text">
-               <string/>
-              </property>
-              <property name="icon">
-               <iconset resource="../Resources/resource.qrc">
-                <normaloff>:/encode.png</normaloff>:/encode.png</iconset>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>50</width>
-                <height>50</height>
-               </size>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <spacer name="verticalSpacer_8">
-              <property name="orientation">
-               <enum>Qt::Vertical</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>20</width>
-                <height>40</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-           </layout>
-          </item>
-         </layout>
-        </item>
-        <item row="0" column="0" colspan="3">
-         <layout class="QGridLayout" name="gridLayout_35">
-          <item row="0" column="1" colspan="2">
-           <widget class="QLabel" name="label_18">
-            <property name="minimumSize">
-             <size>
-              <width>140</width>
-              <height>30</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>140</width>
-              <height>30</height>
-             </size>
-            </property>
-            <property name="font">
-             <font>
-              <family>Roboto</family>
-              <pointsize>12</pointsize>
-              <weight>75</weight>
-              <italic>false</italic>
-              <bold>true</bold>
-             </font>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">QLabel {
-    color: rgba(255, 255, 255, 1); /* Белый текст */
-    background-color: transparent; /* Прозрачный фон */
-    border: none; /* Убираем рамку */
-	padding-left: 5px; /* Отступ тексту слева */
-}</string>
-            </property>
-            <property name="text">
-             <string> Алгоритм</string>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignCenter</set>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="3">
-           <spacer name="horizontalSpacer_257">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item row="0" column="0">
-           <spacer name="horizontalSpacer_253">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-         </layout>
-        </item>
-        <item row="1" column="2">
-         <spacer name="horizontalSpacer_199">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeType">
-           <enum>QSizePolicy::Fixed</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>10</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
         </item>
        </layout>
       </widget>
