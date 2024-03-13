@@ -110,15 +110,18 @@ void StudyForm::mouseDoubleClickEvent(QMouseEvent *event) {
     }
 }
 
+
 // свернуть окно
 void StudyForm::on_pushButtonMinimize_clicked() {
     this->showMinimized();
 }
 
+
 // закрыть окно
 void StudyForm::on_pushButtonClose_clicked() {
     this->close();
 }
+
 
 // выбор формы ввода данных
 void StudyForm::on_pushSliderFormInput_clicked() {
@@ -142,6 +145,7 @@ void StudyForm::on_pushSliderFormInput_clicked() {
     ui->frame_8->update();
 }
 
+
 // выбор типа входных данных
 void StudyForm::on_pushSliderDataType_clicked() {
     QSlider* senderSlider = qobject_cast<QSlider*>(sender());
@@ -150,8 +154,8 @@ void StudyForm::on_pushSliderDataType_clicked() {
     } else if (senderSlider == ui->horizontalSliderDataType_2) {
         ui->horizontalSliderDataType_1->setValue(0);
     }
-    bool enableFrame = senderSlider == ui->horizontalSliderDataType_1 ||
-                       (senderSlider == ui->horizontalSliderDataType_2 && senderSlider->value() != 0);
+    bool enableFrame = senderSlider != ui->horizontalSliderDataType_2 ||
+                       (senderSlider->value() == 1);
     QList<QSlider*> sliders = { ui->horizontalSliderNS2,
                                 ui->horizontalSliderNS4,
                                 ui->horizontalSliderNS8,
@@ -171,6 +175,7 @@ void StudyForm::on_pushSliderDataType_clicked() {
     }
 }
 
+
 // выбор системы счисления для числовой информации
 void StudyForm::on_pushSliderNS_clicked() {
     QSlider* senderSlider = qobject_cast<QSlider*>(sender());
@@ -184,12 +189,41 @@ void StudyForm::on_pushSliderNS_clicked() {
             slider->setValue(0);
         }
     }
-    // НЕ РАБОТАЕТ
-    if(ui->horizontalSliderNS10->value()) {
+    bool enableFrame = senderSlider == ui->horizontalSliderNS10 || senderSlider->value() == 1;
+    ui->horizontalSliderEncoder1511d->setEnabled(enableFrame);
+    if(enableFrame) {
         removeEffect(ui->frame_11);
     } else {
         setBlur(ui->frame_11, BLUR_RADIUS_1);
     }
+    ui->frame_11->update();
 }
 
 
+// выбор алгоритма кодирования
+void StudyForm::on_pushSliderEncoder_clicked() {
+    QSlider *senderSlider = qobject_cast<QSlider*>(sender());
+    QList<QSlider*> sliders = { ui->horizontalSliderEncoder74,
+                                ui->horizontalSliderEncoder84,
+                                ui->horizontalSliderEncoder1511,
+                                ui->horizontalSliderEncoder1611,
+                                ui->horizontalSliderEncoder1511d, };
+    for(QSlider *slider : sliders) {
+        if(slider != senderSlider) {
+            slider->setValue(0);
+        }
+    }
+    if(!senderSlider->value()) {
+        if(senderSlider == ui->horizontalSliderEncoder74) {
+            ui->stackedWidget_2->setCurrentIndex(0);
+        } else if(senderSlider == ui->horizontalSliderEncoder84) {
+            ui->stackedWidget_2->setCurrentIndex(1);
+        } else if(senderSlider == ui->horizontalSliderEncoder1511) {
+            ui->stackedWidget_2->setCurrentIndex(2);
+        } else if(senderSlider == ui->horizontalSliderEncoder1611) {
+            ui->stackedWidget_2->setCurrentIndex(3);
+        } else if(senderSlider == ui->horizontalSliderEncoder1511d) {
+            ui->stackedWidget_2->setCurrentIndex(4);
+        }
+    }
+}

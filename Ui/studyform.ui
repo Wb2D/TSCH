@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1199</width>
-    <height>741</height>
+    <height>750</height>
    </rect>
   </property>
   <property name="font">
@@ -1549,6 +1549,38 @@ QSlider::handle:horizontal {
 
 QTextEdit:focus {
     border-color:  rgba(120, 30, 135, 1); /* Цвет границы при фокусе */
+}
+
+QScrollBar:vertical {
+    background-color: rgba(40, 40, 60, 0.9); /* Общий цвет фона */
+    width: 10px; /* Ширина ползунка */
+}
+
+QScrollBar::add-page:vertical {
+    background-color: rgba(40, 40, 60, 0.9); /* Цвет подстраницы */
+}
+
+QScrollBar::sub-page:vertical {
+    background-color: rgba(40, 40, 60, 0.9); /* Цвет подстраницы */
+}
+
+QScrollBar::handle:vertical {
+    background-color: rgba(120, 30, 135, 0.75); /* Цвет дескриптора */
+    border-radius: 5px; /* Закругление углов ползунка */
+}
+
+QScrollBar::handle:vertical:hover {
+    background-color: rgba(120, 30, 135, 1); /* Цвет дескриптора при наведении */
+}
+
+QScrollBar::add-line:vertical {
+    background: transparent; /* Цвет подстроки */
+    height: 0px;
+}
+
+QScrollBar::sub-line:vertical {
+    background: transparent; /* Цвет подстроки */
+    height: 0px;
 }</string>
             </property>
             <property name="html">
@@ -17360,7 +17392,7 @@ QSlider::handle:horizontal {
            </spacer>
           </item>
           <item row="0" column="1">
-           <widget class="QSlider" name="horizontalSliderNS2_2">
+           <widget class="QSlider" name="horizontalSliderEncoder74">
             <property name="minimumSize">
              <size>
               <width>35</width>
@@ -17467,7 +17499,7 @@ QSlider::handle:horizontal {
            </spacer>
           </item>
           <item row="0" column="1">
-           <widget class="QSlider" name="horizontalSliderNS2_3">
+           <widget class="QSlider" name="horizontalSliderEncoder84">
             <property name="minimumSize">
              <size>
               <width>35</width>
@@ -17653,7 +17685,7 @@ QPushButton:pressed {
            </widget>
           </item>
           <item row="0" column="1">
-           <widget class="QSlider" name="horizontalSliderNS2_4">
+           <widget class="QSlider" name="horizontalSliderEncoder1511">
             <property name="minimumSize">
              <size>
               <width>35</width>
@@ -17828,7 +17860,7 @@ QSlider::handle:horizontal {
            </spacer>
           </item>
           <item row="0" column="1">
-           <widget class="QSlider" name="horizontalSliderNS2_5">
+           <widget class="QSlider" name="horizontalSliderEncoder1611">
             <property name="minimumSize">
              <size>
               <width>35</width>
@@ -17928,7 +17960,7 @@ QFrame[enabled=&quot;true&quot;] {
            <item row="0" column="0">
             <layout class="QGridLayout" name="gridLayout_41">
              <item row="0" column="1">
-              <widget class="QSlider" name="horizontalSliderNS2_6">
+              <widget class="QSlider" name="horizontalSliderEncoder1511d">
                <property name="minimumSize">
                 <size>
                  <width>35</width>
@@ -18373,61 +18405,13 @@ QScrollBar::sub-line:vertical {
    </hints>
   </connection>
   <connection>
-   <sender>horizontalSliderNS2</sender>
-   <signal>actionTriggered(int)</signal>
-   <receiver>StudyForm</receiver>
-   <slot>on_pushSliderNS_clicked()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>382</x>
-     <y>157</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>373</x>
-     <y>64</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>horizontalSliderNS4</sender>
-   <signal>actionTriggered(int)</signal>
-   <receiver>StudyForm</receiver>
-   <slot>on_pushSliderNS_clicked()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>382</x>
-     <y>193</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>404</x>
-     <y>66</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>horizontalSliderNS8</sender>
-   <signal>actionTriggered(int)</signal>
-   <receiver>StudyForm</receiver>
-   <slot>on_pushSliderNS_clicked()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>382</x>
-     <y>229</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>440</x>
-     <y>83</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>horizontalSliderNS10</sender>
    <signal>actionTriggered(int)</signal>
    <receiver>StudyForm</receiver>
    <slot>on_pushSliderNS_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>382</x>
+     <x>352</x>
      <y>265</y>
     </hint>
     <hint type="destinationlabel">
@@ -18443,12 +18427,140 @@ QScrollBar::sub-line:vertical {
    <slot>on_pushSliderNS_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>382</x>
+     <x>352</x>
      <y>301</y>
     </hint>
     <hint type="destinationlabel">
      <x>362</x>
      <y>64</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>horizontalSliderNS2</sender>
+   <signal>actionTriggered(int)</signal>
+   <receiver>StudyForm</receiver>
+   <slot>on_pushSliderNS_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>352</x>
+     <y>157</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>373</x>
+     <y>64</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>horizontalSliderNS4</sender>
+   <signal>actionTriggered(int)</signal>
+   <receiver>StudyForm</receiver>
+   <slot>on_pushSliderNS_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>352</x>
+     <y>193</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>404</x>
+     <y>66</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>horizontalSliderNS8</sender>
+   <signal>actionTriggered(int)</signal>
+   <receiver>StudyForm</receiver>
+   <slot>on_pushSliderNS_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>352</x>
+     <y>229</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>440</x>
+     <y>83</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>horizontalSliderEncoder74</sender>
+   <signal>actionTriggered(int)</signal>
+   <receiver>StudyForm</receiver>
+   <slot>on_pushSliderEncoder_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>832</x>
+     <y>132</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>790</x>
+     <y>58</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>horizontalSliderEncoder84</sender>
+   <signal>actionTriggered(int)</signal>
+   <receiver>StudyForm</receiver>
+   <slot>on_pushSliderEncoder_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>813</x>
+     <y>164</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>806</x>
+     <y>54</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>horizontalSliderEncoder1511</sender>
+   <signal>actionTriggered(int)</signal>
+   <receiver>StudyForm</receiver>
+   <slot>on_pushSliderEncoder_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>823</x>
+     <y>203</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>823</x>
+     <y>53</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>horizontalSliderEncoder1611</sender>
+   <signal>actionTriggered(int)</signal>
+   <receiver>StudyForm</receiver>
+   <slot>on_pushSliderEncoder_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>835</x>
+     <y>246</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>838</x>
+     <y>54</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>horizontalSliderEncoder1511d</sender>
+   <signal>actionTriggered(int)</signal>
+   <receiver>StudyForm</receiver>
+   <slot>on_pushSliderEncoder_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>821</x>
+     <y>284</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>836</x>
+     <y>49</y>
     </hint>
    </hints>
   </connection>
@@ -18458,5 +18570,6 @@ QScrollBar::sub-line:vertical {
   <slot>on_pushSliderDataType_clicked()</slot>
   <slot>on_pushSliderNS_clicked()</slot>
   <slot>on_pushButtonViewList()</slot>
+  <slot>on_pushSliderEncoder_clicked()</slot>
  </slots>
 </ui>

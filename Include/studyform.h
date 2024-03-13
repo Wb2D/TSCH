@@ -34,6 +34,7 @@ private slots:
     void on_pushSliderFormInput_clicked();
     void on_pushSliderDataType_clicked();
     void on_pushSliderNS_clicked();
+    void on_pushSliderEncoder_clicked();
 
 
 private:
