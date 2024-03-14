@@ -12,6 +12,7 @@
 #include <QScreen>
 
 #include "Include/studyform.h"
+#include "DBWorker/dbworker.h"
 
 
 QT_BEGIN_NAMESPACE
@@ -42,6 +43,8 @@ protected:
 private:
     Ui::MainWindow *ui;
     StudyForm *studyForm;
+
+    DatabaseWorker *dbObj;
 
     bool aFlag;
     QPoint mPosition;

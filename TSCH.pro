@@ -1,4 +1,4 @@
-QT += core gui
+QT += core gui sql
 QT += winextras
 QT += networkauth
 
@@ -11,11 +11,13 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    DBWorker/dbworker.cpp \
     main.cpp \
     Src\mainwindow.cpp \
     Src\studyform.cpp
 
 HEADERS += \
+    DBWorker/dbworker.h \
     Include/frame.h \
     Include\mainwindow.h \
     Include\studyform.h
@@ -32,4 +34,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 RESOURCES += \
     Resources/resource.qrc
 
-DISTFILES +=
+DISTFILES += \
+    config.json

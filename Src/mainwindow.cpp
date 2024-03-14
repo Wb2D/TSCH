@@ -12,6 +12,7 @@ MainWindow::MainWindow(QWidget *parent)
     mPosition = QPoint();
     wGeometry = QRect();
     studyForm = new StudyForm();
+    dbObj = new DatabaseWorker();
     wFlag = false;
     wFlag = false;
     studyForm->show();
@@ -19,6 +20,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 
 MainWindow::~MainWindow() {
+    delete dbObj;
     delete ui;
     delete studyForm;
 }
@@ -92,7 +94,9 @@ void MainWindow::on_pushButtonClose_clicked() {
 
 // вход пользователя в систему
 void MainWindow::on_pushButtonLogin_clicked() {
-
+    dbObj->connectToDB();
+    // какие-то действия
+    dbObj->closeDB();
 }
 
 
