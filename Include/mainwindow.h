@@ -12,7 +12,10 @@
 #include <QScreen>
 
 #include "Include/studyform.h"
+#include "Include/dialogmail.h"
 #include "DBWorker/dbworker.h"
+
+
 
 
 QT_BEGIN_NAMESPACE
@@ -33,6 +36,7 @@ private slots:
     void on_pushButtonMinimize_clicked();
     void on_pushButtonsMode_clicked();
     void on_pushButtonPage_clicked();
+    void on_pushButtonReg_clicked();
 
 protected:
     void mousePressEvent(QMouseEvent*) override;
@@ -43,9 +47,7 @@ protected:
 private:
     Ui::MainWindow *ui;
     StudyForm *studyForm;
-
     DatabaseWorker *dbObj;
-
     bool aFlag;
     QPoint mPosition;
     QRect wGeometry;

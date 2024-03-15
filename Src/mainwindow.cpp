@@ -5,8 +5,7 @@
 
 
 MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent, Qt::Window | Qt::FramelessWindowHint)
-    , ui(new Ui::MainWindow) {
+    : QMainWindow(parent, Qt::Window | Qt::FramelessWindowHint) , ui(new Ui::MainWindow) {
     ui->setupUi(this);
     setWindowOpacity(0.975);
     mPosition = QPoint();
@@ -25,6 +24,7 @@ MainWindow::~MainWindow() {
     delete studyForm;
 }
 
+
 void MainWindow::mousePressEvent(QMouseEvent *event) {
     event->ignore();
     if (event->button() == Qt::LeftButton && !wFlag) {
@@ -42,19 +42,19 @@ void MainWindow::mousePressEvent(QMouseEvent *event) {
 void MainWindow::mouseMoveEvent(QMouseEvent *event) {
     event->ignore();
     if (event->buttons() & Qt::LeftButton && aFlag) {
-        //  переместить окно только если захвачена НУЖНА часть окна
-            move(event->globalPos() - mPosition);
+        move(event->globalPos() - mPosition);
     }
 }
+
 
 void MainWindow::mouseReleaseEvent(QMouseEvent *event) {
     if (event->button() == Qt::LeftButton) {
-        aFlag = false; // cброс флага части окна
+        aFlag = false; /// cброс флага части окна
     }
 }
 
 
-void MainWindow::mouseDoubleClickEvent(QMouseEvent *event) {
+void MainWindow::mouseDoubleClickEvent(QMouseEvent *event) { /// окно во весь экран
     if (event->button() == Qt::LeftButton && event->y() < 30) {
         QPropertyAnimation *animation = new QPropertyAnimation(this, "geometry");
         animation->setDuration(500);
@@ -80,31 +80,60 @@ void MainWindow::mouseDoubleClickEvent(QMouseEvent *event) {
 }
 
 
-// свернуть окно
-void MainWindow::on_pushButtonMinimize_clicked() {
+void MainWindow::on_pushButtonMinimize_clicked() { /// свернуть окно
     this->showMinimized();
 }
 
 
-// закрыть окно
-void MainWindow::on_pushButtonClose_clicked() {
+void MainWindow::on_pushButtonClose_clicked() { /// закрыть окно
     this->close();
 }
 
 
-// вход пользователя в систему
-void MainWindow::on_pushButtonLogin_clicked() {
-    dbObj->connectToDB();
-    // какие-то действия
-    dbObj->closeDB();
+void MainWindow::on_pushButtonLogin_clicked() { /// вход в систему
+    if(dbObj->connectToDB()) { /// возможно подключиться к серверу
+        if(dbObj->authorizationInDB(ui->lineEditLogin_si->text(),
+                                    ui->lineEditPassword_si->text())) { /// возможна авторизация
+        } else {
+            /// \todo нужно уведомить пользователя, что такой учетной записи не сущ-ет
+        }
+    } else {
+        /// \todo нужен переход в оффлайн режим приложения
+    }
 }
 
 
-/* Здесь добавить регистрацию в приложении */
+void MainWindow::on_pushButtonReg_clicked() { /// регистрация в приложении
+    if(!(ui->lineEditLogin_su->text().isEmpty() || ui->lineEditEmail_su->text().isEmpty() ||
+            ui->lineEditPassword_su->text().isEmpty() || ui->lineEditConfPassword_su->text().isEmpty())) {
+        if(!QString::compare(ui->lineEditPassword_su->text(),
+                             ui->lineEditConfPassword_su->text(), Qt::CaseSensitive)) {
+            if(dbObj->connectToDB()) { /// возможно подключиться к серверу
+                DialogMail *dialogMail = new DialogMail(ui->lineEditEmail_su->text());
+                dialogMail->show();
+                connect(dialogMail, &DialogMail::accepted, [this, dialogMail]() {
+                    if(dbObj->registerInDB(ui->lineEditLogin_su->text(),
+                                           ui->lineEditEmail_su->text(),
+                                           ui->lineEditPassword_su->text())) { /// возможна регистрация
+                        /// \todo уведомить, что регистрация прошла успешно
+                    } else {
+                        /// \todo нужно уведомить пользователя, что что-то пошло не так
+                    }
+                    delete dialogMail;
+                });
+            } else {
+                /// \todo уведомить, что в нет доступа к серверу
+            }
+        } else {
+            /// \todo уведомить, что пароли не совпадают
+        }
+    } else {
+        /// \todo уведомить, что не все поля заполнены
+    }
+}
 
 
-// запуск обучения или тестирования
-void MainWindow::on_pushButtonsMode_clicked() {
+void MainWindow::on_pushButtonsMode_clicked() { /// выбор: обучение или тестирование
     QPushButton *clickedButton = qobject_cast<QPushButton*>(sender());
     if (clickedButton == ui->pushButtonStudy) {
         ui->pushButtonTest->setChecked(false);
@@ -114,8 +143,7 @@ void MainWindow::on_pushButtonsMode_clicked() {
 }
 
 
-// выбор: авторизация или регистрация
-void MainWindow::on_pushButtonPage_clicked() {
+void MainWindow::on_pushButtonPage_clicked() { /// выбор: авторизация или регистрация
     QPushButton *clickedButton = qobject_cast<QPushButton*>(sender());
     if (clickedButton == ui->pushButtonSI) {
         ui->pushButtonSI->setChecked(true);
@@ -124,23 +152,21 @@ void MainWindow::on_pushButtonPage_clicked() {
         ui->pushButtonSU->setChecked(true);
         ui->pushButtonSI->setChecked(false);
     }
-    int index = (clickedButton == ui->pushButtonSI) ? 0 : 1; // куда переходить
+    int index = (clickedButton == ui->pushButtonSI) ? 0 : 1; /// куда переходить
     if(ui->stackedWidget->currentIndex() != index) {
         QGraphicsOpacityEffect *effect = new QGraphicsOpacityEffect(this);
         ui->stackedWidget->setGraphicsEffect(effect);
-        // Анимация для изменения прозрачности
+        /// анимация для изменения прозрачности
         QPropertyAnimation *animation = new QPropertyAnimation(effect, "opacity");
-        animation->setDuration(1000); // длительность анимации
-        animation->setStartValue(1.0); // начальное значение прозрачности
-        animation->setEndValue(0.0); // конечное значение прозрачности
-        // соединение сигнал завершения анимации с обработчиком
+        animation->setDuration(1000); /// длительность анимации
+        animation->setStartValue(1.0); /// начальное значение прозрачности
+        animation->setEndValue(0.0); /// конечное значение прозрачности
+        /// соединение сигнала завершения анимации с обработчиком
         connect(animation, &QPropertyAnimation::finished, this, [=]() {
-            ui->stackedWidget->setCurrentIndex(index); // установить новый индекс
-            effect->setOpacity(1.0); // сброс прозрачности обратно на 1
-            delete effect; // убрать эффект замыливания после использования
+            ui->stackedWidget->setCurrentIndex(index); /// установить новый индекс
+            effect->setOpacity(1.0); /// сброс прозрачности обратно на 1
+            delete effect; /// убрать эффект замыливания после использования
         });
-        // запуск анимации
-        animation->start(QAbstractAnimation::DeleteWhenStopped);
+        animation->start();
     }
 }
-

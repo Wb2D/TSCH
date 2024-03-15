@@ -27,10 +27,10 @@
 *.lib
 
 # Executables
-*.exe
 *.out
 *.app
 
 
 *.user
 *config.json
+*.py

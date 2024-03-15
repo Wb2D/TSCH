@@ -1,4 +1,6 @@
 #include "DBWorker/dbworker.h"
+// это нужно будет убрать, когда пропишу класс для контроля ошибок
+#include <QDebug>
 
 
 
@@ -14,33 +16,37 @@ DatabaseWorker::~DatabaseWorker() {
 }
 
 
-#include <QDebug>
+QString DatabaseWorker::hashing(const QString &data) const {
+    QByteArray hashData = QCryptographicHash::hash(data.toUtf8(), QCryptographicHash::Sha256);
+    return QString(hashData.toHex());
+}
+
+
 bool DatabaseWorker::connectToDB() {
-    // открываю файл config.json для чтения
+    /// открываю файл config.json для чтения
     QFile file("config.json");
     if (!file.open(QIODevice::ReadOnly)) {
-        qDebug() << "NOT OPEN";
+        qDebug() << "CANT OPEN config.json";
         return false;
     }
-    // объект JSON-документа
+    /// объект JSON-документа
     QJsonObject jsonObj = QJsonDocument::fromJson(file.readAll()).object();
     file.close();
-    // Получаем параметры подключения из JSON-объекта
+    /// получаю параметры подключения из JSON-объекта, распарсив его
     QString hostName = jsonObj.value("HostName").toString();
     QString databaseName = jsonObj.value("DatabaseName").toString();
     QString userName = jsonObj.value("UserName").toString();
     QString password = jsonObj.value("Password").toString();
-    // Устанавливаем параметры подключения
+    /// установка параметров подключения
     database.setHostName(hostName);
     database.setDatabaseName(databaseName);
     database.setUserName(userName);
     database.setPassword(password);
-    // Открываем базу данных
     if (database.open()) {
-        qDebug() << "Y";
+        qDebug() << "DB OPEN";
         return true;
     } else {
-        qDebug() << "N";
+        qDebug() << "DB NOT OPEN";
         return false;
     }
 }
@@ -48,4 +54,62 @@ bool DatabaseWorker::connectToDB() {
 
 void DatabaseWorker::closeDB() {
     database.close();
+}
+
+
+bool DatabaseWorker::authorizationInDB(const QString &login, const QString &password) {
+    if(!database.isOpen()) {
+        qDebug() << "DB NOT OPEN";
+        return false;
+    }
+    QSqlQuery query;
+    query.prepare("SELECT COUNT(*) FROM users WHERE login = :login AND password = :password");
+    // добавить хэширование
+    query.bindValue(":login", login);
+    query.bindValue(":password", hashing(password));
+    if(!query.exec()) {
+        qDebug() << "ERROR QUERY";
+        return false;
+    }
+    query.next();
+    if(query.value(0).toInt()) {
+        qDebug() << "LOGIN";
+        return true;
+    } else {
+        qDebug() << "NOT LOGIN";
+        return false;
+    }
+}
+
+
+bool DatabaseWorker::registerInDB(const QString &login,
+                                  const QString &email,
+                                  const QString &password) {
+    if(!database.isOpen()) {
+        qDebug() << "DB NOT OPEN";
+        return false;
+    }
+    QSqlQuery query;
+    query.prepare("SELECT COUNT(*) FROM users WHERE email = :email");
+    query.bindValue(":email", email);
+    if(!query.exec()) {
+        qDebug() << "ERROR QUERY";
+        return false;
+    }
+    query.next();
+    if(query.value(0).toInt()) {
+        qDebug() << "EMAIL USED";
+        return false;
+    }
+    query.prepare("INSERT INTO users (login, email, password) "
+                  "VALUES (:login, :email, :password)");
+    query.bindValue(":login", login);
+    query.bindValue(":email", email);
+    query.bindValue(":password", hashing(password));
+    if(!query.exec()) {
+        qDebug() << "ERROR QUERY";
+        return false;
+    }
+    qDebug() << "REG SUCCES";
+    return true;
 }

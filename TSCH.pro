@@ -11,20 +11,25 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    DBWorker/dbworker.cpp \
+    DBWorker\dbworker.cpp \
+    Src\dialogmail.cpp \
+    Tmp/numberGenerator.cpp \
     main.cpp \
     Src\mainwindow.cpp \
-    Src\studyform.cpp
+    Src\studyform.cpp \
 
 HEADERS += \
-    DBWorker/dbworker.h \
-    Include/frame.h \
+    DBWorker\dbworker.h \
+    Include\frame.h \
     Include\mainwindow.h \
-    Include\studyform.h
+    Include\studyform.h \
+    Include\dialogmail.h \
+    Tmp/numberGenerator.h
 
 FORMS += \
+    Ui\dialogmail.ui \
     Ui\mainwindow.ui \
-    Ui\studyform.ui
+    Ui\studyform.ui \
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -32,7 +37,8 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 RESOURCES += \
-    Resources/resource.qrc
+    Resources\resource.qrc \
 
 DISTFILES += \
-    config.json
+    Scripts/sendMail.exe \
+    config.json \

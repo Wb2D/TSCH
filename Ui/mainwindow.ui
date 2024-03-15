@@ -743,7 +743,7 @@ QPushButton:hover {
                 <item row="12" column="0">
                  <layout class="QGridLayout" name="gridLayout_30">
                   <item row="0" column="0">
-                   <widget class="QPushButton" name="pushButtonLogin_2">
+                   <widget class="QPushButton" name="pushButtonReg">
                     <property name="minimumSize">
                      <size>
                       <width>220</width>
