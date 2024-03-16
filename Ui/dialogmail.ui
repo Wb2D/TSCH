@@ -14,15 +14,14 @@
    <string>Dialog</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">QDialog {    
-background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+   <string notr="true">QDialog#DialogMail {    
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
                                 stop:0 rgba(30, 30, 55, 1),
                                 stop:0.2 rgba(40, 35, 60, 1),
                                 stop:0.4 rgba(50, 40, 70, 1),
                                 stop:0.6 rgba(60, 45, 80, 1),
                                 stop:0.8 rgba(65, 50, 90, 1),
                                 stop:1 rgba(120, 30, 135, 1));
-    radius: 10px;
 	padding: 0px;
 }</string>
   </property>

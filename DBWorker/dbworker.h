@@ -8,12 +8,18 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QCryptographicHash>
+#include <QDebug>
+
+#include "Include/global.h"
+
+
+
 
 /*!
  * \brief Класс DatabaseWorker предназначен для работы с удаленной БД
  * \author Wb2D
  * \date 15 марта 2024
- * \warning для установки подключения к удаленному серверу с бдфайл config.json
+ * \warning для установки подключения к удаленному серверу с бд файл config.json
  * должен быть в корневой папке проекта
  *
  * Данный класс содержит набор методов, что необходимы для организации полной
@@ -26,7 +32,6 @@
  *
  *
  * Используемые таблицы имеют следующий вид:
- *
  * `users` (
  *  `id` int(11) NOT NULL AUTO_INCREMENT,
  *  `login` varchar(50) NOT NULL,
@@ -37,15 +42,12 @@
  *  PRIMARY KEY (`id`),
  *  UNIQUE KEY `login` (`login`),
  *  UNIQUE KEY `email` (`email`))
- *
- *
- *
- * \todo переделать возвращаемые значения, когда появится класс для контроля ошибок
- */
+*/
 
 class DatabaseWorker : public QObject
 {
     Q_OBJECT
+
 public:
     explicit DatabaseWorker(QObject *parent = nullptr);
     ~DatabaseWorker();
@@ -57,8 +59,8 @@ public:
 
 private:
     QString hashing(const QString&) const;
-
     QSqlDatabase database;
 };
+
 
 #endif // DBWORKER_H

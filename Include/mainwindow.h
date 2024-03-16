@@ -13,7 +13,9 @@
 
 #include "Include/studyform.h"
 #include "Include/dialogmail.h"
+#include "Include/notificationform.h"
 #include "DBWorker/dbworker.h"
+#include "Include/global.h"
 
 
 
@@ -21,6 +23,18 @@
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
+
+/*!
+ * \brief Класс MainWindow предназначен для предоставления оператору интерфейса входа в систему.
+ * \author Wb2D.
+ * \date 28 февраля 2024
+ * \warning Для авторизации/регистрации система должна иметь доступ к серверу.
+ * \details Данный класс реализует функциональные возможности, которые система предоставляет
+ * пользователю: классические возможности работы с окном (закрыть, свернуть, растянуть, переместить и т.д.),
+ * возможности входа в система, а также регистрации.
+ * Если система не получает доступ к серверу, то пользователю предлагается войти в систему в оффлайн режиме,
+ * либо попробовать войти в систему вновь (при этом система повторит попытку подключиться к серверу).
+*/
 
 class MainWindow : public QMainWindow
 {
@@ -47,11 +61,12 @@ protected:
 private:
     Ui::MainWindow *ui;
     StudyForm *studyForm;
-    DatabaseWorker *dbObj;
-    bool aFlag;
+    DatabaseWorker *dbObj; ///< объект подключения к бд
+    bool aFlag; ///< был ли совершен клик в допустимой области
     QPoint mPosition;
     QRect wGeometry;
-    bool wFlag;
-
+    bool wFlag; ///< флаг окна: оконное или во весь экран
 };
+
+
 #endif // MAINWINDOW_H

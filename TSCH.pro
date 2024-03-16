@@ -12,21 +12,29 @@ CONFIG += c++11
 
 SOURCES += \
     DBWorker\dbworker.cpp \
+    ErrorTracker\errortracker.cpp \
+    Src/frame.cpp \
+    Src\global.cpp \
+    Src\notificationform.cpp \
     Src\dialogmail.cpp \
-    Tmp/numberGenerator.cpp \
+    Tmp\numberGenerator.cpp \
     main.cpp \
     Src\mainwindow.cpp \
     Src\studyform.cpp \
 
 HEADERS += \
     DBWorker\dbworker.h \
+    ErrorTracker\errortracker.h \
+    Include\global.h \
+    Include\notificationform.h \
     Include\frame.h \
     Include\mainwindow.h \
     Include\studyform.h \
     Include\dialogmail.h \
-    Tmp/numberGenerator.h
+    Tmp\numberGenerator.h \
 
 FORMS += \
+    Ui\notificationform.ui \
     Ui\dialogmail.ui \
     Ui\mainwindow.ui \
     Ui\studyform.ui \
