@@ -103,7 +103,7 @@ void NotificationForm::on_pushButtonClose_clicked() {
  * \brief Обработчик нажатия кнопки "Ок".
  * \details Закрывает окно уведомления.
  * \param Отсутствуют.
- * \return Отсутствует
+ * \return Отсутствуют
 */
 void NotificationForm::on_pushButton_clicked() {
     emit finished();

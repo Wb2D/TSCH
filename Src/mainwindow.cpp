@@ -14,14 +14,11 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     setWindowOpacity(0.975);
     mPosition = QPoint();
-    wGeometry = QRect();
-    studyForm = new StudyForm();
+    //wGeometry = QRect();
     dbObj = new DatabaseWorker();
-    wFlag = false;
-    wFlag = false;
-    studyForm->show();
-
-    /// \todo запретить множественное открытие приложения
+    aFlag = false;
+    mFlag = NO_MODE;
+    //wFlag = false;
 }
 
 
@@ -33,7 +30,6 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow() {
     delete dbObj;
     delete ui;
-    delete studyForm;
 }
 
 
@@ -46,7 +42,7 @@ MainWindow::~MainWindow() {
 */
 void MainWindow::mousePressEvent(QMouseEvent *event) {
     event->ignore();
-    if (event->button() == Qt::LeftButton && !wFlag) {
+    if (event->button() == Qt::LeftButton /*&&!wFlag*/) {
         if (event->y() < 30 && event->x() < this->width() - 120) {
             mPosition = event->globalPos() - frameGeometry().topLeft();
             aFlag = true;
@@ -85,36 +81,36 @@ void MainWindow::mouseReleaseEvent(QMouseEvent *event) {
 }
 
 
-/*!
- * \brief Обработчик двойного щелчка мыши.
- * \details Разворчаивает окно во весь экран или возврашает его к последнему размеру.
- * \param[in] event Событие двойного щелчка мыши.
- * \return Отсутствуют.
-*/
-void MainWindow::mouseDoubleClickEvent(QMouseEvent *event) {
-    if (event->button() == Qt::LeftButton && event->y() < 30) {
-        QPropertyAnimation *animation = new QPropertyAnimation(this, "geometry");
-        animation->setDuration(500);
-        animation->setEasingCurve(QEasingCurve::InOutQuad);
-        animation->setStartValue(this->geometry());
-        ui->centralwidget->setUpdatesEnabled(false);
-        ui->statusbar->setUpdatesEnabled(false);
-        if (wFlag) {
-            animation->setEndValue(this->wGeometry);
-        } else {
-            this->wGeometry = this->geometry();
-            animation->setEndValue(QApplication::desktop()->availableGeometry());
-        }
-        connect(animation, &QPropertyAnimation::finished, this, [=]() {
-            ui->centralwidget->setUpdatesEnabled(true);
-            ui->statusbar->setUpdatesEnabled(true);
-            this->statusBar()->setSizeGripEnabled(wFlag);
-            this->wFlag ^=true;
-            delete animation;
-        });
-        animation->start();
-    }
-}
+///*!
+// * \brief Обработчик двойного щелчка мыши.
+// * \details Разворчаивает окно во весь экран или возврашает его к последнему размеру.
+// * \param[in] event Событие двойного щелчка мыши.
+// * \return Отсутствуют.
+//*/
+//void MainWindow::mouseDoubleClickEvent(QMouseEvent *event) {
+//    if (event->button() == Qt::LeftButton && event->y() < 30) {
+//        QPropertyAnimation *animation = new QPropertyAnimation(this, "geometry");
+//        animation->setDuration(500);
+//        animation->setEasingCurve(QEasingCurve::InOutQuad);
+//        animation->setStartValue(this->geometry());
+//        ui->centralwidget->setUpdatesEnabled(false);
+//        ui->statusbar->setUpdatesEnabled(false);
+//        if (wFlag) {
+//            animation->setEndValue(this->wGeometry);
+//        } else {
+//            this->wGeometry = this->geometry();
+//            animation->setEndValue(QApplication::desktop()->availableGeometry());
+//        }
+//        connect(animation, &QPropertyAnimation::finished, this, [=]() {
+//            ui->centralwidget->setUpdatesEnabled(true);
+//            ui->statusbar->setUpdatesEnabled(true);
+//            this->statusBar()->setSizeGripEnabled(wFlag);
+//            this->wFlag ^=true;
+//            delete animation;
+//        });
+//        animation->start();
+//    }
+//}
 
 
 /*!
@@ -135,9 +131,45 @@ void MainWindow::on_pushButtonMinimize_clicked() {
  * \return Отсутствуют.
 */
 void MainWindow::on_pushButtonClose_clicked() {
-    this->close();
+    qApp->quit();
 }
 
+
+void MainWindow::advanceMode(const QString &status, const QString &login) {
+    switch (mFlag) {
+    case NO_MODE: {
+        NotificationForm *notification = new NotificationForm(
+                    "Выберите желаемый режим работы приложения.");
+        this->setEnabled(false);
+        notification->show();
+        QObject::connect(notification, &NotificationForm::finished, notification, [=]() {
+            notification->deleteLater();
+            this->setEnabled(true);
+        });
+        break;
+    }
+    case TEST_MODE: {
+        /// \todo здесь будет режим тестирования
+        break;
+    }
+    case STUDY_MODE: {
+        StudyForm *studyForm = new StudyForm();
+        QObject::connect(studyForm, &StudyForm::closed, this, [=]() {
+            this->show();
+            delete studyForm;
+        });
+        QObject::connect(studyForm, &StudyForm::exited, this, [=]() {
+            this->close();
+            delete studyForm;
+        });
+        studyForm->setStatus(status);
+        studyForm->setUser(login);
+        this->hide();
+        studyForm->show();
+        break;
+    }
+    }
+}
 
 /*!
  * \brief Обработчик нажатия кнопки "Вход".
@@ -152,9 +184,10 @@ void MainWindow::on_pushButtonLogin_clicked() {
     if(dbObj->connectToDB()) { ///< возможно подключиться к серверу
         if(dbObj->authorizationInDB(ui->lineEditLogin_si->text(),
                                     ui->lineEditPassword_si->text())) { ///< возможна авторизация
-            /// \todo здесь нужно открыть studyform, передав в нее логин пользователя; скрыть это окно.
+            advanceMode(QString("В сети"), ui->lineEditLogin_si->text());
         } else {
             NotificationForm *notification;
+            this->setEnabled(false);
             if(G_ERROR == ErrorTracker::error02) {
                 notification = new NotificationForm(
                                     "Запрос, отправленный к БД, не был выполнен. Попробуйте снова.");
@@ -170,12 +203,16 @@ void MainWindow::on_pushButtonLogin_clicked() {
                                     "Возникла непредвиденная ошибка. Попробуйте снова.");
             }
             notification->show();
-            QObject::connect(notification, &NotificationForm::finished, notification, &NotificationForm::deleteLater);
+            QObject::connect(notification, &NotificationForm::finished, notification, [=]() {
+                notification->deleteLater();
+                this->setEnabled(true);
+            });
             ui->lineEditLogin_si->clear();
             ui->lineEditPassword_si->clear();
         }
     } else {
         NotificationForm *notification;
+        this->setEnabled(false);
         if(G_ERROR == ErrorTracker::error1) {
             notification = new NotificationForm(
                                 "Системе не удалось получить доступ к файлу конфигурации системы, поэтому подключение "
@@ -190,9 +227,11 @@ void MainWindow::on_pushButtonLogin_clicked() {
                                 "оффлайн режиме.");
         }
         notification->show();
-        QObject::connect(notification, &NotificationForm::finished, notification, &NotificationForm::deleteLater);
-        /// \todo здесь нужно открыть studyform, передав в нее логин "Локальный пользователь"; скрыть это окно.
-        /// Причем сделать это в коннекте через лямба-функцию.
+        QObject::connect(notification, &NotificationForm::finished, this, [=]() {
+            notification->deleteLater();
+            this->setEnabled(true);
+            advanceMode(QString("Не в сети"), QString("Локальный пользователь"));
+        });
     }
 }
 
@@ -210,6 +249,7 @@ void MainWindow::on_pushButtonReg_clicked() {
          ui->lineEditEmail_su->text().isEmpty() ||
          ui->lineEditPassword_su->text().isEmpty() ||
          ui->lineEditConfPassword_su->text().isEmpty())) { ///< если все поля заполнены
+        /// \todo Сделать нормальную проверку введенных данных.
         if(!QString::compare(ui->lineEditPassword_su->text(),
                              ui->lineEditConfPassword_su->text(), Qt::CaseSensitive)) { ///< пароли совпадают
             if(dbObj->connectToDB()) { ///< возможно подключиться к серверу
@@ -221,16 +261,21 @@ void MainWindow::on_pushButtonReg_clicked() {
                                            ui->lineEditEmail_su->text(),
                                            ui->lineEditPassword_su->text())) { ///< регистрация прошла успешно
                         NotificationForm *notification = new NotificationForm(
-                                    "Поздравляем! Регистрация в системе прошла успешно. Теперь вы можете войти в вашу "
-                                    "учетную запись через вкладку \"Авторизация\"");
+                                    "Регистрация в системе прошла успешно. Теперь вы можете войти в вашу "
+                                    "учетную запись через вкладку \"Авторизация\".");
+                        this->setEnabled(false);
                         notification->show();
-                        QObject::connect(notification, &NotificationForm::finished, notification, &NotificationForm::deleteLater);
+                        QObject::connect(notification, &NotificationForm::finished, notification, [=]() {
+                            notification->deleteLater();
+                            this->setEnabled(true);
+                        });
                         ui->lineEditLogin_su->clear();
                         ui->lineEditEmail_su->clear();
                         ui->lineEditPassword_su->clear();
                         ui->lineEditConfPassword_su->clear();
                     } else {
                         NotificationForm *notification;
+                        this->setEnabled(false);
                         if(G_ERROR == ErrorTracker::error01) {
                             notification = new NotificationForm(
                                                 "Системе не удалось установить соединение с сервером. Для регистрации обратитесь "
@@ -250,12 +295,16 @@ void MainWindow::on_pushButtonReg_clicked() {
                                                 "Возникла непредвиденная ошибка. Для регистрации обратитесь к администратору.");
                         }
                         notification->show();
-                        QObject::connect(notification, &NotificationForm::finished, notification, &NotificationForm::deleteLater);
+                        QObject::connect(notification, &NotificationForm::finished, notification, [=]() {
+                            notification->deleteLater();
+                            this->setEnabled(true);
+                        });
                     }
                     delete dialogMail;
                 });
             } else {
                 NotificationForm *notification;
+                this->setEnabled(false);
                 if(G_ERROR == ErrorTracker::error1) {
                     notification = new NotificationForm(
                                         "Системе не удалось получить доступ к файлу конфигурации системы, поэтому подключение "
@@ -269,7 +318,10 @@ void MainWindow::on_pushButtonReg_clicked() {
                                         "Возникла непредвиденная ошибка. Для регистрации обратитесь к администратору.");
                 }
                 notification->show();
-                QObject::connect(notification, &NotificationForm::finished, notification, &NotificationForm::deleteLater);
+                QObject::connect(notification, &NotificationForm::finished, notification, [=]() {
+                    notification->deleteLater();
+                    this->setEnabled(true);
+                });
                 ui->lineEditLogin_su->clear();
                 ui->lineEditEmail_su->clear();
                 ui->lineEditPassword_su->clear();
@@ -278,16 +330,24 @@ void MainWindow::on_pushButtonReg_clicked() {
         } else {
             NotificationForm *notification = new NotificationForm(
                         "Введенные вами пароли не совпадают. Попробуйте снова.");
+            this->setEnabled(false);
             notification->show();
-            QObject::connect(notification, &NotificationForm::finished, notification, &NotificationForm::deleteLater);
+            QObject::connect(notification, &NotificationForm::finished, notification, [=]() {
+                notification->deleteLater();
+                this->setEnabled(true);
+            });
             ui->lineEditPassword_su->clear();
             ui->lineEditConfPassword_su->clear();
         }
     } else {
         NotificationForm *notification = new NotificationForm(
                     "Вы ввели неверные данные для регистрации. Проверьте, что все поля была заполнены.");
+        this->setEnabled(false);
         notification->show();
-        QObject::connect(notification, &NotificationForm::finished, notification, &NotificationForm::deleteLater);
+        QObject::connect(notification, &NotificationForm::finished, notification, [=]() {
+            notification->deleteLater();
+            this->setEnabled(true);
+        });
     }
 }
 
@@ -302,8 +362,18 @@ void MainWindow::on_pushButtonReg_clicked() {
 void MainWindow::on_pushButtonsMode_clicked() { /// выбор: обучение или тестирование
     QPushButton *clickedButton = qobject_cast<QPushButton*>(sender());
     if (clickedButton == ui->pushButtonStudy) {
+        if(mFlag == NO_MODE) {
+            mFlag = STUDY_MODE;
+        } else {
+            mFlag = NO_MODE;
+        }
         ui->pushButtonTest->setChecked(false);
     } else if (clickedButton == ui->pushButtonTest) {
+        if(mFlag == NO_MODE) {
+            mFlag = TEST_MODE;
+        } else {
+            mFlag = NO_MODE;
+        }
         ui->pushButtonStudy->setChecked(false);
     }
 }

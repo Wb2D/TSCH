@@ -62,6 +62,7 @@ bool DatabaseWorker::connectToDB() {
     database.setDatabaseName(databaseName);
     database.setUserName(userName);
     database.setPassword(password);
+    database.setConnectOptions("MYSQL_OPT_CONNECT_TIMEOUT=3");
     if (database.open()) {
         G_ERROR = ErrorTracker::error00;
         return true;

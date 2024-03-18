@@ -2,17 +2,24 @@
 #include "ui_studyform.h"
 
 
+
+
+/*!
+ * \brief Конструктор класса StudyForm, где создается окно для обучения.
+ * \param parent Родительский виджет.
+ * \return Отсутствуют.
+*/
 StudyForm::StudyForm(QWidget *parent) :
     QWidget(parent, Qt::Window | Qt::FramelessWindowHint),
     ui(new Ui::StudyForm) {
     ui->setupUi(this);
-    setWindowOpacity(0.98); // прозрачность окна
+    setWindowOpacity(0.98);
     mPosition = QPoint();
-    wFlag = false;
+    //wFlag = false;
     aFlag = false;
-    wGeometry = QRect();
-    sizeGrip = new QSizeGrip(this);
-    ui->gridLayout_9->addWidget(sizeGrip, ui->gridLayout_9->columnCount(), Qt::AlignBottom | Qt::AlignRight);
+    //wGeometry = QRect();
+    //sizeGrip = new QSizeGrip(this);
+    //ui->gridLayout_9->addWidget(sizeGrip, ui->gridLayout_9->columnCount(), Qt::AlignBottom | Qt::AlignRight);
     ui->frame_6->setStackedWidget(ui->stackedWidget);
     ui->frame_4->setStackedWidget(ui->stackedWidget);
     ui->frame_5->setStackedWidget(ui->stackedWidget);
@@ -20,18 +27,26 @@ StudyForm::StudyForm(QWidget *parent) :
     ui->frame_9->setStackedWidget(ui->stackedWidget);
     ui->frame_10->setStackedWidget(ui->stackedWidget);
     ui->frame_12->setStackedWidget(ui->stackedWidget);
-
     // ЗАРАНЕЕ ПРЕДУСМАТРИВАЮ МЕТОД ДЛЯ ЗАПОЛНЕНИЯ (НАДЕЮСЬ, ЧТО НЕ ЗАБУДУ)
     connect(ui->listWidget, &QListWidget::itemClicked, [=](QListWidgetItem *item){
-        qDebug() << "Clicked on item:" << item->text(); // элемент, по которому был совершен клик
+        qDebug() << "Clicked on item:" << item->text();
     });
 }
 
 
+/*!
+ * \brief Деструктор класса StudyForm, где освобождаются ресурсы, выделенные для объекта.
+ * \param Отсутствуют.
+ * \return Отсутствуют.
+*/
 StudyForm::~StudyForm() { delete ui; }
 
 
-// метод установки тени
+/*!
+ * \brief Метод для установки тени на виджет.
+ * \param widget Виджет, на который будет установлена тень.
+ * \return Отсутствуют.
+*/
 void StudyForm::setShadow(QWidget *widget) {
     QGraphicsDropShadowEffect *shEffect = new QGraphicsDropShadowEffect();
     shEffect->setOffset(0, 0);
@@ -41,25 +56,59 @@ void StudyForm::setShadow(QWidget *widget) {
 }
 
 
-// метод установки блюра
+/*!
+ * \brief Метод для установки эффекта размытия на виджет.
+ * \param widget Виджет, на который будет установлен эффект размытия.
+ * \param blurRadius Радиус размытия.
+ * \return Отсутствуют.
+*/
 void StudyForm::setBlur(QWidget *widget, int blurRadius) {
     QGraphicsBlurEffect *effect = new QGraphicsBlurEffect(widget);
     effect->setBlurRadius(blurRadius);
-    effect->setBlurHints(QGraphicsBlurEffect::AnimationHint); // нацепил сглаживание
+    effect->setBlurHints(QGraphicsBlurEffect::AnimationHint);
     widget->setGraphicsEffect(effect);
 }
 
 
-// метод удаления блюра
+/*!
+ * \brief Метод для удаления эффекта с виджета.
+ * \param widget Виджет, с которого будет удален эффект.
+ * \return Отсутствуют.
+*/
 void StudyForm::removeEffect(QWidget *widget) {
     delete widget->graphicsEffect();
     widget->setGraphicsEffect(nullptr);
 }
 
 
+/*!
+ * \brief Метод для установки статуса обучения.
+ * \param status Статус обучения ("В сети"/"Не в сети").
+ * \return Отсутствуют.
+*/
+void StudyForm::setStatus(const QString &status) {
+    ui->label_2->setText(status);
+}
+
+
+/*!
+ * \brief Метод для установки имени пользователя(берется логин в системе).
+ * \param user Имя пользователя.
+ * \return Отсутствуют.
+*/
+void StudyForm::setUser(const QString &user) {
+    ui->label->setText(user);
+}
+
+
+/*!
+ * \brief Обработчик события нажатия кнопки мыши.
+ * \param event Событие мыши.
+ * \return Отсутствуют.
+*/
 void StudyForm::mousePressEvent(QMouseEvent *event) {
     event->ignore();
-    if (event->button() == Qt::LeftButton && !wFlag) {
+    if (event->button() == Qt::LeftButton /*&& !wFlag*/) {
         if (event->y() < 30 && event->x() < this->width() - 120) {
             mPosition = event->globalPos() - frameGeometry().topLeft();
             aFlag = true;
@@ -71,59 +120,110 @@ void StudyForm::mousePressEvent(QMouseEvent *event) {
 }
 
 
+/*!
+ * \brief Обработчик события перемещения мыши.
+ * \param event Событие перемещения мыши.
+ * \return Отсутствуют.
+*/
 void StudyForm::mouseMoveEvent(QMouseEvent *event) {
     event->ignore();
     if (event->buttons() & Qt::LeftButton && aFlag) {
-        //  переместить окно только если захвачена НУЖНА часть окна
-            move(event->globalPos() - mPosition);
+        move(event->globalPos() - mPosition);
     }
 }
 
 
+/*!
+ * \brief Обработчик события отпускания кнопки мыши.
+ * \param event Событие отпускания кнопки мыши.
+ * \return Отсутствуют.
+*/
 void StudyForm::mouseReleaseEvent(QMouseEvent *event) {
     if (event->button() == Qt::LeftButton) {
-        aFlag = false; // cброс флага части окна
+        aFlag = false;
     }
 }
 
 
-void StudyForm::mouseDoubleClickEvent(QMouseEvent *event) {
-    if (event->button() == Qt::LeftButton && event->y() < 30) {
-        QPropertyAnimation *animation = new QPropertyAnimation(this, "geometry");
-        animation->setDuration(500);
-        animation->setEasingCurve(QEasingCurve::InOutQuad);
-        animation->setStartValue(this->geometry());
-        //his->setUpdatesEnabled(false);
-        if (wFlag) {
-            animation->setEndValue(this->wGeometry);
-        } else {
-            this->wGeometry = this->geometry();
-            animation->setEndValue(QApplication::desktop()->availableGeometry());
-        }
-        connect(animation, &QPropertyAnimation::finished, this, [=]() {
-            //this->setUpdatesEnabled(true);
-            this->sizeGrip->setEnabled(wFlag);
-            this->wFlag ^=true;
-            delete animation;
-        });
-        animation->start();
-    }
-}
+//void StudyForm::mouseDoubleClickEvent(QMouseEvent *event) {
+//    if (event->button() == Qt::LeftButton && event->y() < 30) {
+//        QPropertyAnimation *animation = new QPropertyAnimation(this, "geometry");
+//        animation->setDuration(500);
+//        animation->setEasingCurve(QEasingCurve::InOutQuad);
+//        animation->setStartValue(this->geometry());
+//        //his->setUpdatesEnabled(false);
+//        if (wFlag) {
+//            animation->setEndValue(this->wGeometry);
+//        } else {
+//            this->wGeometry = this->geometry();
+//            animation->setEndValue(QApplication::desktop()->availableGeometry());
+//        }
+//        connect(animation, &QPropertyAnimation::finished, this, [=]() {
+//            //this->setUpdatesEnabled(true);
+//            this->sizeGrip->setEnabled(wFlag);
+//            this->wFlag ^=true;
+//            delete animation;
+//        });
+//        animation->start();
+//    }
+//}
 
 
-// свернуть окно
+/*!
+ * \brief Обработчик нажатия кнопки "Свернуть".
+ * \details Минимизирует окно.
+ * \param Отсутствуют.
+ * \return Отсутствуют.
+*/
 void StudyForm::on_pushButtonMinimize_clicked() {
     this->showMinimized();
 }
 
 
-// закрыть окно
+/*!
+ * \brief Обработчик нажатия кнопки "Закрыть".
+ * \details Закрывает окно и генерирует сигнал `closed`, который вызывает
+ * удаление формы из памяти и открытие начального окна входа в систему.
+ * \param Отсутствуют.
+ * \return Отсутствуют.
+*/
 void StudyForm::on_pushButtonClose_clicked() {
     this->close();
+    emit closed();
 }
 
 
-// выбор формы ввода данных
+/*!
+ * \brief Обработчик нажатия кнопки "Выход".
+ * \details Закрывает окно и генерирует сигнал `closed`, который вызывает
+ * удаление формы из памяти и открытие начального окна входа в систему.
+ * \param Отсутствуют.
+ * \return Отсутствуют.
+*/
+void StudyForm::on_pushButtonClose_2_clicked() {
+    this->close();
+    emit closed();
+}
+
+
+/*!
+ * \brief Обработчик нажатия кнопки "Выход".
+ * \details Закрывает окно и генерирует сигнал `exited`, который вызывает
+ * удаление формы из памяти и выход из приложения.
+ * \param Отсутствуют.
+ * \return Отсутствуют.
+*/
+void StudyForm::on_pushButtonExit_clicked() {
+    this->close();
+    emit exited();
+}
+
+/*!
+ * \brief Обработчик нажатия кнопки "Выбор формы ввода данных".
+ * \details Обрабатывает нажатие кнопки выбора формы ввода данных.
+ * \param Отсутствуют.
+ * \return Отсутствуют.
+*/
 void StudyForm::on_pushSliderFormInput_clicked() {
     QSlider* senderSlider = qobject_cast<QSlider*>(sender());
     if (senderSlider == ui->horizontalSliderFormInput_1) {
@@ -146,7 +246,12 @@ void StudyForm::on_pushSliderFormInput_clicked() {
 }
 
 
-// выбор типа входных данных
+/*!
+ * \brief Обработчик нажатия кнопки "Выбор типа входных данных".
+ * \details Обрабатывает нажатие кнопки выбора типа входных данных.
+ * \param Отсутствуют.
+ * \return Отсутствуют.
+*/
 void StudyForm::on_pushSliderDataType_clicked() {
     QSlider* senderSlider = qobject_cast<QSlider*>(sender());
     if (senderSlider == ui->horizontalSliderDataType_1) {
@@ -161,7 +266,6 @@ void StudyForm::on_pushSliderDataType_clicked() {
                                 ui->horizontalSliderNS8,
                                 ui->horizontalSliderNS10,
                                 ui->horizontalSliderNS16, };
-    // включаю или выключаю слайдеры
     for (QSlider *slider : sliders) {
         if (slider != senderSlider) {
             slider->setEnabled(enableFrame);
@@ -176,7 +280,12 @@ void StudyForm::on_pushSliderDataType_clicked() {
 }
 
 
-// выбор системы счисления для числовой информации
+/*!
+ * \brief Обработчик нажатия кнопки "Выбор системы счисления".
+ * \details Обрабатывает нажатие кнопки выбора системы счисления.
+ * \param Отсутствуют.
+ * \return Отсутствуют.
+*/
 void StudyForm::on_pushSliderNS_clicked() {
     QSlider* senderSlider = qobject_cast<QSlider*>(sender());
     QList<QSlider*> sliders = { ui->horizontalSliderNS2,
@@ -200,7 +309,12 @@ void StudyForm::on_pushSliderNS_clicked() {
 }
 
 
-// выбор алгоритма кодирования
+/*!
+ * \brief Обработчик нажатия кнопки "Выбор алгоритма кодирования".
+ * \details Обрабатывает нажатие кнопки выбора алгоритма кодирования.
+ * \param Отсутствуют.
+ * \return Отсутствуют.
+*/
 void StudyForm::on_pushSliderEncoder_clicked() {
     QSlider *senderSlider = qobject_cast<QSlider*>(sender());
     QList<QSlider*> sliders = { ui->horizontalSliderEncoder74,

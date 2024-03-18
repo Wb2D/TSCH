@@ -47,4 +47,5 @@ private:
     QPoint mPosition; ///< позиция указателя мыши
 };
 
+
 #endif // NOTIFICATIONFORM_H

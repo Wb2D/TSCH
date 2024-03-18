@@ -29,11 +29,10 @@ QT_END_NAMESPACE
  * \author Wb2D.
  * \date 28 февраля 2024
  * \warning Для авторизации/регистрации система должна иметь доступ к серверу.
- * \details Данный класс реализует функциональные возможности, которые система предоставляет
- * пользователю: классические возможности работы с окном (закрыть, свернуть, растянуть, переместить и т.д.),
- * возможности входа в система, а также регистрации.
- * Если система не получает доступ к серверу, то пользователю предлагается войти в систему в оффлайн режиме,
- * либо попробовать войти в систему вновь (при этом система повторит попытку подключиться к серверу).
+ * \details Класс MainWindow обеспечивает возможности взаимодействия пользователя с системой, а именно -
+ * авторизации/регистрации в ней. Этот интерфейс позволяет пользователю произвести вход в систему для
+ * получения доступа к функционалу и, при необходимости, зарегистрировать новый аккаунт. При отсутствии
+ * доступа к серверу, приложение будет запущено в оффлайн режиме.
 */
 
 class MainWindow : public QMainWindow
@@ -55,17 +54,24 @@ private slots:
 protected:
     void mousePressEvent(QMouseEvent*) override;
     void mouseMoveEvent(QMouseEvent*) override;
-    void mouseDoubleClickEvent(QMouseEvent*) override;
+    //void mouseDoubleClickEvent(QMouseEvent*) override;
     void mouseReleaseEvent(QMouseEvent *event) override;
 
 private:
+    void advanceMode(const QString&, const QString&);
+
+    enum ModeFlag {
+        NO_MODE,
+        STUDY_MODE,
+        TEST_MODE,
+    } mFlag; ///< флаг режима;
+
     Ui::MainWindow *ui;
-    StudyForm *studyForm;
     DatabaseWorker *dbObj; ///< объект подключения к бд
     bool aFlag; ///< был ли совершен клик в допустимой области
     QPoint mPosition;
-    QRect wGeometry;
-    bool wFlag; ///< флаг окна: оконное или во весь экран
+    //QRect wGeometry;
+    //bool wFlag; ///< флаг окна: оконное или во весь экран
 };
 
 
