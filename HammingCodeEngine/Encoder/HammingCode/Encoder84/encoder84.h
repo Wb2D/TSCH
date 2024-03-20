@@ -1,6 +1,9 @@
 #ifndef ENCODER84_H
 #define ENCODER84_H
 
+#include <QElapsedTimer>
+#include <QPair>
+
 #include "HammingCodeEngine/DataWorker/BitSequence/bitSequence.h"
 #include "HammingCodeEngine/DataWorker/BitSequence/EncodedBitSequence/encodedBitSequence.h"
 

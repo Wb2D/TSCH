@@ -6,7 +6,7 @@
 #include <QPair>
 #include <QString>
 
-#include "HammingCodeEngine/DataWorker\BitSequence\bitSequence.h"
+#include "HammingCodeEngine/DataWorker/BitSequence/bitSequence.h"
 
 
 

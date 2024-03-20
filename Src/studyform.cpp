@@ -330,6 +330,7 @@ void StudyForm::on_pushSliderDataType_clicked() {
  * \return Отсутствуют.
 */
 void StudyForm::on_pushSliderNS_clicked() {
+    resetAlgo();
     QSlider* senderSlider = qobject_cast<QSlider*>(sender());
     QList<QSlider*> sliders = { ui->horizontalSliderNS2,
                                 ui->horizontalSliderNS4,
@@ -373,6 +374,7 @@ void StudyForm::on_pushSliderNS_clicked() {
  * \return Отсутствуют.
 */
 void StudyForm::on_pushSliderEncoder_clicked() {
+    resetData();
     QSlider *senderSlider = qobject_cast<QSlider*>(sender());
     QList<QSlider*> sliders = { ui->horizontalSliderEncoder74,
                                 ui->horizontalSliderEncoder84,
@@ -539,12 +541,18 @@ void StudyForm::on_pushButtonEncode_clicked() {
                 break;
             }
             case ALG_84: {
+                setListSeq(4, bitSequence);
+                encodedBitSequence = Encoder84::start(bitSequence);
                 break;
             }
             case ALG_1511: {
+                setListSeq(11, bitSequence);
+                encodedBitSequence = Encoder1511::start(bitSequence);
                 break;
             }
             case ALG_1611: {
+                setListSeq(11, bitSequence);
+                encodedBitSequence = Encoder1611::start(bitSequence);
                 break;
             }
             case ALG_1511d: {
@@ -574,7 +582,6 @@ void StudyForm::on_pushButtonEncode_clicked() {
 */
 void StudyForm::setListSeq(const int &size, const BitSequence &data) {
     ui->listWidget->clear();
-    qDebug() << "clear";
     int eSize = data.length();
     if (eSize % size) {
         eSize += size - (eSize % size);
@@ -598,18 +605,91 @@ void StudyForm::setBits(const QPair<BitSequence, BitSequence> &bits) {
         break;
     }
     case ALG_74: {
-        qDebug() << bitSeq << " " << encodedBitSeq;
-        ui->labelX_74_4->setText(bitSeq.at(0));
-        ui->labelX_74_3->setText(bitSeq.at(1));
-        ui->labelX_74_2->setText(bitSeq.at(2));
-        ui->labelX_74_1->setText(bitSeq.at(3));
-        ui->labelY_74_7->setText(encodedBitSeq.at(0));
-        ui->labelY_74_6->setText(encodedBitSeq.at(1));
-        ui->labelY_74_5->setText(encodedBitSeq.at(2));
-        ui->labelY_74_4->setText(encodedBitSeq.at(3));
-        ui->labelY_74_3->setText(encodedBitSeq.at(4));
-        ui->labelY_74_2->setText(encodedBitSeq.at(5));
-        ui->labelY_74_1->setText(encodedBitSeq.at(6));
+        ui->labelX_id_74_4->setText(bitSeq.at(0));
+        ui->labelX_id_74_3->setText(bitSeq.at(1));
+        ui->labelX_id_74_2->setText(bitSeq.at(2));
+        ui->labelX_id_74_1->setText(bitSeq.at(3));
+        ui->labelY_od_74_7->setText(encodedBitSeq.at(0));
+        ui->labelY_od_74_6->setText(encodedBitSeq.at(1));
+        ui->labelY_od_74_5->setText(encodedBitSeq.at(2));
+        ui->labelY_od_74_4->setText(encodedBitSeq.at(3));
+        ui->labelY_od_74_3->setText(encodedBitSeq.at(4));
+        ui->labelY_od_74_2->setText(encodedBitSeq.at(5));
+        ui->labelY_od_74_1->setText(encodedBitSeq.at(6));
+        break;
+    }
+    case ALG_84: {
+        ui->labelX_id_84_4->setText(bitSeq.at(0));
+        ui->labelX_id_84_3->setText(bitSeq.at(1));
+        ui->labelX_id_84_2->setText(bitSeq.at(2));
+        ui->labelX_id_84_1->setText(bitSeq.at(3));
+        ui->labelY_od_84_8->setText(encodedBitSeq.at(0));
+        ui->labelY_od_84_7->setText(encodedBitSeq.at(1));
+        ui->labelY_od_84_6->setText(encodedBitSeq.at(2));
+        ui->labelY_od_84_5->setText(encodedBitSeq.at(3));
+        ui->labelY_od_84_4->setText(encodedBitSeq.at(4));
+        ui->labelY_od_84_3->setText(encodedBitSeq.at(5));
+        ui->labelY_od_84_2->setText(encodedBitSeq.at(6));
+        ui->labelY_od_84_1->setText(encodedBitSeq.at(7));
+        break;
+    }
+    case ALG_1511: {
+        ui->labelX_id_1511_11->setText(bitSeq.at(0));
+        ui->labelX_id_1511_10->setText(bitSeq.at(1));
+        ui->labelX_id_1511_9->setText(bitSeq.at(2));
+        ui->labelX_id_1511_8->setText(bitSeq.at(3));
+        ui->labelX_id_1511_7->setText(bitSeq.at(4));
+        ui->labelX_id_1511_6->setText(bitSeq.at(5));
+        ui->labelX_id_1511_5->setText(bitSeq.at(6));
+        ui->labelX_id_1511_4->setText(bitSeq.at(7));
+        ui->labelX_id_1511_3->setText(bitSeq.at(8));
+        ui->labelX_id_1511_2->setText(bitSeq.at(9));
+        ui->labelX_id_1511_1->setText(bitSeq.at(10));
+        ui->labelY_id_1511_15->setText(encodedBitSeq.at(0));
+        ui->labelY_id_1511_14->setText(encodedBitSeq.at(1));
+        ui->labelY_id_1511_13->setText(encodedBitSeq.at(2));
+        ui->labelY_id_1511_12->setText(encodedBitSeq.at(3));
+        ui->labelY_id_1511_11->setText(encodedBitSeq.at(4));
+        ui->labelY_id_1511_10->setText(encodedBitSeq.at(5));
+        ui->labelY_id_1511_9->setText(encodedBitSeq.at(6));
+        ui->labelY_id_1511_8->setText(encodedBitSeq.at(7));
+        ui->labelY_id_1511_7->setText(encodedBitSeq.at(8));
+        ui->labelY_id_1511_6->setText(encodedBitSeq.at(9));
+        ui->labelY_id_1511_5->setText(encodedBitSeq.at(10));
+        ui->labelY_id_1511_4->setText(encodedBitSeq.at(11));
+        ui->labelY_id_1511_3->setText(encodedBitSeq.at(12));
+        ui->labelY_id_1511_2->setText(encodedBitSeq.at(13));
+        ui->labelY_id_1511_1->setText(encodedBitSeq.at(14));
+        break;
+    }
+    case ALG_1611: {
+        ui->labelX_id_1611_11->setText(bitSeq.at(0));
+        ui->labelX_id_1611_10->setText(bitSeq.at(1));
+        ui->labelX_id_1611_9->setText(bitSeq.at(2));
+        ui->labelX_id_1611_8->setText(bitSeq.at(3));
+        ui->labelX_id_1611_7->setText(bitSeq.at(3));
+        ui->labelX_id_1611_6->setText(bitSeq.at(3));
+        ui->labelX_id_1611_5->setText(bitSeq.at(3));
+        ui->labelX_id_1611_4->setText(bitSeq.at(3));
+        ui->labelX_id_1611_3->setText(bitSeq.at(3));
+        ui->labelX_id_1611_2->setText(bitSeq.at(3));
+        ui->labelX_id_1611_1->setText(bitSeq.at(3));
+        ui->labelY_id_1611_16->setText(encodedBitSeq.at(0));
+        ui->labelY_id_1611_15->setText(encodedBitSeq.at(1));
+        ui->labelY_id_1611_14->setText(encodedBitSeq.at(2));
+        ui->labelY_id_1611_13->setText(encodedBitSeq.at(3));
+        ui->labelY_id_1611_12->setText(encodedBitSeq.at(4));
+        ui->labelY_id_1611_11->setText(encodedBitSeq.at(5));
+        ui->labelY_id_1611_10->setText(encodedBitSeq.at(6));
+        ui->labelY_id_1611_9->setText(encodedBitSeq.at(7));
+        ui->labelY_id_1611_8->setText(encodedBitSeq.at(8));
+        ui->labelY_id_1611_7->setText(encodedBitSeq.at(9));
+        ui->labelY_id_1611_6->setText(encodedBitSeq.at(10));
+        ui->labelY_id_1611_5->setText(encodedBitSeq.at(11));
+        ui->labelY_id_1611_4->setText(encodedBitSeq.at(12));
+        ui->labelY_id_1611_3->setText(encodedBitSeq.at(13));
+        ui->labelY_id_1611_2->setText(encodedBitSeq.at(14));
+        ui->labelY_id_1611_1->setText(encodedBitSeq.at(15));
         break;
     }
     default: {
@@ -617,4 +697,156 @@ void StudyForm::setBits(const QPair<BitSequence, BitSequence> &bits) {
         break;
     }
     }
+}
+
+
+/*!
+ * \brief Метод для сброса выбранного алгоритма.
+ * \param Отсутствуют.
+ * \return Отсутствуют.
+*/
+void StudyForm::resetAlgo() {
+    ui->horizontalSliderEncoder74->setValue(0);
+    ui->horizontalSliderEncoder84->setValue(0);
+    ui->horizontalSliderEncoder1511->setValue(0);
+    ui->horizontalSliderEncoder1611->setValue(0);
+    ui->horizontalSliderEncoder1511d->setValue(0);
+    algFlag = NO_ALG;
+}
+
+
+/*!
+ * \brief Метод для сброса содержимого вкладки кодирования алгоритмом 7-4
+ * \param Отсутствуют.
+ * \return Отсутствуют.
+*/
+void StudyForm::resetPage74() {
+    ui->labelX_id_74_4->clear();
+    ui->labelX_id_74_3->clear();
+    ui->labelX_id_74_2->clear();
+    ui->labelX_id_74_1->clear();
+    ui->labelY_od_74_7->clear();
+    ui->labelY_od_74_6->clear();
+    ui->labelY_od_74_5->clear();
+    ui->labelY_od_74_4->clear();
+    ui->labelY_od_74_3->clear();
+    ui->labelY_od_74_2->clear();
+    ui->labelY_od_74_1->clear();
+}
+
+
+/*!
+ * \brief Метод для сброса содержимого вкладки кодирования алгоритмом 8-4
+ * \param Отсутствуют.
+ * \return Отсутствуют.
+*/
+void StudyForm::resetPage84() {
+    ui->labelX_id_84_4->clear();
+    ui->labelX_id_84_3->clear();
+    ui->labelX_id_84_2->clear();
+    ui->labelX_id_84_1->clear();
+    ui->labelY_od_84_8->clear();
+    ui->labelY_od_84_7->clear();
+    ui->labelY_od_84_6->clear();
+    ui->labelY_od_84_5->clear();
+    ui->labelY_od_84_4->clear();
+    ui->labelY_od_84_3->clear();
+    ui->labelY_od_84_2->clear();
+    ui->labelY_od_84_1->clear();
+}
+
+
+/*!
+ * \brief Метод для сброса содержимого вкладки кодирования алгоритмом 15-11
+ * \param Отсутствуют.
+ * \return Отсутствуют.
+*/
+void StudyForm::resetPage1511() {
+    ui->labelX_id_1511_11->clear();
+    ui->labelX_id_1511_10->clear();
+    ui->labelX_id_1511_9->clear();
+    ui->labelX_id_1511_8->clear();
+    ui->labelX_id_1511_7->clear();
+    ui->labelX_id_1511_6->clear();
+    ui->labelX_id_1511_5->clear();
+    ui->labelX_id_1511_4->clear();
+    ui->labelX_id_1511_3->clear();
+    ui->labelX_id_1511_2->clear();
+    ui->labelX_id_1511_1->clear();
+    ui->labelY_id_1511_15->clear();
+    ui->labelY_id_1511_14->clear();
+    ui->labelY_id_1511_13->clear();
+    ui->labelY_id_1511_12->clear();
+    ui->labelY_id_1511_11->clear();
+    ui->labelY_id_1511_10->clear();
+    ui->labelY_id_1511_9->clear();
+    ui->labelY_id_1511_8->clear();
+    ui->labelY_id_1511_7->clear();
+    ui->labelY_id_1511_6->clear();
+    ui->labelY_id_1511_5->clear();
+    ui->labelY_id_1511_4->clear();
+    ui->labelY_id_1511_3->clear();
+    ui->labelY_id_1511_2->clear();
+    ui->labelY_id_1511_1->clear();
+}
+
+
+/*!
+ * \brief Метод для сброса содержимого вкладки кодирования алгоритмом 16-11
+ * \param Отсутствуют.
+ * \return Отсутствуют.
+*/
+void StudyForm::resetPage1611() {
+    ui->labelX_id_1611_11->clear();
+    ui->labelX_id_1611_10->clear();
+    ui->labelX_id_1611_9->clear();
+    ui->labelX_id_1611_8->clear();
+    ui->labelX_id_1611_7->clear();
+    ui->labelX_id_1611_6->clear();
+    ui->labelX_id_1611_5->clear();
+    ui->labelX_id_1611_4->clear();
+    ui->labelX_id_1611_3->clear();
+    ui->labelX_id_1611_2->clear();
+    ui->labelX_id_1611_1->clear();
+    ui->labelY_id_1611_16->clear();
+    ui->labelY_id_1611_15->clear();
+    ui->labelY_id_1611_14->clear();
+    ui->labelY_id_1611_13->clear();
+    ui->labelY_id_1611_12->clear();
+    ui->labelY_id_1611_11->clear();
+    ui->labelY_id_1611_10->clear();
+    ui->labelY_id_1611_9->clear();
+    ui->labelY_id_1611_8->clear();
+    ui->labelY_id_1611_7->clear();
+    ui->labelY_id_1611_6->clear();
+    ui->labelY_id_1611_5->clear();
+    ui->labelY_id_1611_4->clear();
+    ui->labelY_id_1611_3->clear();
+    ui->labelY_id_1611_2->clear();
+    ui->labelY_id_1611_1->clear();
+}
+
+
+/*!
+ * \brief Метод для сброса содержимого вкладки кодирования алгоритмом 15-11d
+ * \param Отсутствуют.
+ * \return Отсутствуют.
+*/
+void StudyForm::resetPage1511d() {
+
+}
+
+
+/*!
+ * \brief Метод для сброса содержимого всех вкладов кодирования
+ * \param Отсутствуют.
+ * \return Отсутствуют.
+*/
+void StudyForm::resetData() {
+    ui->listWidget->clear();
+    resetPage74();
+    resetPage84();
+    resetPage1511();
+    resetPage1611();
+    resetPage1511d();
 }

@@ -1,6 +1,7 @@
 #ifndef ENCODER1511_H
 #define ENCODER1511_H
 
+#include <QElapsedTimer>
 #include <QPair>
 
 #include "HammingCodeEngine/DataWorker/BitSequence/bitSequence.h"
@@ -28,7 +29,7 @@
 
 class Encoder1511 {
 public:
-    static EncodedBitSequence start(const BitSequence &data, );
+    static EncodedBitSequence start(const BitSequence &data);
 
 private:
     static void encode(const BitSequence &data, BitSequence &result);

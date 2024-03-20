@@ -2,7 +2,6 @@
 
 
 
-
 /*!
  * \brief Метод запускает кодирование битовой последовательности с использованием
  * кода Хэмминга (15,11).
@@ -10,16 +9,25 @@
  * \return Закодированная битовая последовательность.
 */
 EncodedBitSequence Encoder1511:: start(const BitSequence &data) {
-    BitSequence eData;
+    EncodedBitSequence result;
     int eSize = data.length();
     if (eSize % 11) {
         eSize += 11  - (eSize % 11);
     }
+    QElapsedTimer timer;
+    timer.start();
     for (int i = 0; i < eSize; i += 11) {
-        encode(data.subsequence(i, i + 10), eData);
+        BitSequence bitSeq = data.subsequence(i, i + 10);
+        BitSequence eData = BitSequence();
+        encode(bitSeq, eData);
+        result.addData(QPair<BitSequence, BitSequence>(bitSeq, eData));
     }
-    return EncodedBitSequence(eData, "H1511", 0, eSize / 11);
+    result.setTime(timer.elapsed());
+    result.setMethod(3);
+    result.setIteration(eSize / 11);
+    return result;
 }
+
 
 /*!
  * \brief Метод осуществляет кодирование четырех битов в восемь битов по алгоритму (15,11) Хэмминга.

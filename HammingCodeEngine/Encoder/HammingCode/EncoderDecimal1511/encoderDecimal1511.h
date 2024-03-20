@@ -1,6 +1,9 @@
 #ifndef ENCODERDECIMAL1511_H
 #define ENCODERDECIMAL1511_H
 
+#include <QElapsedTimer>
+#include <QPair>
+
 #include "HammingCodeEngine/DataWorker/Converter/BigInteger/BigInteger.h"
 #include "HammingCodeEngine/DataWorker/Converter/BigInteger/EncodedBigInteger/encodedBigInteger.h"
 

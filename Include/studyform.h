@@ -18,6 +18,9 @@
 #include "HammingCodeEngine/DataWorker/NumberGenerator/numberGenerator.h"
 
 #include "HammingCodeEngine/Encoder/HammingCode/Encoder74/Encoder74.h"
+#include "HammingCodeEngine/Encoder/HammingCode/Encoder84/encoder84.h"
+#include "HammingCodeEngine/Encoder/HammingCode/Encoder1511/encoder1511.h"
+#include "HammingCodeEngine/Encoder/HammingCode/Encoder1611/encoder1611.h"
 
 namespace Ui {
 class StudyForm;
@@ -79,6 +82,13 @@ private:
     void removeEffect(QWidget*);
     void setListSeq(const int&, const BitSequence&);
     void setBits(const QPair<BitSequence, BitSequence>&);
+    void resetAlgo();
+    void resetPage74();
+    void resetPage84();
+    void resetPage1511();
+    void resetPage1611();
+     void resetPage1511d();
+    void resetData();
 
     static const QRegularExpression BINARY_REGEX;
     static const QRegularExpression QUATERNARY_REGEX;

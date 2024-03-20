@@ -10,15 +10,23 @@
  * \return Закодированная битовая последовательность.
 */
 EncodedBitSequence Encoder84::start(const BitSequence &data) {
-    BitSequence eData;
+   EncodedBitSequence result;
     int eSize = data.length();
     if (eSize % 4) {
         eSize += 4 - (eSize % 4);
     }
+    QElapsedTimer timer;
+    timer.start();
     for (int i = 0; i < eSize; i +=4) {
-        encode(data.subsequence(i, i + 3), eData);
+        BitSequence bitSeq = data.subsequence(i, i + 3);
+        BitSequence eData = BitSequence();
+        encode(bitSeq, eData);
+        result.addData(QPair<BitSequence, BitSequence>(bitSeq, eData));
     }
-    return EncodedBitSequence(eData, "H84", 0, eSize / 4);
+    result.setTime(timer.elapsed());
+    result.setMethod(2);
+    result.setIteration(eSize / 4);
+    return result;
 }
 
 

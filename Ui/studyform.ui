@@ -30,6 +30,10 @@
                                 stop:1 rgba(120, 30, 135, 1));
 
     border-radius: 10px;
+}
+
+QLabel {
+	qproperty-alignment: 'AlignHCenter | AlignVCenter';
 }</string>
   </property>
   <layout class="QGridLayout" name="gridLayout_9">
