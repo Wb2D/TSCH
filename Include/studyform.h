@@ -6,10 +6,18 @@
 #include <QPoint>
 #include <QGraphicsBlurEffect>
 #include <QGraphicsDropShadowEffect>
+#include <QRegularExpression>
+#include <QPair>
 //#include <QSizeGrip>
 
+#include "Include/notificationform.h"
 
+#include "HammingCodeEngine/DataWorker/BitSequence/bitSequence.h"
+#include "HammingCodeEngine/DataWorker/BitSequence/EncodedBitSequence/encodedBitSequence.h"
+#include "HammingCodeEngine/DataWorker/Converter/converter.h"
+#include "HammingCodeEngine/DataWorker/NumberGenerator/numberGenerator.h"
 
+#include "HammingCodeEngine/Encoder/HammingCode/Encoder74/Encoder74.h"
 
 namespace Ui {
 class StudyForm;
@@ -62,17 +70,60 @@ private slots:
     void on_pushSliderEncoder_clicked();
     void on_pushButtonExit_clicked();
     void on_pushButtonClose_2_clicked();
+    void on_pushButtonAutoGen_clicked();
+    void on_pushButtonEncode_clicked();
 
 private:
     void setShadow(QWidget*);
     void setBlur(QWidget*, int);
     void removeEffect(QWidget*);
+    void setListSeq(const int&, const BitSequence&);
+    void setBits(const QPair<BitSequence, BitSequence>&);
+
+    static const QRegularExpression BINARY_REGEX;
+    static const QRegularExpression QUATERNARY_REGEX;
+    static const QRegularExpression OCTAL_REGEX;
+    static const QRegularExpression DECIMAL_REGEX;
+    static const QRegularExpression HEXADECIMAL_REGEX;
+
+    enum InputType {
+        NO_MODE,
+        MANUAL,
+        GENERATED,
+    } inputFlag;
+
+    enum DataType {
+        NO_TYPE,
+        TEXT,
+        NUMERIC,
+    } dataFlag;
+
+    enum NumberSystem {
+        NO_SYSTEM,
+        BINARY = 2,
+        QUATERNARY = 4,
+        OCTAL = 8,
+        DECIMAL = 10,
+        HEXADECIMAL = 16,
+    } numberFlag;
+
+    enum Algorithm {
+        NO_ALG,
+        ALG_74,
+        ALG_84,
+        ALG_1511,
+        ALG_1611,
+        ALG_1511d,
+    } algFlag;
 
     Ui::StudyForm *ui;
     //QSizeGrip *sizeGrip;
     QPoint mPosition;
     //bool wFlag;
     bool aFlag;
+    BitSequence bitSequence;
+    EncodedBitSequence encodedBitSequence;
+    int currentSubseq;
     //QRect wGeometry;
     static const int BLUR_RADIUS_1 = 8;
     static const int BLUR_RADIUS_2 = 4;

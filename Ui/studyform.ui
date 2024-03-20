@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1174</width>
+    <width>1190</width>
     <height>723</height>
    </rect>
   </property>
@@ -1644,6 +1644,9 @@ QSlider::handle:horizontal {
             </property>
             <item row="0" column="1">
              <widget class="QTextEdit" name="textEditData">
+              <property name="enabled">
+               <bool>true</bool>
+              </property>
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -1702,6 +1705,9 @@ QScrollBar::sub-line:vertical {
     background: transparent; /* Цвет подстроки */
     height: 0px;
 }</string>
+              </property>
+              <property name="readOnly">
+               <bool>true</bool>
               </property>
               <property name="html">
                <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
@@ -1851,8 +1857,17 @@ QSpinBox::up-button:pressed, QSpinBox::down-button:pressed {
     background-color: rgba(120, 30, 135, 1); /* Цвет кнопок управления при нажатии */
 }</string>
                      </property>
+                     <property name="readOnly">
+                      <bool>true</bool>
+                     </property>
+                     <property name="minimum">
+                      <number>1</number>
+                     </property>
                      <property name="maximum">
                       <number>999</number>
+                     </property>
+                     <property name="stepType">
+                      <enum>QAbstractSpinBox::DefaultStepType</enum>
                      </property>
                     </widget>
                    </item>
@@ -1905,7 +1920,7 @@ QSpinBox::up-button:pressed, QSpinBox::down-button:pressed {
                    <item>
                     <widget class="QPushButton" name="pushButtonAutoGen">
                      <property name="enabled">
-                      <bool>true</bool>
+                      <bool>false</bool>
                      </property>
                      <property name="minimumSize">
                       <size>
@@ -2397,7 +2412,7 @@ QSlider::handle:horizontal {
            </layout>
           </item>
           <item row="2" column="1" rowspan="2">
-           <widget class="QPushButton" name="pushButton">
+           <widget class="QPushButton" name="pushButtonEncode">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>60</horstretch>
@@ -2432,7 +2447,8 @@ QPushButton:pressed {
             </property>
             <property name="icon">
              <iconset resource="../Resources/resource.qrc">
-              <normaloff>:/encode.png</normaloff>:/encode.png</iconset>
+              <normaloff>:/encode.png</normaloff>
+              <disabledoff>:/encode.png</disabledoff>:/encode.png</iconset>
             </property>
             <property name="iconSize">
              <size>
@@ -3020,81 +3036,6 @@ QScrollBar::sub-line:vertical {
             <property name="selectionRectVisible">
              <bool>false</bool>
             </property>
-            <item>
-             <property name="text">
-              <string>12345678912</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>12345678912</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>12345678912</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>12345678912</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>12345678912</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>12345678912</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>12345678912</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>12345678912</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>12345678912</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>12345678912</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>12345678912</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>12345678912</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>12345678912</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>12345678912</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>12345678912</string>
-             </property>
-            </item>
            </widget>
           </item>
          </layout>
@@ -3489,7 +3430,7 @@ QSlider::handle:horizontal {
 }</string>
             </property>
             <property name="currentIndex">
-             <number>3</number>
+             <number>0</number>
             </property>
             <widget class="QWidget" name="page_3">
              <layout class="QGridLayout" name="gridLayout_33">

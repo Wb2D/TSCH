@@ -13,11 +13,21 @@ CONFIG += c++11
 SOURCES += \
     DBWorker\dbworker.cpp \
     ErrorTracker\errortracker.cpp \
-    Src/frame.cpp \
+    HammingCodeEngine\DataWorker\BitSequence\EncodedBitSequence\encodedBitSequence.cpp \
+    HammingCodeEngine\DataWorker\BitSequence\bitSequence.cpp \
+    HammingCodeEngine\DataWorker\Converter\BigInteger\BigInteger.cpp \
+    HammingCodeEngine\DataWorker\Converter\BigInteger\EncodedBigInteger\encodedBigInteger.cpp \
+    HammingCodeEngine\DataWorker\Converter\converter.cpp \
+    HammingCodeEngine\DataWorker\NumberGenerator\numberGenerator.cpp \
+    HammingCodeEngine\Encoder\HammingCode\Encoder1511\encoder1511.cpp \
+    HammingCodeEngine\Encoder\HammingCode\Encoder1611\encoder1611.cpp \
+    HammingCodeEngine\Encoder\HammingCode\Encoder74\Encoder74.cpp \
+    HammingCodeEngine\Encoder\HammingCode\Encoder84\encoder84.cpp \
+    HammingCodeEngine\Encoder\HammingCode\EncoderDecimal1511\encoderDecimal1511.cpp \
+    Src\frame.cpp \
     Src\global.cpp \
     Src\notificationform.cpp \
     Src\dialogmail.cpp \
-    Tmp\numberGenerator.cpp \
     main.cpp \
     Src\mainwindow.cpp \
     Src\studyform.cpp \
@@ -25,13 +35,23 @@ SOURCES += \
 HEADERS += \
     DBWorker\dbworker.h \
     ErrorTracker\errortracker.h \
+    HammingCodeEngine\DataWorker\BitSequence\EncodedBitSequence\encodedBitSequence.h \
+    HammingCodeEngine\DataWorker\BitSequence\bitSequence.h \
+    HammingCodeEngine\DataWorker\Converter\BigInteger\BigInteger.h \
+    HammingCodeEngine\DataWorker\Converter\BigInteger\EncodedBigInteger\encodedBigInteger.h \
+    HammingCodeEngine\DataWorker\Converter\converter.h \
+    HammingCodeEngine\DataWorker\NumberGenerator\numberGenerator.h \
+    HammingCodeEngine\Encoder\HammingCode\Encoder1511\encoder1511.h \
+    HammingCodeEngine\Encoder\HammingCode\Encoder1611\encoder1611.h \
+    HammingCodeEngine\Encoder\HammingCode\Encoder74\Encoder74.h \
+    HammingCodeEngine\Encoder\HammingCode\Encoder84\encoder84.h \
+    HammingCodeEngine\Encoder\HammingCode\EncoderDecimal1511\encoderDecimal1511.h \
     Include\global.h \
     Include\notificationform.h \
     Include\frame.h \
     Include\mainwindow.h \
     Include\studyform.h \
     Include\dialogmail.h \
-    Tmp\numberGenerator.h \
 
 FORMS += \
     Ui\notificationform.ui \
@@ -40,13 +60,13 @@ FORMS += \
     Ui\studyform.ui \
 
 # Default rules for deployment.
-qnx: target.path = /tmp/$${TARGET}/bin
-else: unix:!android: target.path = /opt/$${TARGET}/bin
+qnx: target.path = \tmp\$${TARGET}\bin
+else: unix:!android: target.path = \opt\$${TARGET}\bin
 !isEmpty(target.path): INSTALLS += target
 
 RESOURCES += \
     Resources\resource.qrc \
 
 DISTFILES += \
-    Scripts/sendMail.exe \
+    Scripts\sendMail.exe \
     config.json \

@@ -7,9 +7,7 @@
 #include <QSslSocket>
 
 #include "Include/notificationform.h"
-// нужно будет поменять путь при полноценном внедрении
-#include "Tmp/numberGenerator.h"
-
+#include "HammingCodeEngine/DataWorker/NumberGenerator/numberGenerator.h"
 
 
 
