@@ -591,6 +591,8 @@ void StudyForm::setListSeq(const int &size, const BitSequence &data) {
     }
 }
 
+/// \todo Добавить метод setListInt для установки BigInteger
+
 
 /*!
  * \brief Метод для установки содержимого списка с последовательностями бит.

@@ -22,12 +22,11 @@
 
 class EncodedBitSequence {
 public:
-    EncodedBitSequence() : data(), method(0), time(0), iteration(0) {}
+    EncodedBitSequence() : data(), method(0), iteration(0) {    }
     EncodedBitSequence(const QVector<QPair<BitSequence, BitSequence>> &data, const int &method,
-                       const qint64 &time, const int &iteration) : data(data), method(method), time(time),
-                       iteration(iteration) {   }
+                       const int &iteration) : data(data), method(method), iteration(iteration) {   }
     EncodedBitSequence(const EncodedBitSequence &obj)
-        : data(obj.data), method(obj.method), time(obj.time), iteration(obj.iteration) {    }
+        : data(obj.data), method(obj.method),  iteration(obj.iteration) {    }
     EncodedBitSequence& operator=(const EncodedBitSequence&);
     QPair<BitSequence, BitSequence>& operator[](int index) { return data[index]; }
     const QPair<BitSequence, BitSequence>& operator[](int index) const { return data[index]; }
@@ -36,16 +35,12 @@ public:
     void addData(const QPair<BitSequence, BitSequence> &pair) { data.push_back(pair); }
     void setMethod(const int &method) { this->method = method; }
     const int &getMethod() const { return method; }
-    void setTime(const qint64 &time) { this->time = time; }
-    const qint64 &getTime() const { return time; }
     void setIteration(const int &iteration) { this->iteration = iteration; }
     const int &getIteration() const { return iteration; }
-    void set(const QVector<QPair<BitSequence, BitSequence>>&, const int&, const qint64&, const int&);
 
 private:
     QVector<QPair<BitSequence, BitSequence>> data; ///< пара из обычной и закодированной посл.
     int method; ///< алгоритм, используемый для кодирование
-    qint64 time; ///< время, затраченное на кодирование
     int iteration; ///< число частей, на которые была разбита последовательность при кодировании
 };
 

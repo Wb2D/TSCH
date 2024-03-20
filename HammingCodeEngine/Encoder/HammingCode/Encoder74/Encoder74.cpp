@@ -15,15 +15,12 @@ EncodedBitSequence Encoder74::start(const BitSequence &data) {
     if (eSize % 4) {
         eSize += 4 - (eSize % 4);
     }
-    QElapsedTimer timer;
-    timer.start();
     for (int i = 0; i < eSize; i += 4) {
         BitSequence bitSeq = data.subsequence(i, i + 3);
         BitSequence eData = BitSequence();
         encode(bitSeq, eData);
         result.addData(QPair<BitSequence, BitSequence>(bitSeq, eData));
     }
-    result.setTime(timer.elapsed());
     result.setMethod(1);
     result.setIteration(eSize / 4);
     return result;

@@ -14,15 +14,12 @@ EncodedBitSequence Encoder1511:: start(const BitSequence &data) {
     if (eSize % 11) {
         eSize += 11  - (eSize % 11);
     }
-    QElapsedTimer timer;
-    timer.start();
     for (int i = 0; i < eSize; i += 11) {
         BitSequence bitSeq = data.subsequence(i, i + 10);
         BitSequence eData = BitSequence();
         encode(bitSeq, eData);
         result.addData(QPair<BitSequence, BitSequence>(bitSeq, eData));
     }
-    result.setTime(timer.elapsed());
     result.setMethod(3);
     result.setIteration(eSize / 11);
     return result;

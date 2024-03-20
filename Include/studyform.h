@@ -14,6 +14,8 @@
 
 #include "HammingCodeEngine/DataWorker/BitSequence/bitSequence.h"
 #include "HammingCodeEngine/DataWorker/BitSequence/EncodedBitSequence/encodedBitSequence.h"
+#include "HammingCodeEngine/DataWorker/Converter/BigInteger/BigInteger.h"
+#include "HammingCodeEngine/DataWorker/Converter/BigInteger/EncodedBigInteger/encodedBigInteger.h"
 #include "HammingCodeEngine/DataWorker/Converter/converter.h"
 #include "HammingCodeEngine/DataWorker/NumberGenerator/numberGenerator.h"
 
@@ -133,6 +135,8 @@ private:
     bool aFlag;
     BitSequence bitSequence;
     EncodedBitSequence encodedBitSequence;
+    BigInteger bigInteger;
+    EncodedBigInteger enocedBigInteger;
     int currentSubseq;
     //QRect wGeometry;
     static const int BLUR_RADIUS_1 = 8;

@@ -18,7 +18,7 @@ EncodedBigInteger EncoderDecimal1511::start(const BigInteger &data) {
     for (int i = 0; i < eSize; i += 11) {
         encode(data.subdigit(i, i + 10), eData);
     }
-    return EncodedBigInteger(eData, "Hd1511", 0, eSize/11);
+    //return EncodedBigInteger(eData, 5, 0, eSize/11);
 }
 
 

@@ -1,6 +1,11 @@
 #ifndef ENCODEDBIGINTEGER_H
 #define ENCODEDBIGINTEGER_H
 
+#include <QDateTime>
+#include <QVector>
+#include <QPair>
+#include <QString>
+
 #include "HammingCodeEngine/DataWorker/Converter/BigInteger/BigInteger.h"
 
 
@@ -17,18 +22,22 @@
 
 class EncodedBigInteger {
 public:
-    EncodedBigInteger(const BigInteger &digit, const QString &method, const qint64 &time,
-                      const int &iteration) : digit(digit), method(method), time(time),
+    EncodedBigInteger() : data(), method(0), time(0), iteration(0) {}
+    EncodedBigInteger(const QVector<QPair<BigInteger, BigInteger>> &data, const int &method, const qint64 &time,
+                      const int &iteration) : data(data), method(method), time(time),
                       iteration(iteration) {    }
-    const BigInteger &getData() const { return digit; }
-    const QString &getMethod() const { return method; }
+    EncodedBigInteger(const EncodedBigInteger &obj)
+        : data(obj.data), method(obj.method), time(obj.time), iteration(obj.iteration) {    }
+    EncodedBigInteger& operator=(const EncodedBigInteger&);
+    const QVector<QPair<BigInteger, BigInteger>> &getData() const { return data; }
+    const int &getMethod() const { return method; }
     const qint64 &getTime() const { return time; }
     const int &getIteration() const { return iteration; }
     const QString toString() const;
 
 private:
-    BigInteger digit;
-    QString method;
+    QVector<QPair<BigInteger, BigInteger>> data;
+    int method;
     qint64 time;
     int iteration;
 };
