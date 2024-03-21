@@ -32,7 +32,8 @@ StudyForm::StudyForm(QWidget *parent) :
     algFlag = NO_ALG;
     bitSequence = BitSequence();
     encodedBitSequence = EncodedBitSequence();
-    currentSubseq = -1;
+    bigInteger = BigInteger();
+    encodedBigInteger = EncodedBigInteger();
     ui->frame_6->setStackedWidget(ui->stackedWidget);
     ui->frame_4->setStackedWidget(ui->stackedWidget);
     ui->frame_5->setStackedWidget(ui->stackedWidget);
@@ -552,6 +553,9 @@ void StudyForm::on_pushButtonEncode_clicked() {
                 break;
             }
             case ALG_1511d: {
+                bigInteger = BigInteger(data);
+                setListInt(11, bigInteger);
+                encodedBigInteger = EncoderDecimal1511::start(bigInteger);
                 break;
             }
             }
@@ -573,7 +577,8 @@ void StudyForm::on_pushButtonEncode_clicked() {
 
 /*!
  * \brief Метод для установки содержимого списка с последовательностями бит.
- * \param size Длина битовой последовательности.
+ * \param size Длина битовых подпоследовательностей.
+ * \param data Исходная битовая последовательность.
  * \return Отсутствуют.
 */
 void StudyForm::setListSeq(const int &size, const BitSequence &data) {
@@ -587,7 +592,23 @@ void StudyForm::setListSeq(const int &size, const BitSequence &data) {
     }
 }
 
-/// \todo Добавить метод setListInt для установки BigInteger
+
+/*!
+ * \brief Метод для установки содержимого списка с натуральными числами.
+ * \param size Длина фрагмента.
+ * \param data Исходное число.
+ * \return Отсутствуют.
+*/
+void StudyForm::setListInt(const int &size, const BigInteger &data) {
+    ui->listWidget->clear();
+    int eSize = data.length();
+    if(eSize % size) {
+        eSize += size - (eSize % size);
+    }
+    for(int i = eSize; i > 0; i -= size) {
+        ui->listWidget->addItem(data.subdigit(i - size, i - 1).toString());
+    }
+}
 
 
 /*!

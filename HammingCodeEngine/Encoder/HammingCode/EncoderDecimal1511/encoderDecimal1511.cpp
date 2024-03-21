@@ -5,20 +5,25 @@
 
 /*!
  * \brief Метод запускает кодирование битовой последовательности с использованием
- * кода Хэмминга (15,11).
+ * кода Хэмминга (15,11) для десятичных цифр числа.
  * \param data Исходная битовая последовательность.
  * \return Закодированная битовая последовательность.
 */
 EncodedBigInteger EncoderDecimal1511::start(const BigInteger &data) {
-    BigInteger eData;
+    EncodedBigInteger result;
     int eSize = data.length();
     if (eSize % 11) {
         eSize += 11 - (eSize % 11);
     }
     for (int i = 0; i < eSize; i += 11) {
-        encode(data.subdigit(i, i + 10), eData);
+        BigInteger bigInteger = data.subdigit(i, i + 10);
+        BigInteger encodedBigInt;
+        encode(bigInteger, encodedBigInt);
+        result.addData(QPair<BigInteger, BigInteger>(bigInteger, encodedBigInt));
     }
-    //return EncodedBigInteger(eData, 5, 0, eSize/11);
+    result.setMethod(5);
+    result.setIteration(eSize / 11);
+    return result;
 }
 
 

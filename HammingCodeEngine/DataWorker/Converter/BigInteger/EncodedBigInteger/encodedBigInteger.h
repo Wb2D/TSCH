@@ -22,23 +22,23 @@
 
 class EncodedBigInteger {
 public:
-    EncodedBigInteger() : data(), method(0), time(0), iteration(0) {}
-    EncodedBigInteger(const QVector<QPair<BigInteger, BigInteger>> &data, const int &method, const qint64 &time,
-                      const int &iteration) : data(data), method(method), time(time),
-                      iteration(iteration) {    }
+    EncodedBigInteger() : data(), method(0), iteration(0) {     }
+    EncodedBigInteger(const QVector<QPair<BigInteger, BigInteger>> &data, const int &method,
+                      const int &iteration) : data(data), method(method), iteration(iteration) {    }
     EncodedBigInteger(const EncodedBigInteger &obj)
-        : data(obj.data), method(obj.method), time(obj.time), iteration(obj.iteration) {    }
+        : data(obj.data), method(obj.method), iteration(obj.iteration) {    }
     EncodedBigInteger& operator=(const EncodedBigInteger&);
+    void addData(const QPair<BigInteger, BigInteger> &pair) { data.push_back(pair); }
+    void setData(const QVector<QPair<BigInteger, BigInteger>> &data) { this->data = data; }
     const QVector<QPair<BigInteger, BigInteger>> &getData() const { return data; }
+    void setMethod(const int &method) { this->method = method; }
     const int &getMethod() const { return method; }
-    const qint64 &getTime() const { return time; }
+    void setIteration(const int &iteration) { this->iteration = iteration; }
     const int &getIteration() const { return iteration; }
-    const QString toString() const;
 
 private:
     QVector<QPair<BigInteger, BigInteger>> data;
     int method;
-    qint64 time;
     int iteration;
 };
 

@@ -165,13 +165,8 @@ int BigInteger::length() const {
 */
 BigInteger BigInteger::subdigit(const int &from, const int &to) const {
     BigInteger result;
-    for (int i = from; i <= to; ++i) {
-        if (i  >= this->length()) {
-            result.append(0);
-        }
-        else {
-            result.append(this->data.at(i));
-        }
+    for(int i = from; i <= to; ++i) {
+        i >= this->length() ? result.append(0) : result.append(this->data.at(i));
     }
     return result;
 }

@@ -23,6 +23,10 @@
 #include "HammingCodeEngine/Encoder/HammingCode/Encoder84/encoder84.h"
 #include "HammingCodeEngine/Encoder/HammingCode/Encoder1511/encoder1511.h"
 #include "HammingCodeEngine/Encoder/HammingCode/Encoder1611/encoder1611.h"
+#include "HammingCodeEngine/Encoder/HammingCode/EncoderDecimal1511/encoderDecimal1511.h"
+
+
+
 
 namespace Ui {
 class StudyForm;
@@ -84,6 +88,8 @@ private:
     void removeEffect(QWidget*);
     void setListSeq(const int&, const BitSequence&);
     void setBits(const QPair<BitSequence, BitSequence>&);
+    void setBits(const QPair<BigInteger, BigInteger>&);
+    void setListInt(const int&, const BigInteger&);
     void resetAlgo();
     void resetPage74();
     void resetPage84();
@@ -136,8 +142,7 @@ private:
     BitSequence bitSequence;
     EncodedBitSequence encodedBitSequence;
     BigInteger bigInteger;
-    EncodedBigInteger enocedBigInteger;
-    int currentSubseq;
+    EncodedBigInteger encodedBigInteger;
     //QRect wGeometry;
     static const int BLUR_RADIUS_1 = 8;
     static const int BLUR_RADIUS_2 = 4;
