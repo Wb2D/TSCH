@@ -41,11 +41,7 @@ StudyForm::StudyForm(QWidget *parent) :
     ui->frame_10->setStackedWidget(ui->stackedWidget);
     ui->frame_12->setStackedWidget(ui->stackedWidget);
     connect(ui->listWidget, &QListWidget::itemClicked, this, [=](QListWidgetItem *item) {
-        int newSubseq = ui->listWidget->row(item);
-        if(newSubseq != currentSubseq) {
-            currentSubseq = newSubseq;
-            setBits(encodedBitSequence[ui->listWidget->count() - newSubseq - 1]);
-        }
+        setBits(encodedBitSequence[ui->listWidget->row(item)]);
     });
 }
 
