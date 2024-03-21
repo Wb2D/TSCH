@@ -27,6 +27,7 @@ public:
                       const int &iteration) : data(data), method(method), iteration(iteration) {    }
     EncodedBigInteger(const EncodedBigInteger &obj)
         : data(obj.data), method(obj.method), iteration(obj.iteration) {    }
+    const QPair<BigInteger, BigInteger>& operator[](int index) const { return data[index]; }
     EncodedBigInteger& operator=(const EncodedBigInteger&);
     void addData(const QPair<BigInteger, BigInteger> &pair) { data.push_back(pair); }
     void setData(const QVector<QPair<BigInteger, BigInteger>> &data) { this->data = data; }

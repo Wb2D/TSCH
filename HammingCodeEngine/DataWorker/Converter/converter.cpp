@@ -69,3 +69,27 @@ void Converter::toBinary(BitSequence &bitSequency, const QString &number, const 
         decimalNumber = decimalNumber.div2();
     }
 }
+
+
+/*!
+ * \brief Метод конвертирует текста в двоичное представление.
+ * \param bitSequence Последовательность битов, в которую будет записан результат.
+ * \param text Входной текст.
+ * \return Отсутствуют.
+*/
+void Converter::toBinary(BitSequence &bitSequency, const QString &text) {
+    bitSequency = BitSequence();
+    for (int i = text.length() - 1; i >= 0; --i) {
+        bitSequency.append(charToByte(text.at(i)));
+    }
+}
+
+
+BitSequence Converter::charToByte(const QChar &ch) {
+    BitSequence asciiCode;
+    Converter::toBinary(asciiCode, QString::number(ch.toLatin1()), 10);
+    while(asciiCode.length() != 8) {
+        asciiCode.append(false);
+    }
+    return asciiCode;
+}

@@ -8,7 +8,7 @@
  * \param length Новая длина последовательности.
  * \return Отсутствуют.
 */
-void BitSequence::resize(const int& length) {
+void BitSequence::resize(const int &length) {
     int newLength = (length == 0) ? 1 : (length * 2);
     bool* newArray = new bool[newLength];
     if (bitArray) {
@@ -27,7 +27,7 @@ void BitSequence::resize(const int& length) {
  * \param index Индекс бита.
  * \return Значение бита по указанному индексу.
 */
-bool BitSequence::operator[](const int& index) const {
+bool BitSequence::operator[](const int &index) const {
     if (index < 0 || index >= bitCount) {
         qWarning() << "ERROR : BitSequence -> bitsArray -> (index out of range)";
         return false;
@@ -42,7 +42,7 @@ bool BitSequence::operator[](const int& index) const {
  * \param value Новое значение бита.
  * \return Отсутствуют.
 */
-void BitSequence::set(const int& index, const bool& value) {
+void BitSequence::set(const int &index, const bool &value) {
     if (index < 0 || index >= bitCount) {
         qWarning() << "ERROR : BitSequence -> bitsArray -> (index out of range)";
         return;
@@ -56,12 +56,24 @@ void BitSequence::set(const int& index, const bool& value) {
  * \param value Значение добавляемого бита.
  * \return Отсутствуют.
 */
-void BitSequence::append(const bool& value) {
+void BitSequence::append(const bool &value) {
     ++bitCount;
     if(bitCount > arraySize) {
         resize(arraySize);
     }
     set(bitCount - 1, value);
+}
+
+
+/*!
+ * \brief Метод добавляет последовательность в конец текушей.
+ * \param data Битовая последовательность.
+ * \return Отсутствуют.
+*/
+void BitSequence::append(const BitSequence &data) {
+    for(int i = 0; i < data.length(); ++i) {
+        append(data[i]);
+    }
 }
 
 

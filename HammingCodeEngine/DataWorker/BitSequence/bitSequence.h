@@ -21,16 +21,17 @@ class BitSequence {
 public:
     BitSequence() : bitArray(NULL), bitCount(0), arraySize(0) {}
     int length() const { return bitCount; }
-    bool operator[](const int& index) const;
-    void set(const int& index, const bool& value);
-    void append(const bool& value);
+    bool operator[](const int&) const;
+    void set(const int&, const bool&);
+    void append(const bool&);
+    void append(const BitSequence&);
     QString toString() const;
-    BitSequence subsequence(int from, int to) const;
+    BitSequence subsequence(int, int) const;
 
 private:
     void resize(const int& length);
 
-    bool* bitArray; ///< битовая последовательность
+    bool *bitArray; ///< битовая последовательность
     int bitCount; ///< число установленных бит
     int arraySize; ///< возможное число бит
 };

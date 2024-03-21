@@ -19,7 +19,8 @@
 
 class NumberGenerator {
 public:
-    static QString generate(const int &base, const int &digits);
+    static QString generate(const int&, const int&);
+    static QString generate(const int&);
 
 private:
     static const QString arr; //!< Строка с символами для генерации чисел.

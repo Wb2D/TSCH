@@ -24,3 +24,21 @@ QString NumberGenerator::generate(const int &base, const int &digits) {
     }
     return result;
 }
+
+
+/*!
+ * \brief Метод генерирует заданное чисто символов ASCII.
+ * \details Я осознаю всю абсурдность поместить генератор ТЕКСТА в
+ * класс - генератор чисел. Ну, что поделаешь. Не переименовывать же класс
+ * и файлы из-за этого?
+ * \param amount Число символов.
+ * \return Случайно сгенерированный текст.
+*/
+QString NumberGenerator::generate(const int &amount) {
+    QString result;
+    QRandomGenerator rg = QRandomGenerator::securelySeeded();
+    while(result.length() != amount) {
+        result.push_back(static_cast<QChar>(rg.bounded(32, 126)));
+    }
+    return result;
+}

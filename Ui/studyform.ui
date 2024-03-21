@@ -932,6 +932,9 @@ QFrame[enabled=&quot;true&quot;] {
               </item>
               <item row="0" column="1">
                <widget class="QSlider" name="horizontalSliderNS8">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
                 <property name="minimumSize">
                  <size>
                   <width>35</width>
@@ -1072,6 +1075,9 @@ QSlider::handle:horizontal {
               </item>
               <item row="0" column="1">
                <widget class="QSlider" name="horizontalSliderNS10">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
                 <property name="minimumSize">
                  <size>
                   <width>35</width>
@@ -1186,6 +1192,9 @@ QSlider::handle:horizontal {
               </item>
               <item row="0" column="1">
                <widget class="QSlider" name="horizontalSliderNS16">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
                 <property name="minimumSize">
                  <size>
                   <width>35</width>
@@ -1313,6 +1322,9 @@ QSlider::handle:horizontal {
               </item>
               <item row="0" column="1">
                <widget class="QSlider" name="horizontalSliderNS4">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
                 <property name="minimumSize">
                  <size>
                   <width>35</width>
@@ -1440,6 +1452,9 @@ QSlider::handle:horizontal {
               </item>
               <item row="0" column="1">
                <widget class="QSlider" name="horizontalSliderNS2">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
                 <property name="minimumSize">
                  <size>
                   <width>35</width>

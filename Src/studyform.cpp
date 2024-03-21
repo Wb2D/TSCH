@@ -27,7 +27,7 @@ StudyForm::StudyForm(QWidget *parent) :
     //sizeGrip = new QSizeGrip(this);
     //ui->gridLayout_9->addWidget(sizeGrip, ui->gridLayout_9->columnCount(), Qt::AlignBottom | Qt::AlignRight);
     inputFlag = NO_MODE;
-    dataFlag = NO_TYPE;
+    typeFlag = NO_TYPE;
     numberFlag = NO_SYSTEM;
     algFlag = NO_ALG;
     bitSequence = BitSequence();
@@ -42,7 +42,7 @@ StudyForm::StudyForm(QWidget *parent) :
     ui->frame_10->setStackedWidget(ui->stackedWidget);
     ui->frame_12->setStackedWidget(ui->stackedWidget);
     connect(ui->listWidget, &QListWidget::itemClicked, this, [=](QListWidgetItem *item) {
-        setBits(encodedBitSequence[ui->listWidget->row(item)]);
+        setBits(ui->listWidget->count() - ui->listWidget->row(item) - 1);
     });
 }
 
@@ -281,36 +281,29 @@ void StudyForm::on_pushSliderFormInput_clicked() {
  * \return Отсутствуют.
 */
 void StudyForm::on_pushSliderDataType_clicked() {
+    resetNS();
     QSlider* senderSlider = qobject_cast<QSlider*>(sender());
     if (senderSlider == ui->horizontalSliderDataType_1) {
         ui->horizontalSliderDataType_2->setValue(0);
         if(senderSlider->value() == 0) {
-            dataFlag = NUMERIC;
-            //ui->textEditData->clear();
+            typeFlag = NUMERIC;
+            setEnabledNS(true);
         } else {
-            dataFlag = NO_TYPE;
+            typeFlag = NO_TYPE;
+            setEnabledNS(false);
         }
     } else if (senderSlider == ui->horizontalSliderDataType_2) {
         ui->horizontalSliderDataType_1->setValue(0);
         if(senderSlider->value() == 0) {
-            dataFlag = TEXT;
-            //ui->textEditData->clear();
+            typeFlag = TEXT;
+            setEnabledNS(false);
         } else {
-            dataFlag = NO_TYPE;
+            typeFlag = NO_TYPE;
+            setEnabledNS(false);
         }
     }
     bool enableFrame = senderSlider != ui->horizontalSliderDataType_2 ||
                        (senderSlider->value() == 1);
-    QList<QSlider*> sliders = { ui->horizontalSliderNS2,
-                                ui->horizontalSliderNS4,
-                                ui->horizontalSliderNS8,
-                                ui->horizontalSliderNS10,
-                                ui->horizontalSliderNS16, };
-    for (QSlider *slider : sliders) {
-        if (slider != senderSlider) {
-            slider->setEnabled(enableFrame);
-        }
-    }
     if (enableFrame) {
         removeEffect(ui->frame_5);
         setShadow(ui->frame_5);
@@ -339,7 +332,7 @@ void StudyForm::on_pushSliderNS_clicked() {
             slider->setValue(0);
         }
     }
-    if(senderSlider->value() == 0) {
+    if (senderSlider->value() == 0) {
         if (senderSlider == ui->horizontalSliderNS2)
             numberFlag = BINARY;
         else if (senderSlider == ui->horizontalSliderNS4)
@@ -378,12 +371,12 @@ void StudyForm::on_pushSliderEncoder_clicked() {
                                 ui->horizontalSliderEncoder1511,
                                 ui->horizontalSliderEncoder1611,
                                 ui->horizontalSliderEncoder1511d, };
-    for(QSlider *slider : sliders) {
+    for (QSlider *slider : sliders) {
         if(slider != senderSlider) {
             slider->setValue(0);
         }
     }
-    if(!senderSlider->value()) {
+    if (!senderSlider->value()) {
         if(senderSlider == ui->horizontalSliderEncoder74) {
             ui->stackedWidget_2->setCurrentIndex(0);
             algFlag = ALG_74;
@@ -413,7 +406,7 @@ void StudyForm::on_pushSliderEncoder_clicked() {
  * \return Отсутствуют.
 */
 void StudyForm::on_pushButtonAutoGen_clicked() {
-    switch (dataFlag) {
+    switch (typeFlag) {
     case NO_TYPE: {
         NotificationForm *notification = new NotificationForm("Генерация невозможна. Выберите тип данных.");
         this->setEnabled(false);
@@ -425,7 +418,7 @@ void StudyForm::on_pushButtonAutoGen_clicked() {
         break;
     }
     case TEXT: {
-        /// \todo Добавить сюда генерацию текста, когда реализую
+        ui->textEditData->setText(NumberGenerator::generate(ui->spinBoxAmount->value()));
         break;
     }
     case NUMERIC: {
@@ -474,8 +467,7 @@ void StudyForm::on_pushButtonAutoGen_clicked() {
  * \return Отсутствуют.
 */
 void StudyForm::on_pushButtonEncode_clicked() {
-    switch (dataFlag) {
-    case NO_TYPE: {
+    if(typeFlag == NO_TYPE) {
         NotificationForm *notification = new NotificationForm("Кодирование невозможна. Выберите тип данных.");
         this->setEnabled(false);
         notification->show();
@@ -483,47 +475,45 @@ void StudyForm::on_pushButtonEncode_clicked() {
             notification->deleteLater();
             this->setEnabled(true);
         });
-        break;
-    }
-    case TEXT: {
-        /// \todo Добавить сюда генерацию текста, когда реализую
-        break;
-    }
-    case NUMERIC: {
+    } else {
         QString data = ui->textEditData->toPlainText();
         bool dataFlag = false;
-        switch (numberFlag) {
-        case NO_SYSTEM: {
-            break;
-        }
-        case BINARY: {
-            dataFlag = BINARY_REGEX.match(data).hasMatch();
-            break;
-        }
-        case QUATERNARY: {
-            dataFlag = QUATERNARY_REGEX.match(data).hasMatch();
-            break;
-        }
-        case OCTAL: {
-            dataFlag = OCTAL_REGEX.match(data).hasMatch();
-            break;
-        }
-        case DECIMAL: {
-            dataFlag = DECIMAL_REGEX.match(data).hasMatch();
-            break;
-        }
-        case HEXADECIMAL: {
-            dataFlag = HEXADECIMAL_REGEX.match(data).hasMatch();
-
-        }
+        if(typeFlag == TEXT) {
+            dataFlag = true;
+            Converter::toBinary(bitSequence, data);
+        } else {
+            Converter::toBinary(bitSequence, data, numberFlag);
+            switch (numberFlag) {
+            case NO_SYSTEM: {
+                break;
+            }
+            case BINARY: {
+                dataFlag = BINARY_REGEX.match(data).hasMatch();
+                break;
+            }
+            case QUATERNARY: {
+                dataFlag = QUATERNARY_REGEX.match(data).hasMatch();
+                break;
+            }
+            case OCTAL: {
+                dataFlag = OCTAL_REGEX.match(data).hasMatch();
+                break;
+            }
+            case DECIMAL: {
+                dataFlag = DECIMAL_REGEX.match(data).hasMatch();
+                break;
+            }
+            case HEXADECIMAL: {
+                dataFlag = HEXADECIMAL_REGEX.match(data).hasMatch();
+                break;
+            }
+            }
         }
         if(dataFlag) {
-            /// \todo на этом моменте нужно сделать проверку с десятичным алгоритмом кодирования
-            Converter::toBinary(bitSequence, data, numberFlag);
             switch (algFlag) {
             case NO_ALG: {
                 NotificationForm *notification = new NotificationForm("Кодирование невозможно. "
-                                                                      "Выберите алгоритм. ");
+                                                                      "Выберите алгоритм.");
                 this->setEnabled(false);
                 notification->show();
                 QObject::connect(notification, &NotificationForm::finished, this, [=]() {
@@ -569,8 +559,6 @@ void StudyForm::on_pushButtonEncode_clicked() {
                 this->setEnabled(true);
             });
         }
-        break;
-    }
     }
 }
 
@@ -616,105 +604,136 @@ void StudyForm::setListInt(const int &size, const BigInteger &data) {
  * \param size Длина битовой последовательности.
  * \return Отсутствуют.
 */
-void StudyForm::setBits(const QPair<BitSequence, BitSequence> &bits) {
-    QString bitSeq = bits.first.toString();
-    QString encodedBitSeq = bits.second.toString();
-    switch (algFlag) {
-    case NO_ALG: {
-        break;
-    }
-    case ALG_74: {
-        ui->labelX_id_74_4->setText(bitSeq.at(0));
-        ui->labelX_id_74_3->setText(bitSeq.at(1));
-        ui->labelX_id_74_2->setText(bitSeq.at(2));
-        ui->labelX_id_74_1->setText(bitSeq.at(3));
-        ui->labelY_od_74_7->setText(encodedBitSeq.at(0));
-        ui->labelY_od_74_6->setText(encodedBitSeq.at(1));
-        ui->labelY_od_74_5->setText(encodedBitSeq.at(2));
-        ui->labelY_od_74_4->setText(encodedBitSeq.at(3));
-        ui->labelY_od_74_3->setText(encodedBitSeq.at(4));
-        ui->labelY_od_74_2->setText(encodedBitSeq.at(5));
-        ui->labelY_od_74_1->setText(encodedBitSeq.at(6));
-        break;
-    }
-    case ALG_84: {
-        ui->labelX_id_84_4->setText(bitSeq.at(0));
-        ui->labelX_id_84_3->setText(bitSeq.at(1));
-        ui->labelX_id_84_2->setText(bitSeq.at(2));
-        ui->labelX_id_84_1->setText(bitSeq.at(3));
-        ui->labelY_od_84_8->setText(encodedBitSeq.at(0));
-        ui->labelY_od_84_7->setText(encodedBitSeq.at(1));
-        ui->labelY_od_84_6->setText(encodedBitSeq.at(2));
-        ui->labelY_od_84_5->setText(encodedBitSeq.at(3));
-        ui->labelY_od_84_4->setText(encodedBitSeq.at(4));
-        ui->labelY_od_84_3->setText(encodedBitSeq.at(5));
-        ui->labelY_od_84_2->setText(encodedBitSeq.at(6));
-        ui->labelY_od_84_1->setText(encodedBitSeq.at(7));
-        break;
-    }
-    case ALG_1511: {
-        ui->labelX_id_1511_11->setText(bitSeq.at(0));
-        ui->labelX_id_1511_10->setText(bitSeq.at(1));
-        ui->labelX_id_1511_9->setText(bitSeq.at(2));
-        ui->labelX_id_1511_8->setText(bitSeq.at(3));
-        ui->labelX_id_1511_7->setText(bitSeq.at(4));
-        ui->labelX_id_1511_6->setText(bitSeq.at(5));
-        ui->labelX_id_1511_5->setText(bitSeq.at(6));
-        ui->labelX_id_1511_4->setText(bitSeq.at(7));
-        ui->labelX_id_1511_3->setText(bitSeq.at(8));
-        ui->labelX_id_1511_2->setText(bitSeq.at(9));
-        ui->labelX_id_1511_1->setText(bitSeq.at(10));
-        ui->labelY_id_1511_15->setText(encodedBitSeq.at(0));
-        ui->labelY_id_1511_14->setText(encodedBitSeq.at(1));
-        ui->labelY_id_1511_13->setText(encodedBitSeq.at(2));
-        ui->labelY_id_1511_12->setText(encodedBitSeq.at(3));
-        ui->labelY_id_1511_11->setText(encodedBitSeq.at(4));
-        ui->labelY_id_1511_10->setText(encodedBitSeq.at(5));
-        ui->labelY_id_1511_9->setText(encodedBitSeq.at(6));
-        ui->labelY_id_1511_8->setText(encodedBitSeq.at(7));
-        ui->labelY_id_1511_7->setText(encodedBitSeq.at(8));
-        ui->labelY_id_1511_6->setText(encodedBitSeq.at(9));
-        ui->labelY_id_1511_5->setText(encodedBitSeq.at(10));
-        ui->labelY_id_1511_4->setText(encodedBitSeq.at(11));
-        ui->labelY_id_1511_3->setText(encodedBitSeq.at(12));
-        ui->labelY_id_1511_2->setText(encodedBitSeq.at(13));
-        ui->labelY_id_1511_1->setText(encodedBitSeq.at(14));
-        break;
-    }
-    case ALG_1611: {
-        ui->labelX_id_1611_11->setText(bitSeq.at(0));
-        ui->labelX_id_1611_10->setText(bitSeq.at(1));
-        ui->labelX_id_1611_9->setText(bitSeq.at(2));
-        ui->labelX_id_1611_8->setText(bitSeq.at(3));
-        ui->labelX_id_1611_7->setText(bitSeq.at(3));
-        ui->labelX_id_1611_6->setText(bitSeq.at(3));
-        ui->labelX_id_1611_5->setText(bitSeq.at(3));
-        ui->labelX_id_1611_4->setText(bitSeq.at(3));
-        ui->labelX_id_1611_3->setText(bitSeq.at(3));
-        ui->labelX_id_1611_2->setText(bitSeq.at(3));
-        ui->labelX_id_1611_1->setText(bitSeq.at(3));
-        ui->labelY_id_1611_16->setText(encodedBitSeq.at(0));
-        ui->labelY_id_1611_15->setText(encodedBitSeq.at(1));
-        ui->labelY_id_1611_14->setText(encodedBitSeq.at(2));
-        ui->labelY_id_1611_13->setText(encodedBitSeq.at(3));
-        ui->labelY_id_1611_12->setText(encodedBitSeq.at(4));
-        ui->labelY_id_1611_11->setText(encodedBitSeq.at(5));
-        ui->labelY_id_1611_10->setText(encodedBitSeq.at(6));
-        ui->labelY_id_1611_9->setText(encodedBitSeq.at(7));
-        ui->labelY_id_1611_8->setText(encodedBitSeq.at(8));
-        ui->labelY_id_1611_7->setText(encodedBitSeq.at(9));
-        ui->labelY_id_1611_6->setText(encodedBitSeq.at(10));
-        ui->labelY_id_1611_5->setText(encodedBitSeq.at(11));
-        ui->labelY_id_1611_4->setText(encodedBitSeq.at(12));
-        ui->labelY_id_1611_3->setText(encodedBitSeq.at(13));
-        ui->labelY_id_1611_2->setText(encodedBitSeq.at(14));
-        ui->labelY_id_1611_1->setText(encodedBitSeq.at(15));
-        break;
-    }
-    default: {
-        /// \todo здесь прописать другие алгоритмы
-        break;
-    }
+void StudyForm::setBits(const int &index) {
+    QString data, encodedData;
+    if(algFlag != ALG_1511d) {
+        data = encodedBitSequence[index].first.toString();
+        encodedData = encodedBitSequence[index].second.toString();
+        switch (algFlag) {
+        case NO_ALG: {
+            break;
+        }
+        case ALG_74: {
+            ui->labelX_id_74_4->setText(data.at(0));
+            ui->labelX_id_74_3->setText(data.at(1));
+            ui->labelX_id_74_2->setText(data.at(2));
+            ui->labelX_id_74_1->setText(data.at(3));
+            ui->labelY_od_74_7->setText(encodedData.at(0));
+            ui->labelY_od_74_6->setText(encodedData.at(1));
+            ui->labelY_od_74_5->setText(encodedData.at(2));
+            ui->labelY_od_74_4->setText(encodedData.at(3));
+            ui->labelY_od_74_3->setText(encodedData.at(4));
+            ui->labelY_od_74_2->setText(encodedData.at(5));
+            ui->labelY_od_74_1->setText(encodedData.at(6));
+            break;
+        }
+        case ALG_84: {
+            ui->labelX_id_84_4->setText(data.at(0));
+            ui->labelX_id_84_3->setText(data.at(1));
+            ui->labelX_id_84_2->setText(data.at(2));
+            ui->labelX_id_84_1->setText(data.at(3));
+            ui->labelY_od_84_8->setText(encodedData.at(0));
+            ui->labelY_od_84_7->setText(encodedData.at(1));
+            ui->labelY_od_84_6->setText(encodedData.at(2));
+            ui->labelY_od_84_5->setText(encodedData.at(3));
+            ui->labelY_od_84_4->setText(encodedData.at(4));
+            ui->labelY_od_84_3->setText(encodedData.at(5));
+            ui->labelY_od_84_2->setText(encodedData.at(6));
+            ui->labelY_od_84_1->setText(encodedData.at(7));
+            break;
+        }
+        case ALG_1511: {
+            ui->labelX_id_1511_11->setText(data.at(0));
+            ui->labelX_id_1511_10->setText(data.at(1));
+            ui->labelX_id_1511_9->setText(data.at(2));
+            ui->labelX_id_1511_8->setText(data.at(3));
+            ui->labelX_id_1511_7->setText(data.at(4));
+            ui->labelX_id_1511_6->setText(data.at(5));
+            ui->labelX_id_1511_5->setText(data.at(6));
+            ui->labelX_id_1511_4->setText(data.at(7));
+            ui->labelX_id_1511_3->setText(data.at(8));
+            ui->labelX_id_1511_2->setText(data.at(9));
+            ui->labelX_id_1511_1->setText(data.at(10));
+            ui->labelY_id_1511_15->setText(encodedData.at(0));
+            ui->labelY_id_1511_14->setText(encodedData.at(1));
+            ui->labelY_id_1511_13->setText(encodedData.at(2));
+            ui->labelY_id_1511_12->setText(encodedData.at(3));
+            ui->labelY_id_1511_11->setText(encodedData.at(4));
+            ui->labelY_id_1511_10->setText(encodedData.at(5));
+            ui->labelY_id_1511_9->setText(encodedData.at(6));
+            ui->labelY_id_1511_8->setText(encodedData.at(7));
+            ui->labelY_id_1511_7->setText(encodedData.at(8));
+            ui->labelY_id_1511_6->setText(encodedData.at(9));
+            ui->labelY_id_1511_5->setText(encodedData.at(10));
+            ui->labelY_id_1511_4->setText(encodedData.at(11));
+            ui->labelY_id_1511_3->setText(encodedData.at(12));
+            ui->labelY_id_1511_2->setText(encodedData.at(13));
+            ui->labelY_id_1511_1->setText(encodedData.at(14));
+            break;
+        }
+        case ALG_1611: {
+            ui->labelX_id_1611_11->setText(data.at(0));
+            ui->labelX_id_1611_10->setText(data.at(1));
+            ui->labelX_id_1611_9->setText(data.at(2));
+            ui->labelX_id_1611_8->setText(data.at(3));
+            ui->labelX_id_1611_7->setText(data.at(3));
+            ui->labelX_id_1611_6->setText(data.at(3));
+            ui->labelX_id_1611_5->setText(data.at(3));
+            ui->labelX_id_1611_4->setText(data.at(3));
+            ui->labelX_id_1611_3->setText(data.at(3));
+            ui->labelX_id_1611_2->setText(data.at(3));
+            ui->labelX_id_1611_1->setText(data.at(3));
+            ui->labelY_id_1611_16->setText(encodedData.at(0));
+            ui->labelY_id_1611_15->setText(encodedData.at(1));
+            ui->labelY_id_1611_14->setText(encodedData.at(2));
+            ui->labelY_id_1611_13->setText(encodedData.at(3));
+            ui->labelY_id_1611_12->setText(encodedData.at(4));
+            ui->labelY_id_1611_11->setText(encodedData.at(5));
+            ui->labelY_id_1611_10->setText(encodedData.at(6));
+            ui->labelY_id_1611_9->setText(encodedData.at(7));
+            ui->labelY_id_1611_8->setText(encodedData.at(8));
+            ui->labelY_id_1611_7->setText(encodedData.at(9));
+            ui->labelY_id_1611_6->setText(encodedData.at(10));
+            ui->labelY_id_1611_5->setText(encodedData.at(11));
+            ui->labelY_id_1611_4->setText(encodedData.at(12));
+            ui->labelY_id_1611_3->setText(encodedData.at(13));
+            ui->labelY_id_1611_2->setText(encodedData.at(14));
+            ui->labelY_id_1611_1->setText(encodedData.at(15));
+            break;
+        }
+        default: {
+            break;
+        }
+        }
+    } else {
+        data = encodedBigInteger[index].first.toString();
+        encodedData = encodedBigInteger[index].second.toString();
+        ui->labelX_id_d1511_11->setText(data.at(0));
+        ui->labelX_id_d1511_10->setText(data.at(1));
+        ui->labelX_id_d1511_9->setText(data.at(2));
+        ui->labelX_id_d1511_8->setText(data.at(3));
+        ui->labelX_id_d1511_7->setText(data.at(4));
+        ui->labelX_id_d1511_6->setText(data.at(5));
+        ui->labelX_id_d1511_5->setText(data.at(6));
+        ui->labelX_id_d1511_4->setText(data.at(7));
+        ui->labelX_id_d1511_3->setText(data.at(8));
+        ui->labelX_id_d1511_2->setText(data.at(9));
+        ui->labelX_id_d1511_1->setText(data.at(10));
+        ui->labelY_id_d1511_15->setText(encodedData.at(0));
+        ui->labelY_id_d1511_14->setText(encodedData.at(1));
+        ui->labelY_id_d1511_13->setText(encodedData.at(2));
+        ui->labelY_id_d1511_12->setText(encodedData.at(3));
+        ui->labelY_id_d1511_11->setText(encodedData.at(4));
+        ui->labelY_id_d1511_10->setText(encodedData.at(5));
+        ui->labelY_id_d1511_9->setText(encodedData.at(6));
+        ui->labelY_id_d1511_8->setText(encodedData.at(7));
+        ui->labelY_id_d1511_7->setText(encodedData.at(8));
+        ui->labelY_id_d1511_6->setText(encodedData.at(9));
+        ui->labelY_id_d1511_5->setText(encodedData.at(10));
+        ui->labelY_id_d1511_4->setText(encodedData.at(11));
+        ui->labelY_id_d1511_3->setText(encodedData.at(12));
+        ui->labelY_id_d1511_2->setText(encodedData.at(13));
+        ui->labelY_id_d1511_1->setText(encodedData.at(14));
     }
 }
 
@@ -731,6 +750,35 @@ void StudyForm::resetAlgo() {
     ui->horizontalSliderEncoder1611->setValue(0);
     ui->horizontalSliderEncoder1511d->setValue(0);
     algFlag = NO_ALG;
+}
+
+
+/*!
+ * \brief Метод для сброса выбранного алгоритма.
+ * \param Отсутствуют.
+ * \return Отсутствуют.
+*/
+void StudyForm::resetNS() {
+    ui->horizontalSliderNS2->setValue(0);
+    ui->horizontalSliderNS4->setValue(0);
+    ui->horizontalSliderNS8->setValue(0);
+    ui->horizontalSliderNS10->setValue(0);
+    ui->horizontalSliderNS16->setValue(0);
+    numberFlag = NO_SYSTEM;
+}
+
+
+/*!
+ * \brief Метод для включения/выключения выбора алгоритмов.
+ * \param Flag Включение/выключение.
+ * \return Отсутствуют.
+*/
+void StudyForm::setEnabledNS(const bool &flag) {
+    ui->horizontalSliderNS2->setEnabled(flag);
+    ui->horizontalSliderNS4->setEnabled(flag);
+    ui->horizontalSliderNS8->setEnabled(flag);
+    ui->horizontalSliderNS10->setEnabled(flag);
+    ui->horizontalSliderNS16->setEnabled(flag);
 }
 
 
@@ -852,7 +900,32 @@ void StudyForm::resetPage1611() {
  * \return Отсутствуют.
 */
 void StudyForm::resetPage1511d() {
-
+    ui->labelX_id_d1511_11->clear();
+    ui->labelX_id_d1511_10->clear();
+    ui->labelX_id_d1511_9->clear();
+    ui->labelX_id_d1511_8->clear();
+    ui->labelX_id_d1511_7->clear();
+    ui->labelX_id_d1511_6->clear();
+    ui->labelX_id_d1511_5->clear();
+    ui->labelX_id_d1511_4->clear();
+    ui->labelX_id_d1511_3->clear();
+    ui->labelX_id_d1511_2->clear();
+    ui->labelX_id_d1511_1->clear();
+    ui->labelY_id_d1511_15->clear();
+    ui->labelY_id_d1511_14->clear();
+    ui->labelY_id_d1511_13->clear();
+    ui->labelY_id_d1511_12->clear();
+    ui->labelY_id_d1511_11->clear();
+    ui->labelY_id_d1511_10->clear();
+    ui->labelY_id_d1511_9->clear();
+    ui->labelY_id_d1511_8->clear();
+    ui->labelY_id_d1511_7->clear();
+    ui->labelY_id_d1511_6->clear();
+    ui->labelY_id_d1511_5->clear();
+    ui->labelY_id_d1511_4->clear();
+    ui->labelY_id_d1511_3->clear();
+    ui->labelY_id_d1511_2->clear();
+    ui->labelY_id_d1511_1->clear();
 }
 
 

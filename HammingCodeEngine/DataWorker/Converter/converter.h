@@ -24,10 +24,12 @@
 class Converter {
 public:
     static void toBinary(BitSequence &bitSequency, const QString &number, const int &base);
+    static void toBinary(BitSequence &bitSequency, const QString &number); ///< воспринимается, как текст
 
 private:
     static BigInteger toDecimal(const QString &number, const int &base);
     static int charToDecimal(QChar ch);
+    static BitSequence charToByte(const QChar &ch);
 
     static const QMap<char, int> charToDigit; ///< словарь соответсвий
 };

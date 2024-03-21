@@ -87,16 +87,17 @@ private:
     void setBlur(QWidget*, int);
     void removeEffect(QWidget*);
     void setListSeq(const int&, const BitSequence&);
-    void setBits(const QPair<BitSequence, BitSequence>&);
-    void setBits(const QPair<BigInteger, BigInteger>&);
+    void setBits(const int&);
     void setListInt(const int&, const BigInteger&);
     void resetAlgo();
     void resetPage74();
     void resetPage84();
     void resetPage1511();
     void resetPage1611();
-     void resetPage1511d();
+    void resetPage1511d();
     void resetData();
+    void resetNS();
+    void setEnabledNS(const bool&);
 
     static const QRegularExpression BINARY_REGEX;
     static const QRegularExpression QUATERNARY_REGEX;
@@ -114,7 +115,7 @@ private:
         NO_TYPE,
         TEXT,
         NUMERIC,
-    } dataFlag;
+    } typeFlag;
 
     enum NumberSystem {
         NO_SYSTEM,
