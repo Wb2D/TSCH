@@ -82,6 +82,10 @@ private slots:
     void on_pushButtonAutoGen_clicked();
     void on_pushButtonEncode_clicked();
 
+    void on_pushButtonEncoding_clicked();
+
+    void on_pushButtonNoise_clicked();
+
 private:
     void setShadow(QWidget*);
     void setBlur(QWidget*, int);
