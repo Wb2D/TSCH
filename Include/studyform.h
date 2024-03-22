@@ -2,6 +2,7 @@
 #define STUDYFORM_H
 
 #include <QWidget>
+#include <QListWidget>
 #include <QMouseEvent>
 #include <QPoint>
 #include <QGraphicsBlurEffect>
@@ -81,18 +82,17 @@ private slots:
     void on_pushButtonClose_2_clicked();
     void on_pushButtonAutoGen_clicked();
     void on_pushButtonEncode_clicked();
-
     void on_pushButtonEncoding_clicked();
-
     void on_pushButtonNoise_clicked();
 
 private:
     void setShadow(QWidget*);
     void setBlur(QWidget*, int);
     void removeEffect(QWidget*);
-    void setListSeq(const int&, const BitSequence&);
-    void setBits(const int&);
-    void setListInt(const int&, const BigInteger&);
+    void setListSeq(const int&, const BitSequence&, QListWidget*);
+    void setListInt(const int&, const BigInteger&, QListWidget*);
+    void setBitsEncoding(const int&);
+    void setBitsNoise(const int&);
     void resetAlgo();
     void resetPage74();
     void resetPage84();
@@ -131,7 +131,7 @@ private:
     } numberFlag;
 
     enum Algorithm {
-        NO_ALG,
+        NO_ALG = -1,
         ALG_74,
         ALG_84,
         ALG_1511,

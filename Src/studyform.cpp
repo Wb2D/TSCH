@@ -42,7 +42,10 @@ StudyForm::StudyForm(QWidget *parent) :
     ui->frame_10->setStackedWidget(ui->stackedWidget);
     ui->frame_12->setStackedWidget(ui->stackedWidget);
     connect(ui->listWidget, &QListWidget::itemClicked, this, [=](QListWidgetItem *item) {
-        setBits(ui->listWidget->count() - ui->listWidget->row(item) - 1);
+        setBitsEncoding(ui->listWidget->count() - ui->listWidget->row(item) - 1);
+    });
+    connect(ui->listWidget_2, &QListWidget::itemClicked, this, [=](QListWidgetItem *item) {
+        setBitsNoise(ui->listWidget_2->count() - ui->listWidget_2->row(item) - 1);
     });
 }
 
@@ -378,20 +381,23 @@ void StudyForm::on_pushSliderEncoder_clicked() {
     }
     if (!senderSlider->value()) {
         if(senderSlider == ui->horizontalSliderEncoder74) {
-            ui->stackedWidget_2->setCurrentIndex(0);
             algFlag = ALG_74;
         } else if(senderSlider == ui->horizontalSliderEncoder84) {
-            ui->stackedWidget_2->setCurrentIndex(1);
             algFlag = ALG_84;
         } else if(senderSlider == ui->horizontalSliderEncoder1511) {
-            ui->stackedWidget_2->setCurrentIndex(2);
             algFlag = ALG_1511;
         } else if(senderSlider == ui->horizontalSliderEncoder1611) {
-            ui->stackedWidget_2->setCurrentIndex(3);
             algFlag = ALG_1611;
         } else if(senderSlider == ui->horizontalSliderEncoder1511d) {
-            ui->stackedWidget_2->setCurrentIndex(4);\
             algFlag = ALG_1511d;
+        }
+        ui->stackedWidget_2->setCurrentIndex(algFlag);
+        ui->stackedWidget_3->setCurrentIndex(algFlag);
+        ui->stackedWidget_4->setCurrentIndex(algFlag);
+        if (algFlag == ALG_74 || algFlag == ALG_84) {
+            ui->stackedWidget_5->setCurrentIndex(0);
+        } else if(algFlag != NO_ALG) {
+            ui->stackedWidget_5->setCurrentIndex(1);
         }
     } else {
         algFlag = NO_ALG;
@@ -523,28 +529,33 @@ void StudyForm::on_pushButtonEncode_clicked() {
                 break;
             }
             case ALG_74: {
-                setListSeq(4, bitSequence);
+                setListSeq(4, bitSequence, ui->listWidget);
+                setListSeq(4, bitSequence, ui->listWidget_2);
                 encodedBitSequence = Encoder74::start(bitSequence);
                 break;
             }
             case ALG_84: {
-                setListSeq(4, bitSequence);
+                setListSeq(4, bitSequence, ui->listWidget);
+                setListSeq(4, bitSequence, ui->listWidget_2);
                 encodedBitSequence = Encoder84::start(bitSequence);
                 break;
             }
             case ALG_1511: {
-                setListSeq(11, bitSequence);
+                setListSeq(11, bitSequence, ui->listWidget);
+                setListSeq(11, bitSequence, ui->listWidget_2);
                 encodedBitSequence = Encoder1511::start(bitSequence);
                 break;
             }
             case ALG_1611: {
-                setListSeq(11, bitSequence);
+                setListSeq(11, bitSequence, ui->listWidget);
+                setListSeq(11, bitSequence, ui->listWidget_2);
                 encodedBitSequence = Encoder1611::start(bitSequence);
                 break;
             }
             case ALG_1511d: {
                 bigInteger = BigInteger(data);
-                setListInt(11, bigInteger);
+                setListInt(11, bigInteger, ui->listWidget);
+                setListInt(11, bigInteger, ui->listWidget_2);
                 encodedBigInteger = EncoderDecimal1511::start(bigInteger);
                 break;
             }
@@ -569,14 +580,14 @@ void StudyForm::on_pushButtonEncode_clicked() {
  * \param data Исходная битовая последовательность.
  * \return Отсутствуют.
 */
-void StudyForm::setListSeq(const int &size, const BitSequence &data) {
-    ui->listWidget->clear();
+void StudyForm::setListSeq(const int &size, const BitSequence &data, QListWidget *listWidget) {
+    listWidget->clear();
     int eSize = data.length();
     if (eSize % size) {
         eSize += size - (eSize % size);
     }
     for(int i = eSize; i > 0; i -= size) {
-        ui->listWidget->addItem(data.subsequence(i - size, i - 1).toString());
+        listWidget->addItem(data.subsequence(i - size, i - 1).toString());
     }
 }
 
@@ -587,24 +598,24 @@ void StudyForm::setListSeq(const int &size, const BitSequence &data) {
  * \param data Исходное число.
  * \return Отсутствуют.
 */
-void StudyForm::setListInt(const int &size, const BigInteger &data) {
-    ui->listWidget->clear();
+void StudyForm::setListInt(const int &size, const BigInteger &data, QListWidget *listWidget) {
+    listWidget->clear();
     int eSize = data.length();
     if(eSize % size) {
         eSize += size - (eSize % size);
     }
     for(int i = eSize; i > 0; i -= size) {
-        ui->listWidget->addItem(data.subdigit(i - size, i - 1).toString());
+        listWidget->addItem(data.subdigit(i - size, i - 1).toString());
     }
 }
 
 
 /*!
- * \brief Метод для установки содержимого списка с последовательностями бит.
+ * \brief Метод для установки содержимого ячеек значений для вкладки "Кодирование".
  * \param size Длина битовой последовательности.
  * \return Отсутствуют.
 */
-void StudyForm::setBits(const int &index) {
+void StudyForm::setBitsEncoding(const int &index) {
     QString data, encodedData;
     if(algFlag != ALG_1511d) {
         data = encodedBitSequence[index].first.toString();
@@ -614,6 +625,7 @@ void StudyForm::setBits(const int &index) {
             break;
         }
         case ALG_74: {
+            /// \brief Установка значений во вкладке "Кодирование"
             ui->labelX_id_74_4->setText(data.at(0));
             ui->labelX_id_74_3->setText(data.at(1));
             ui->labelX_id_74_2->setText(data.at(2));
@@ -628,6 +640,7 @@ void StudyForm::setBits(const int &index) {
             break;
         }
         case ALG_84: {
+            /// \brief Установка значений во вкладке "Кодирование"
             ui->labelX_id_84_4->setText(data.at(0));
             ui->labelX_id_84_3->setText(data.at(1));
             ui->labelX_id_84_2->setText(data.at(2));
@@ -643,6 +656,7 @@ void StudyForm::setBits(const int &index) {
             break;
         }
         case ALG_1511: {
+            /// \brief Установка значений во вкладке "Кодирование"
             ui->labelX_id_1511_11->setText(data.at(0));
             ui->labelX_id_1511_10->setText(data.at(1));
             ui->labelX_id_1511_9->setText(data.at(2));
@@ -672,6 +686,7 @@ void StudyForm::setBits(const int &index) {
             break;
         }
         case ALG_1611: {
+            /// \brief Установка значений во вкладке "Кодирование"
             ui->labelX_id_1611_11->setText(data.at(0));
             ui->labelX_id_1611_10->setText(data.at(1));
             ui->labelX_id_1611_9->setText(data.at(2));
@@ -706,6 +721,7 @@ void StudyForm::setBits(const int &index) {
         }
         }
     } else {
+        /// \brief Установка значений во вкладке "Кодирование"
         data = encodedBigInteger[index].first.toString();
         encodedData = encodedBigInteger[index].second.toString();
         ui->labelX_id_d1511_11->setText(data.at(0));
@@ -734,6 +750,181 @@ void StudyForm::setBits(const int &index) {
         ui->labelY_id_d1511_3->setText(encodedData.at(12));
         ui->labelY_id_d1511_2->setText(encodedData.at(13));
         ui->labelY_id_d1511_1->setText(encodedData.at(14));
+    }
+}
+
+
+/*!
+ * \brief Метод для установки содержимого ячеек значений для вкладки "Шум".
+ * \param size Длина битовой последовательности.
+ * \return Отсутствуют.
+*/
+void StudyForm::setBitsNoise(const int &index) {
+    QString data, encodedData;
+    if(algFlag != ALG_1511d) {
+        data = encodedBitSequence[index].first.toString();
+        encodedData = encodedBitSequence[index].second.toString();
+        switch (algFlag) {
+        case NO_ALG: {
+            break;
+        }
+        case ALG_74: {
+            /// \brief Установка значений во вкладке "Шум"
+            ui->labelY_id_74_2_7->setText(encodedData.at(0));
+            ui->labelY_id_74_2_6->setText(encodedData.at(1));
+            ui->labelY_id_74_2_5->setText(encodedData.at(2));
+            ui->labelY_id_74_2_4->setText(encodedData.at(3));
+            ui->labelY_id_74_2_3->setText(encodedData.at(4));
+            ui->labelY_id_74_2_2->setText(encodedData.at(5));
+            ui->labelY_id_74_2_1->setText(encodedData.at(6));
+            ui->labelY_od_74_2_7->setText(encodedData.at(0));
+            ui->labelY_od_74_2_6->setText(encodedData.at(1));
+            ui->labelY_od_74_2_5->setText(encodedData.at(2));
+            ui->labelY_od_74_2_4->setText(encodedData.at(3));
+            ui->labelY_od_74_2_3->setText(encodedData.at(4));
+            ui->labelY_od_74_2_2->setText(encodedData.at(5));
+            ui->labelY_od_74_2_1->setText(encodedData.at(6));
+            break;
+        }
+        case ALG_84: {
+            ui->labelY_id_84_2_8->setText(encodedData.at(0));
+            ui->labelY_id_84_2_7->setText(encodedData.at(1));
+            ui->labelY_id_84_2_6->setText(encodedData.at(2));
+            ui->labelY_id_84_2_5->setText(encodedData.at(3));
+            ui->labelY_id_84_2_4->setText(encodedData.at(4));
+            ui->labelY_id_84_2_3->setText(encodedData.at(5));
+            ui->labelY_id_84_2_2->setText(encodedData.at(6));
+            ui->labelY_id_84_2_1->setText(encodedData.at(7));
+            ui->labelY_od_84_2_8->setText(encodedData.at(0));
+            ui->labelY_od_84_2_7->setText(encodedData.at(1));
+            ui->labelY_od_84_2_6->setText(encodedData.at(2));
+            ui->labelY_od_84_2_5->setText(encodedData.at(3));
+            ui->labelY_od_84_2_4->setText(encodedData.at(4));
+            ui->labelY_od_84_2_3->setText(encodedData.at(5));
+            ui->labelY_od_84_2_2->setText(encodedData.at(6));
+            ui->labelY_od_84_2_1->setText(encodedData.at(7));
+            break;
+        }
+        case ALG_1511: {
+            ui->labelY_id_1511_2_15->setText(encodedData.at(0));
+            ui->labelY_id_1511_2_14->setText(encodedData.at(1));
+            ui->labelY_id_1511_2_13->setText(encodedData.at(2));
+            ui->labelY_id_1511_2_12->setText(encodedData.at(3));
+            ui->labelY_id_1511_2_11->setText(encodedData.at(4));
+            ui->labelY_id_1511_2_10->setText(encodedData.at(5));
+            ui->labelY_id_1511_2_9->setText(encodedData.at(6));
+            ui->labelY_id_1511_2_8->setText(encodedData.at(7));
+            ui->labelY_id_1511_2_7->setText(encodedData.at(8));
+            ui->labelY_id_1511_2_6->setText(encodedData.at(9));
+            ui->labelY_id_1511_2_5->setText(encodedData.at(10));
+            ui->labelY_id_1511_2_4->setText(encodedData.at(11));
+            ui->labelY_id_1511_2_3->setText(encodedData.at(12));
+            ui->labelY_id_1511_2_2->setText(encodedData.at(13));
+            ui->labelY_id_1511_2_1->setText(encodedData.at(14));
+            ui->labelY_od_1511_2_15->setText(encodedData.at(0));
+            ui->labelY_od_1511_2_14->setText(encodedData.at(1));
+            ui->labelY_od_1511_2_13->setText(encodedData.at(2));
+            ui->labelY_od_1511_2_12->setText(encodedData.at(3));
+            ui->labelY_od_1511_2_11->setText(encodedData.at(4));
+            ui->labelY_od_1511_2_10->setText(encodedData.at(5));
+            ui->labelY_od_1511_2_9->setText(encodedData.at(6));
+            ui->labelY_od_1511_2_8->setText(encodedData.at(7));
+            ui->labelY_od_1511_2_7->setText(encodedData.at(8));
+            ui->labelY_od_1511_2_6->setText(encodedData.at(9));
+            ui->labelY_od_1511_2_5->setText(encodedData.at(10));
+            ui->labelY_od_1511_2_4->setText(encodedData.at(11));
+            ui->labelY_od_1511_2_3->setText(encodedData.at(12));
+            ui->labelY_od_1511_2_2->setText(encodedData.at(13));
+            ui->labelY_od_1511_2_1->setText(encodedData.at(14));
+            break;
+        }
+        case ALG_1611: {
+            ui->labelY_id_1611_2_16->setText(encodedData.at(0));
+            ui->labelY_id_1611_2_15->setText(encodedData.at(1));
+            ui->labelY_id_1611_2_14->setText(encodedData.at(2));
+            ui->labelY_id_1611_2_13->setText(encodedData.at(3));
+            ui->labelY_id_1611_2_12->setText(encodedData.at(4));
+            ui->labelY_id_1611_2_11->setText(encodedData.at(5));
+            ui->labelY_id_1611_2_10->setText(encodedData.at(6));
+            ui->labelY_id_1611_2_9->setText(encodedData.at(7));
+            ui->labelY_id_1611_2_8->setText(encodedData.at(8));
+            ui->labelY_id_1611_2_7->setText(encodedData.at(9));
+            ui->labelY_id_1611_2_6->setText(encodedData.at(10));
+            ui->labelY_id_1611_2_5->setText(encodedData.at(11));
+            ui->labelY_id_1611_2_4->setText(encodedData.at(12));
+            ui->labelY_id_1611_2_3->setText(encodedData.at(13));
+            ui->labelY_id_1611_2_2->setText(encodedData.at(14));
+            ui->labelY_id_1611_2_1->setText(encodedData.at(15));
+            ui->labelY_od_1611_2_16->setText(encodedData.at(0));
+            ui->labelY_od_1611_2_15->setText(encodedData.at(1));
+            ui->labelY_od_1611_2_14->setText(encodedData.at(2));
+            ui->labelY_od_1611_2_13->setText(encodedData.at(3));
+            ui->labelY_od_1611_2_12->setText(encodedData.at(4));
+            ui->labelY_od_1611_2_11->setText(encodedData.at(5));
+            ui->labelY_od_1611_2_10->setText(encodedData.at(6));
+            ui->labelY_od_1611_2_9->setText(encodedData.at(7));
+            ui->labelY_od_1611_2_8->setText(encodedData.at(8));
+            ui->labelY_od_1611_2_7->setText(encodedData.at(9));
+            ui->labelY_od_1611_2_6->setText(encodedData.at(10));
+            ui->labelY_od_1611_2_5->setText(encodedData.at(11));
+            ui->labelY_od_1611_2_4->setText(encodedData.at(12));
+            ui->labelY_od_1611_2_3->setText(encodedData.at(13));
+            ui->labelY_od_1611_2_2->setText(encodedData.at(14));
+            ui->labelY_od_1611_2_1->setText(encodedData.at(15));
+            break;
+        }
+        default: {
+            break;
+        }
+        }
+    } else {
+        data = encodedBigInteger[index].first.toString();
+        encodedData = encodedBigInteger[index].second.toString();
+        ui->labelY_id_d1511_2_15->setText(encodedData.at(0));
+        ui->labelY_id_d1511_2_14->setText(encodedData.at(1));
+        ui->labelY_id_d1511_2_13->setText(encodedData.at(2));
+        ui->labelY_id_d1511_2_12->setText(encodedData.at(3));
+        ui->labelY_id_d1511_2_11->setText(encodedData.at(4));
+        ui->labelY_id_d1511_2_10->setText(encodedData.at(5));
+        ui->labelY_id_d1511_2_9->setText(encodedData.at(6));
+        ui->labelY_id_d1511_2_8->setText(encodedData.at(7));
+        ui->labelY_id_d1511_2_7->setText(encodedData.at(8));
+        ui->labelY_id_d1511_2_6->setText(encodedData.at(9));
+        ui->labelY_id_d1511_2_5->setText(encodedData.at(10));
+        ui->labelY_id_d1511_2_4->setText(encodedData.at(11));
+        ui->labelY_id_d1511_2_3->setText(encodedData.at(12));
+        ui->labelY_id_d1511_2_2->setText(encodedData.at(13));
+        ui->labelY_id_d1511_2_1->setText(encodedData.at(14));
+        ui->labelY_od_d1511_2_15->setText(encodedData.at(0));
+        ui->labelY_od_d1511_2_14->setText(encodedData.at(1));
+        ui->labelY_od_d1511_2_13->setText(encodedData.at(2));
+        ui->labelY_od_d1511_2_12->setText(encodedData.at(3));
+        ui->labelY_od_d1511_2_11->setText(encodedData.at(4));
+        ui->labelY_od_d1511_2_10->setText(encodedData.at(5));
+        ui->labelY_od_d1511_2_9->setText(encodedData.at(6));
+        ui->labelY_od_d1511_2_8->setText(encodedData.at(7));
+        ui->labelY_od_d1511_2_7->setText(encodedData.at(8));
+        ui->labelY_od_d1511_2_6->setText(encodedData.at(9));
+        ui->labelY_od_d1511_2_5->setText(encodedData.at(10));
+        ui->labelY_od_d1511_2_4->setText(encodedData.at(11));
+        ui->labelY_od_d1511_2_3->setText(encodedData.at(12));
+        ui->labelY_od_d1511_2_2->setText(encodedData.at(13));
+        ui->labelY_od_d1511_2_1->setText(encodedData.at(14));
+    }
+    if (algFlag == ALG_74 || algFlag == ALG_84) {
+        ui->labelX_d_74_2_4->setText(data.at(0));
+        ui->labelX_d_74_2_3->setText(data.at(1));
+        ui->labelX_d_74_2_2->setText(data.at(2));
+        ui->labelX_d_74_2_1->setText(data.at(3));
+    } else if (algFlag != NO_ALG) {
+        ui->labelX_d_1511_2_8->setText(data.at(0));
+        ui->labelX_d_1511_2_7->setText(data.at(1));
+        ui->labelX_d_1511_2_6->setText(data.at(2));
+        ui->labelX_d_1511_2_5->setText(data.at(3));
+        ui->labelX_d_1511_2_4->setText(data.at(4));
+        ui->labelX_d_1511_2_3->setText(data.at(5));
+        ui->labelX_d_1511_2_2->setText(data.at(6));
+        ui->labelX_d_1511_2_1->setText(data.at(7));
     }
 }
 
