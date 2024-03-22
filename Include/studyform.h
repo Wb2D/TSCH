@@ -101,6 +101,8 @@ private:
     void resetPage1511d();
     void resetData();
     void resetNS();
+    void resetLabelXd11();
+    void resetLabelXd4();
     void setEnabledNS(const bool&);
 
     static const QRegularExpression BINARY_REGEX;
@@ -144,10 +146,13 @@ private:
     QPoint mPosition;
     //bool wFlag;
     bool aFlag;
-    BitSequence bitSequence;
-    EncodedBitSequence encodedBitSequence;
-    BigInteger bigInteger;
-    EncodedBigInteger encodedBigInteger;
+    BitSequence bitSeq;
+    EncodedBitSequence clearEncodedBitSeq;
+    EncodedBitSequence modEncodedBitSeq;
+    BigInteger bigInt;
+    EncodedBigInteger clearEncodedBigInt;
+    EncodedBigInteger modEncodedBigInt;
+    //EncodedBigInteger e
     //QRect wGeometry;
     static const int BLUR_RADIUS_1 = 8;
     static const int BLUR_RADIUS_2 = 4;

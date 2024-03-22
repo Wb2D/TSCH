@@ -30,10 +30,12 @@ StudyForm::StudyForm(QWidget *parent) :
     typeFlag = NO_TYPE;
     numberFlag = NO_SYSTEM;
     algFlag = NO_ALG;
-    bitSequence = BitSequence();
-    encodedBitSequence = EncodedBitSequence();
-    bigInteger = BigInteger();
-    encodedBigInteger = EncodedBigInteger();
+    bitSeq = BitSequence();
+    clearEncodedBitSeq = EncodedBitSequence();
+    modEncodedBitSeq = EncodedBitSequence();
+    bigInt = BigInteger();
+    clearEncodedBigInt = EncodedBigInteger();
+    modEncodedBigInt = EncodedBigInteger();
     ui->frame_6->setStackedWidget(ui->stackedWidget);
     ui->frame_4->setStackedWidget(ui->stackedWidget);
     ui->frame_5->setStackedWidget(ui->stackedWidget);
@@ -486,9 +488,9 @@ void StudyForm::on_pushButtonEncode_clicked() {
         bool dataFlag = false;
         if(typeFlag == TEXT) {
             dataFlag = true;
-            Converter::toBinary(bitSequence, data);
+            Converter::toBinary(bitSeq, data);
         } else {
-            Converter::toBinary(bitSequence, data, numberFlag);
+            Converter::toBinary(bitSeq, data, numberFlag);
             switch (numberFlag) {
             case NO_SYSTEM: {
                 break;
@@ -529,34 +531,39 @@ void StudyForm::on_pushButtonEncode_clicked() {
                 break;
             }
             case ALG_74: {
-                setListSeq(4, bitSequence, ui->listWidget);
-                setListSeq(4, bitSequence, ui->listWidget_2);
-                encodedBitSequence = Encoder74::start(bitSequence);
+                setListSeq(4, bitSeq, ui->listWidget);
+                setListSeq(4, bitSeq, ui->listWidget_2);
+                clearEncodedBitSeq = Encoder74::start(bitSeq);
+                modEncodedBitSeq = clearEncodedBitSeq;
                 break;
             }
             case ALG_84: {
-                setListSeq(4, bitSequence, ui->listWidget);
-                setListSeq(4, bitSequence, ui->listWidget_2);
-                encodedBitSequence = Encoder84::start(bitSequence);
+                setListSeq(4, bitSeq, ui->listWidget);
+                setListSeq(4, bitSeq, ui->listWidget_2);
+                clearEncodedBitSeq = Encoder84::start(bitSeq);
+                modEncodedBitSeq = clearEncodedBitSeq;
                 break;
             }
             case ALG_1511: {
-                setListSeq(11, bitSequence, ui->listWidget);
-                setListSeq(11, bitSequence, ui->listWidget_2);
-                encodedBitSequence = Encoder1511::start(bitSequence);
+                setListSeq(11, bitSeq, ui->listWidget);
+                setListSeq(11, bitSeq, ui->listWidget_2);
+                clearEncodedBitSeq = Encoder1511::start(bitSeq);
+                modEncodedBitSeq = clearEncodedBitSeq;
                 break;
             }
             case ALG_1611: {
-                setListSeq(11, bitSequence, ui->listWidget);
-                setListSeq(11, bitSequence, ui->listWidget_2);
-                encodedBitSequence = Encoder1611::start(bitSequence);
+                setListSeq(11, bitSeq, ui->listWidget);
+                setListSeq(11, bitSeq, ui->listWidget_2);
+                clearEncodedBitSeq = Encoder1611::start(bitSeq);
+                modEncodedBitSeq = clearEncodedBitSeq;
                 break;
             }
             case ALG_1511d: {
-                bigInteger = BigInteger(data);
-                setListInt(11, bigInteger, ui->listWidget);
-                setListInt(11, bigInteger, ui->listWidget_2);
-                encodedBigInteger = EncoderDecimal1511::start(bigInteger);
+                bigInt = BigInteger(data);
+                setListInt(11, bigInt, ui->listWidget);
+                setListInt(11, bigInt, ui->listWidget_2);
+                clearEncodedBigInt = EncoderDecimal1511::start(bigInt);
+                modEncodedBigInt = clearEncodedBigInt;
                 break;
             }
             }
@@ -618,8 +625,8 @@ void StudyForm::setListInt(const int &size, const BigInteger &data, QListWidget 
 void StudyForm::setBitsEncoding(const int &index) {
     QString data, encodedData;
     if(algFlag != ALG_1511d) {
-        data = encodedBitSequence[index].first.toString();
-        encodedData = encodedBitSequence[index].second.toString();
+        data = clearEncodedBitSeq[index].first.toString();
+        encodedData = clearEncodedBitSeq[index].second.toString();
         switch (algFlag) {
         case NO_ALG: {
             break;
@@ -722,8 +729,8 @@ void StudyForm::setBitsEncoding(const int &index) {
         }
     } else {
         /// \brief Установка значений во вкладке "Кодирование"
-        data = encodedBigInteger[index].first.toString();
-        encodedData = encodedBigInteger[index].second.toString();
+        data = clearEncodedBigInt[index].first.toString();
+        encodedData = clearEncodedBigInt[index].second.toString();
         ui->labelX_id_d1511_11->setText(data.at(0));
         ui->labelX_id_d1511_10->setText(data.at(1));
         ui->labelX_id_d1511_9->setText(data.at(2));
@@ -760,10 +767,11 @@ void StudyForm::setBitsEncoding(const int &index) {
  * \return Отсутствуют.
 */
 void StudyForm::setBitsNoise(const int &index) {
-    QString data, encodedData;
+    QString data, encodedData, modData;
     if(algFlag != ALG_1511d) {
-        data = encodedBitSequence[index].first.toString();
-        encodedData = encodedBitSequence[index].second.toString();
+        data = clearEncodedBitSeq[index].first.toString();
+        encodedData = clearEncodedBitSeq[index].second.toString();
+        modData = modEncodedBitSeq[index].second.toString();
         switch (algFlag) {
         case NO_ALG: {
             break;
@@ -777,13 +785,13 @@ void StudyForm::setBitsNoise(const int &index) {
             ui->labelY_id_74_2_3->setText(encodedData.at(4));
             ui->labelY_id_74_2_2->setText(encodedData.at(5));
             ui->labelY_id_74_2_1->setText(encodedData.at(6));
-            ui->labelY_od_74_2_7->setText(encodedData.at(0));
-            ui->labelY_od_74_2_6->setText(encodedData.at(1));
-            ui->labelY_od_74_2_5->setText(encodedData.at(2));
-            ui->labelY_od_74_2_4->setText(encodedData.at(3));
-            ui->labelY_od_74_2_3->setText(encodedData.at(4));
-            ui->labelY_od_74_2_2->setText(encodedData.at(5));
-            ui->labelY_od_74_2_1->setText(encodedData.at(6));
+            ui->labelY_od_74_2_7->setText(modData.at(0));
+            ui->labelY_od_74_2_6->setText(modData.at(1));
+            ui->labelY_od_74_2_5->setText(modData.at(2));
+            ui->labelY_od_74_2_4->setText(modData.at(3));
+            ui->labelY_od_74_2_3->setText(modData.at(4));
+            ui->labelY_od_74_2_2->setText(modData.at(5));
+            ui->labelY_od_74_2_1->setText(modData.at(6));
             break;
         }
         case ALG_84: {
@@ -795,14 +803,14 @@ void StudyForm::setBitsNoise(const int &index) {
             ui->labelY_id_84_2_3->setText(encodedData.at(5));
             ui->labelY_id_84_2_2->setText(encodedData.at(6));
             ui->labelY_id_84_2_1->setText(encodedData.at(7));
-            ui->labelY_od_84_2_8->setText(encodedData.at(0));
-            ui->labelY_od_84_2_7->setText(encodedData.at(1));
-            ui->labelY_od_84_2_6->setText(encodedData.at(2));
-            ui->labelY_od_84_2_5->setText(encodedData.at(3));
-            ui->labelY_od_84_2_4->setText(encodedData.at(4));
-            ui->labelY_od_84_2_3->setText(encodedData.at(5));
-            ui->labelY_od_84_2_2->setText(encodedData.at(6));
-            ui->labelY_od_84_2_1->setText(encodedData.at(7));
+            ui->labelY_od_84_2_8->setText(modData.at(0));
+            ui->labelY_od_84_2_7->setText(modData.at(1));
+            ui->labelY_od_84_2_6->setText(modData.at(2));
+            ui->labelY_od_84_2_5->setText(modData.at(3));
+            ui->labelY_od_84_2_4->setText(modData.at(4));
+            ui->labelY_od_84_2_3->setText(modData.at(5));
+            ui->labelY_od_84_2_2->setText(modData.at(6));
+            ui->labelY_od_84_2_1->setText(modData.at(7));
             break;
         }
         case ALG_1511: {
@@ -821,21 +829,21 @@ void StudyForm::setBitsNoise(const int &index) {
             ui->labelY_id_1511_2_3->setText(encodedData.at(12));
             ui->labelY_id_1511_2_2->setText(encodedData.at(13));
             ui->labelY_id_1511_2_1->setText(encodedData.at(14));
-            ui->labelY_od_1511_2_15->setText(encodedData.at(0));
-            ui->labelY_od_1511_2_14->setText(encodedData.at(1));
-            ui->labelY_od_1511_2_13->setText(encodedData.at(2));
-            ui->labelY_od_1511_2_12->setText(encodedData.at(3));
-            ui->labelY_od_1511_2_11->setText(encodedData.at(4));
-            ui->labelY_od_1511_2_10->setText(encodedData.at(5));
-            ui->labelY_od_1511_2_9->setText(encodedData.at(6));
-            ui->labelY_od_1511_2_8->setText(encodedData.at(7));
-            ui->labelY_od_1511_2_7->setText(encodedData.at(8));
-            ui->labelY_od_1511_2_6->setText(encodedData.at(9));
-            ui->labelY_od_1511_2_5->setText(encodedData.at(10));
-            ui->labelY_od_1511_2_4->setText(encodedData.at(11));
-            ui->labelY_od_1511_2_3->setText(encodedData.at(12));
-            ui->labelY_od_1511_2_2->setText(encodedData.at(13));
-            ui->labelY_od_1511_2_1->setText(encodedData.at(14));
+            ui->labelY_od_1511_2_15->setText(modData.at(0));
+            ui->labelY_od_1511_2_14->setText(modData.at(1));
+            ui->labelY_od_1511_2_13->setText(modData.at(2));
+            ui->labelY_od_1511_2_12->setText(modData.at(3));
+            ui->labelY_od_1511_2_11->setText(modData.at(4));
+            ui->labelY_od_1511_2_10->setText(modData.at(5));
+            ui->labelY_od_1511_2_9->setText(modData.at(6));
+            ui->labelY_od_1511_2_8->setText(modData.at(7));
+            ui->labelY_od_1511_2_7->setText(modData.at(8));
+            ui->labelY_od_1511_2_6->setText(modData.at(9));
+            ui->labelY_od_1511_2_5->setText(modData.at(10));
+            ui->labelY_od_1511_2_4->setText(modData.at(11));
+            ui->labelY_od_1511_2_3->setText(modData.at(12));
+            ui->labelY_od_1511_2_2->setText(modData.at(13));
+            ui->labelY_od_1511_2_1->setText(modData.at(14));
             break;
         }
         case ALG_1611: {
@@ -855,22 +863,22 @@ void StudyForm::setBitsNoise(const int &index) {
             ui->labelY_id_1611_2_3->setText(encodedData.at(13));
             ui->labelY_id_1611_2_2->setText(encodedData.at(14));
             ui->labelY_id_1611_2_1->setText(encodedData.at(15));
-            ui->labelY_od_1611_2_16->setText(encodedData.at(0));
-            ui->labelY_od_1611_2_15->setText(encodedData.at(1));
-            ui->labelY_od_1611_2_14->setText(encodedData.at(2));
-            ui->labelY_od_1611_2_13->setText(encodedData.at(3));
-            ui->labelY_od_1611_2_12->setText(encodedData.at(4));
-            ui->labelY_od_1611_2_11->setText(encodedData.at(5));
-            ui->labelY_od_1611_2_10->setText(encodedData.at(6));
-            ui->labelY_od_1611_2_9->setText(encodedData.at(7));
-            ui->labelY_od_1611_2_8->setText(encodedData.at(8));
-            ui->labelY_od_1611_2_7->setText(encodedData.at(9));
-            ui->labelY_od_1611_2_6->setText(encodedData.at(10));
-            ui->labelY_od_1611_2_5->setText(encodedData.at(11));
-            ui->labelY_od_1611_2_4->setText(encodedData.at(12));
-            ui->labelY_od_1611_2_3->setText(encodedData.at(13));
-            ui->labelY_od_1611_2_2->setText(encodedData.at(14));
-            ui->labelY_od_1611_2_1->setText(encodedData.at(15));
+            ui->labelY_od_1611_2_16->setText(modData.at(0));
+            ui->labelY_od_1611_2_15->setText(modData.at(1));
+            ui->labelY_od_1611_2_14->setText(modData.at(2));
+            ui->labelY_od_1611_2_13->setText(modData.at(3));
+            ui->labelY_od_1611_2_12->setText(modData.at(4));
+            ui->labelY_od_1611_2_11->setText(modData.at(5));
+            ui->labelY_od_1611_2_10->setText(modData.at(6));
+            ui->labelY_od_1611_2_9->setText(modData.at(7));
+            ui->labelY_od_1611_2_8->setText(modData.at(8));
+            ui->labelY_od_1611_2_7->setText(modData.at(9));
+            ui->labelY_od_1611_2_6->setText(modData.at(10));
+            ui->labelY_od_1611_2_5->setText(modData.at(11));
+            ui->labelY_od_1611_2_4->setText(modData.at(12));
+            ui->labelY_od_1611_2_3->setText(modData.at(13));
+            ui->labelY_od_1611_2_2->setText(modData.at(14));
+            ui->labelY_od_1611_2_1->setText(modData.at(15));
             break;
         }
         default: {
@@ -878,8 +886,9 @@ void StudyForm::setBitsNoise(const int &index) {
         }
         }
     } else {
-        data = encodedBigInteger[index].first.toString();
-        encodedData = encodedBigInteger[index].second.toString();
+        data = clearEncodedBigInt[index].first.toString();
+        encodedData = clearEncodedBigInt[index].second.toString();
+        modData = modEncodedBigInt[index].second.toString();
         ui->labelY_id_d1511_2_15->setText(encodedData.at(0));
         ui->labelY_id_d1511_2_14->setText(encodedData.at(1));
         ui->labelY_id_d1511_2_13->setText(encodedData.at(2));
@@ -895,21 +904,21 @@ void StudyForm::setBitsNoise(const int &index) {
         ui->labelY_id_d1511_2_3->setText(encodedData.at(12));
         ui->labelY_id_d1511_2_2->setText(encodedData.at(13));
         ui->labelY_id_d1511_2_1->setText(encodedData.at(14));
-        ui->labelY_od_d1511_2_15->setText(encodedData.at(0));
-        ui->labelY_od_d1511_2_14->setText(encodedData.at(1));
-        ui->labelY_od_d1511_2_13->setText(encodedData.at(2));
-        ui->labelY_od_d1511_2_12->setText(encodedData.at(3));
-        ui->labelY_od_d1511_2_11->setText(encodedData.at(4));
-        ui->labelY_od_d1511_2_10->setText(encodedData.at(5));
-        ui->labelY_od_d1511_2_9->setText(encodedData.at(6));
-        ui->labelY_od_d1511_2_8->setText(encodedData.at(7));
-        ui->labelY_od_d1511_2_7->setText(encodedData.at(8));
-        ui->labelY_od_d1511_2_6->setText(encodedData.at(9));
-        ui->labelY_od_d1511_2_5->setText(encodedData.at(10));
-        ui->labelY_od_d1511_2_4->setText(encodedData.at(11));
-        ui->labelY_od_d1511_2_3->setText(encodedData.at(12));
-        ui->labelY_od_d1511_2_2->setText(encodedData.at(13));
-        ui->labelY_od_d1511_2_1->setText(encodedData.at(14));
+        ui->labelY_od_d1511_2_15->setText(modData.at(0));
+        ui->labelY_od_d1511_2_14->setText(modData.at(1));
+        ui->labelY_od_d1511_2_13->setText(modData.at(2));
+        ui->labelY_od_d1511_2_12->setText(modData.at(3));
+        ui->labelY_od_d1511_2_11->setText(modData.at(4));
+        ui->labelY_od_d1511_2_10->setText(modData.at(5));
+        ui->labelY_od_d1511_2_9->setText(modData.at(6));
+        ui->labelY_od_d1511_2_8->setText(modData.at(7));
+        ui->labelY_od_d1511_2_7->setText(modData.at(8));
+        ui->labelY_od_d1511_2_6->setText(modData.at(9));
+        ui->labelY_od_d1511_2_5->setText(modData.at(10));
+        ui->labelY_od_d1511_2_4->setText(modData.at(11));
+        ui->labelY_od_d1511_2_3->setText(modData.at(12));
+        ui->labelY_od_d1511_2_2->setText(modData.at(13));
+        ui->labelY_od_d1511_2_1->setText(modData.at(14));
     }
     if (algFlag == ALG_74 || algFlag == ALG_84) {
         ui->labelX_d_74_2_4->setText(data.at(0));
@@ -917,14 +926,17 @@ void StudyForm::setBitsNoise(const int &index) {
         ui->labelX_d_74_2_2->setText(data.at(2));
         ui->labelX_d_74_2_1->setText(data.at(3));
     } else if (algFlag != NO_ALG) {
-        ui->labelX_d_1511_2_8->setText(data.at(0));
-        ui->labelX_d_1511_2_7->setText(data.at(1));
-        ui->labelX_d_1511_2_6->setText(data.at(2));
-        ui->labelX_d_1511_2_5->setText(data.at(3));
-        ui->labelX_d_1511_2_4->setText(data.at(4));
-        ui->labelX_d_1511_2_3->setText(data.at(5));
-        ui->labelX_d_1511_2_2->setText(data.at(6));
-        ui->labelX_d_1511_2_1->setText(data.at(7));
+        ui->labelX_d_1511_2_11->setText(data.at(0));
+        ui->labelX_d_1511_2_10->setText(data.at(1));
+        ui->labelX_d_1511_2_9->setText(data.at(2));
+        ui->labelX_d_1511_2_8->setText(data.at(3));
+        ui->labelX_d_1511_2_7->setText(data.at(4));
+        ui->labelX_d_1511_2_6->setText(data.at(5));
+        ui->labelX_d_1511_2_5->setText(data.at(6));
+        ui->labelX_d_1511_2_4->setText(data.at(7));
+        ui->labelX_d_1511_2_3->setText(data.at(8));
+        ui->labelX_d_1511_2_2->setText(data.at(9));
+        ui->labelX_d_1511_2_1->setText(data.at(10));
     }
 }
 
@@ -990,6 +1002,21 @@ void StudyForm::resetPage74() {
     ui->labelY_od_74_3->clear();
     ui->labelY_od_74_2->clear();
     ui->labelY_od_74_1->clear();
+    ui->labelY_id_74_2_7->clear();
+    ui->labelY_id_74_2_6->clear();
+    ui->labelY_id_74_2_5->clear();
+    ui->labelY_id_74_2_4->clear();
+    ui->labelY_id_74_2_3->clear();
+    ui->labelY_id_74_2_2->clear();
+    ui->labelY_id_74_2_1->clear();
+    ui->labelY_od_74_2_7->clear();
+    ui->labelY_od_74_2_6->clear();
+    ui->labelY_od_74_2_5->clear();
+    ui->labelY_od_74_2_4->clear();
+    ui->labelY_od_74_2_3->clear();
+    ui->labelY_od_74_2_2->clear();
+    ui->labelY_od_74_2_1->clear();
+    resetLabelXd4();
 }
 
 
@@ -1011,6 +1038,23 @@ void StudyForm::resetPage84() {
     ui->labelY_od_84_3->clear();
     ui->labelY_od_84_2->clear();
     ui->labelY_od_84_1->clear();
+    ui->labelY_id_84_2_8->clear();
+    ui->labelY_id_84_2_7->clear();
+    ui->labelY_id_84_2_6->clear();
+    ui->labelY_id_84_2_5->clear();
+    ui->labelY_id_84_2_4->clear();
+    ui->labelY_id_84_2_3->clear();
+    ui->labelY_id_84_2_2->clear();
+    ui->labelY_id_84_2_1->clear();
+    ui->labelY_od_84_2_8->clear();
+    ui->labelY_od_84_2_7->clear();
+    ui->labelY_od_84_2_6->clear();
+    ui->labelY_od_84_2_5->clear();
+    ui->labelY_od_84_2_4->clear();
+    ui->labelY_od_84_2_3->clear();
+    ui->labelY_od_84_2_2->clear();
+    ui->labelY_od_84_2_1->clear();
+    resetLabelXd4();
 }
 
 
@@ -1046,6 +1090,37 @@ void StudyForm::resetPage1511() {
     ui->labelY_id_1511_3->clear();
     ui->labelY_id_1511_2->clear();
     ui->labelY_id_1511_1->clear();
+    ui->labelY_id_1511_2_15->clear();
+    ui->labelY_id_1511_2_14->clear();
+    ui->labelY_id_1511_2_13->clear();
+    ui->labelY_id_1511_2_12->clear();
+    ui->labelY_id_1511_2_11->clear();
+    ui->labelY_id_1511_2_10->clear();
+    ui->labelY_id_1511_2_9->clear();
+    ui->labelY_id_1511_2_8->clear();
+    ui->labelY_id_1511_2_7->clear();
+    ui->labelY_id_1511_2_6->clear();
+    ui->labelY_id_1511_2_5->clear();
+    ui->labelY_id_1511_2_4->clear();
+    ui->labelY_id_1511_2_3->clear();
+    ui->labelY_id_1511_2_2->clear();
+    ui->labelY_id_1511_2_1->clear();
+    ui->labelY_od_1511_2_15->clear();
+    ui->labelY_od_1511_2_14->clear();
+    ui->labelY_od_1511_2_13->clear();
+    ui->labelY_od_1511_2_12->clear();
+    ui->labelY_od_1511_2_11->clear();
+    ui->labelY_od_1511_2_10->clear();
+    ui->labelY_od_1511_2_9->clear();
+    ui->labelY_od_1511_2_8->clear();
+    ui->labelY_od_1511_2_7->clear();
+    ui->labelY_od_1511_2_6->clear();
+    ui->labelY_od_1511_2_5->clear();
+    ui->labelY_od_1511_2_4->clear();
+    ui->labelY_od_1511_2_3->clear();
+    ui->labelY_od_1511_2_2->clear();
+    ui->labelY_od_1511_2_1->clear();
+    resetLabelXd11();
 }
 
 
@@ -1082,6 +1157,39 @@ void StudyForm::resetPage1611() {
     ui->labelY_id_1611_3->clear();
     ui->labelY_id_1611_2->clear();
     ui->labelY_id_1611_1->clear();
+    ui->labelY_id_1611_2_16->clear();
+    ui->labelY_id_1611_2_15->clear();
+    ui->labelY_id_1611_2_14->clear();
+    ui->labelY_id_1611_2_13->clear();
+    ui->labelY_id_1611_2_12->clear();
+    ui->labelY_id_1611_2_11->clear();
+    ui->labelY_id_1611_2_10->clear();
+    ui->labelY_id_1611_2_9->clear();
+    ui->labelY_id_1611_2_8->clear();
+    ui->labelY_id_1611_2_7->clear();
+    ui->labelY_id_1611_2_6->clear();
+    ui->labelY_id_1611_2_5->clear();
+    ui->labelY_id_1611_2_4->clear();
+    ui->labelY_id_1611_2_3->clear();
+    ui->labelY_id_1611_2_2->clear();
+    ui->labelY_id_1611_2_1->clear();
+    ui->labelY_od_1611_2_16->clear();
+    ui->labelY_od_1611_2_15->clear();
+    ui->labelY_od_1611_2_14->clear();
+    ui->labelY_od_1611_2_13->clear();
+    ui->labelY_od_1611_2_12->clear();
+    ui->labelY_od_1611_2_11->clear();
+    ui->labelY_od_1611_2_10->clear();
+    ui->labelY_od_1611_2_9->clear();
+    ui->labelY_od_1611_2_8->clear();
+    ui->labelY_od_1611_2_7->clear();
+    ui->labelY_od_1611_2_6->clear();
+    ui->labelY_od_1611_2_5->clear();
+    ui->labelY_od_1611_2_4->clear();
+    ui->labelY_od_1611_2_3->clear();
+    ui->labelY_od_1611_2_2->clear();
+    ui->labelY_od_1611_2_1->clear();
+    resetLabelXd11();
 }
 
 
@@ -1117,8 +1225,73 @@ void StudyForm::resetPage1511d() {
     ui->labelY_id_d1511_3->clear();
     ui->labelY_id_d1511_2->clear();
     ui->labelY_id_d1511_1->clear();
+    ui->labelY_id_d1511_2_15->clear();
+    ui->labelY_id_d1511_2_14->clear();
+    ui->labelY_id_d1511_2_13->clear();
+    ui->labelY_id_d1511_2_12->clear();
+    ui->labelY_id_d1511_2_11->clear();
+    ui->labelY_id_d1511_2_10->clear();
+    ui->labelY_id_d1511_2_9->clear();
+    ui->labelY_id_d1511_2_8->clear();
+    ui->labelY_id_d1511_2_7->clear();
+    ui->labelY_id_d1511_2_6->clear();
+    ui->labelY_id_d1511_2_5->clear();
+    ui->labelY_id_d1511_2_4->clear();
+    ui->labelY_id_d1511_2_3->clear();
+    ui->labelY_id_d1511_2_2->clear();
+    ui->labelY_id_d1511_2_1->clear();
+    ui->labelY_od_d1511_2_15->clear();
+    ui->labelY_od_d1511_2_14->clear();
+    ui->labelY_od_d1511_2_13->clear();
+    ui->labelY_od_d1511_2_12->clear();
+    ui->labelY_od_d1511_2_11->clear();
+    ui->labelY_od_d1511_2_10->clear();
+    ui->labelY_od_d1511_2_9->clear();
+    ui->labelY_od_d1511_2_8->clear();
+    ui->labelY_od_d1511_2_7->clear();
+    ui->labelY_od_d1511_2_6->clear();
+    ui->labelY_od_d1511_2_5->clear();
+    ui->labelY_od_d1511_2_4->clear();
+    ui->labelY_od_d1511_2_3->clear();
+    ui->labelY_od_d1511_2_2->clear();
+    ui->labelY_od_d1511_2_1->clear();
+    resetLabelXd11();
 }
 
+
+/*!
+ * \brief Очистка ячеек исходных данных во вкладке Шум для страницы для 11 бит.
+ * \details Осуществляет переход  на вкладку интерфейса "Кодирование".
+ * \param Отсутствуют.
+ * \return Отсутствуют.
+*/
+void StudyForm::resetLabelXd11() {
+    ui->labelX_d_1511_2_11->clear();
+    ui->labelX_d_1511_2_10->clear();
+    ui->labelX_d_1511_2_9->clear();
+    ui->labelX_d_1511_2_8->clear();
+    ui->labelX_d_1511_2_7->clear();
+    ui->labelX_d_1511_2_6->clear();
+    ui->labelX_d_1511_2_5->clear();
+    ui->labelX_d_1511_2_4->clear();
+    ui->labelX_d_1511_2_3->clear();
+    ui->labelX_d_1511_2_2->clear();
+    ui->labelX_d_1511_2_1->clear();
+}
+
+
+/*!
+ * \brief Очистка ячеек исходных данных во вкладке Шум для страницы для 4 бит.
+ * \details Осуществляет переход  на вкладку интерфейса "Кодирование".
+ * \param Отсутствуют.
+ * \return Отсутствуют.
+*/
+void StudyForm::resetLabelXd4() {
+    ui->labelX_d_74_2_4->clear();
+    ui->labelX_d_74_2_3->clear();
+    ui->labelX_d_74_2_2->clear();
+    ui->labelX_d_74_2_1->clear();
+}
 
 /*!
  * \brief Метод для сброса содержимого всех вкладов кодирования.
@@ -1127,6 +1300,7 @@ void StudyForm::resetPage1511d() {
 */
 void StudyForm::resetData() {
     ui->listWidget->clear();
+    ui->listWidget_2->clear();
     resetPage74();
     resetPage84();
     resetPage1511();
