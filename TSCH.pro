@@ -46,6 +46,7 @@ HEADERS += \
     HammingCodeEngine\Encoder\HammingCode\Encoder74\Encoder74.h \
     HammingCodeEngine\Encoder\HammingCode\Encoder84\encoder84.h \
     HammingCodeEngine\Encoder\HammingCode\EncoderDecimal1511\encoderDecimal1511.h \
+    Include\clickableLabel.h \
     Include\global.h \
     Include\notificationform.h \
     Include\frame.h \

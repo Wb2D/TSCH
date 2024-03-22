@@ -12,6 +12,7 @@
 //#include <QSizeGrip>
 
 #include "Include/notificationform.h"
+#include "Include/clickableLabel.h"
 
 #include "HammingCodeEngine/DataWorker/BitSequence/bitSequence.h"
 #include "HammingCodeEngine/DataWorker/BitSequence/EncodedBitSequence/encodedBitSequence.h"
@@ -72,6 +73,7 @@ protected:
     //void mouseDoubleClickEvent(QMouseEvent*) override;
 
 private slots:
+    /// \brief Слоты для вкладки Кодирование.
     void on_pushButtonClose_clicked();
     void on_pushButtonMinimize_clicked();
     void on_pushSliderFormInput_clicked();
@@ -84,6 +86,12 @@ private slots:
     void on_pushButtonEncode_clicked();
     void on_pushButtonEncoding_clicked();
     void on_pushButtonNoise_clicked();
+    /// \brief Слоты для вкладки Шум.
+    void on_pushSliderFormInputNoise_clicked();
+    void on_pushSliderErrorType_clicled();
+    void on_pushSliderUseTo_clicked();
+    void on_pushButtonAutoNoise_clicked();
+    void onDataLabel_doubleClicked();
 
 private:
     void setShadow(QWidget*);
@@ -115,7 +123,7 @@ private:
         NO_MODE,
         MANUAL,
         GENERATED,
-    } inputFlag;
+    } inputFlag, noiseFlag;
 
     enum DataType {
         NO_TYPE,
@@ -140,6 +148,18 @@ private:
         ALG_1611,
         ALG_1511d,
     } algFlag;
+
+    enum ErrorType {
+        NO_ERR,
+        SINGLE,
+        DOUBLE,
+    } errorFlag;
+
+    enum ErrorImpact {
+        NO_IMPACT,
+        TO_ALL,
+        TO_CUSTOM,
+    } impactFlag;
 
     Ui::StudyForm *ui;
     //QSizeGrip *sizeGrip;

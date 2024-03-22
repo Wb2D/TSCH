@@ -30,6 +30,9 @@ StudyForm::StudyForm(QWidget *parent) :
     typeFlag = NO_TYPE;
     numberFlag = NO_SYSTEM;
     algFlag = NO_ALG;
+    noiseFlag = NO_MODE;
+    errorFlag = NO_ERR;
+    impactFlag = NO_IMPACT;
     bitSeq = BitSequence();
     clearEncodedBitSeq = EncodedBitSequence();
     modEncodedBitSeq = EncodedBitSequence();
@@ -1331,3 +1334,164 @@ void StudyForm::on_pushButtonNoise_clicked() {
 }
 
 
+/*!
+ * \brief Обработчик нажатия кнопки "Выбор формы ввода".
+ * \details Выбирается ручное добавление или автоматическая генерация.
+ * \param Отсутствуют.
+ * \return Отсутствуют.
+*/
+void StudyForm::on_pushSliderFormInputNoise_clicked() {
+    ui->horizontalSliderError1->setValue(0);
+    ui->horizontalSliderError2->setValue(0);
+    ui->horizontalSliderNoiseToAll->setValue(0);
+    ui->horizontalSliderToCustom->setValue(0);
+    QSlider* senderSlider = qobject_cast<QSlider*>(sender());
+    if (senderSlider == ui->horizontalSliderNoiseManual) {
+        ui->horizontalSliderNoiseAuto->setValue(0);
+        if (senderSlider->value() == 0) {
+            noiseFlag = MANUAL;
+        } else {
+            noiseFlag = NO_MODE;
+        }
+        ui->horizontalSliderError1->setEnabled(false);
+        ui->horizontalSliderError2->setEnabled(false);
+        ui->horizontalSliderNoiseToAll->setEnabled(false);
+        ui->horizontalSliderToCustom->setEnabled(false);
+        ui->pushButtonAutoNoise->setEnabled(false);
+    } else if (senderSlider == ui->horizontalSliderNoiseAuto) {
+        ui->horizontalSliderNoiseManual->setValue(0);
+        if (senderSlider->value() == 0) {
+            noiseFlag = GENERATED;
+            ui->horizontalSliderError1->setEnabled(true);
+            ui->horizontalSliderError2->setEnabled(true);
+            ui->horizontalSliderNoiseToAll->setEnabled(true);
+            ui->horizontalSliderToCustom->setEnabled(true);
+            ui->pushButtonAutoNoise->setEnabled(true);
+        } else {
+            noiseFlag = NO_MODE;
+            ui->horizontalSliderError1->setEnabled(false);
+            ui->horizontalSliderError2->setEnabled(false);
+            ui->horizontalSliderNoiseToAll->setEnabled(false);
+            ui->horizontalSliderToCustom->setEnabled(false);
+            ui->pushButtonAutoNoise->setEnabled(false);
+        }
+    }
+    bool enableButton = senderSlider == ui->horizontalSliderNoiseAuto ||
+            (senderSlider == ui->horizontalSliderNoiseManual && senderSlider->value() != 0);
+    if(enableButton) {
+        removeEffect(ui->frame_15);
+        removeEffect(ui->frame_18);
+        removeEffect(ui->frame_19);
+    } else {
+        setBlur(ui->frame_15, BLUR_RADIUS_2);
+        setBlur(ui->frame_18, BLUR_RADIUS_2);
+        setBlur(ui->frame_19, BLUR_RADIUS_2);
+    }
+    ui->frame_15->update();
+    ui->frame_18->update();
+    ui->frame_19->update();
+}
+
+
+/*!
+ * \brief Обработчик нажатия кнопки "Выбор типа добавляемой ошибки".
+ * \details Выбирается одиночная или двойная ошибка.
+ * \param Отсутствуют.
+ * \return Отсутствуют.
+*/
+void StudyForm::on_pushSliderErrorType_clicled() {
+    QSlider* senderSlider = qobject_cast<QSlider*>(sender());
+    if (senderSlider == ui->horizontalSliderError1) {
+        ui->horizontalSliderError2->setValue(0);
+        if (senderSlider->value() == 0) {
+            errorFlag = SINGLE;
+        } else {
+            errorFlag = NO_ERR;
+        }
+    } else if (senderSlider == ui->horizontalSliderError2) {
+        ui->horizontalSliderError1->setValue(0);
+        if (senderSlider->value() == 0) {
+            errorFlag = DOUBLE;
+        } else {
+            errorFlag = NO_ERR;
+        }
+    }
+}
+
+
+/*!
+ * \brief Обработчик нажатия кнопки "Применить к".
+ * \details Выбирается применение ко всем последовательностям или только в указанным.
+ * \param Отсутствуют.
+ * \return Отсутствуют.
+*/
+void StudyForm::on_pushSliderUseTo_clicked() {
+    QSlider* senderSlider = qobject_cast<QSlider*>(sender());
+    if (senderSlider == ui->horizontalSliderNoiseToAll) {
+        ui->horizontalSliderToCustom->setValue(0);
+        if (senderSlider->value() == 0) {
+            impactFlag = TO_ALL;
+        } else {
+            impactFlag = NO_IMPACT;
+        }
+    } else if (senderSlider == ui->horizontalSliderToCustom) {
+        ui->horizontalSliderNoiseToAll->setValue(0);
+        if (senderSlider->value() == 0) {
+            impactFlag = TO_CUSTOM;
+        } else {
+            impactFlag = NO_IMPACT;
+        }
+    }
+}
+
+
+
+/*!
+ * \brief Обработчик двойного клика по ClickableLabel.
+ * \details Запускает процесс генерации ошибки по заданным параметрам.
+ * \param Отсутствуют.
+ * \return Отсутствуют.
+*/
+void StudyForm::onDataLabel_doubleClicked() {
+    if (noiseFlag == MANUAL) {
+        ClickableLabel *senderLabel = qobject_cast<ClickableLabel*>(sender());
+        int index = 0;
+        switch (algFlag) {
+        case ALG_74: {
+            if (senderLabel == ui->labelY_id_74_2_1) {
+                index = 0;
+            } else if (senderLabel == ui->labelY_id_74_2_2) {
+                index = 1;
+            } else if (senderLabel == ui->labelY_id_74_2_3) {
+                index = 2;
+            } else if (senderLabel == ui->labelY_id_74_2_4) {
+                index = 3;
+            } else if (senderLabel == ui->labelY_id_74_2_5) {
+                index = 4;
+            } else if (senderLabel == ui->labelY_id_74_2_6) {
+                index = 5;
+            } else if(senderLabel == ui->labelY_id_74_2_7) {
+                index = 6;
+            }
+            break;
+        }
+            /// \todo Добавить остальные алгоритмы
+        default:
+            break;
+        }
+        /// \todo Здесь пользователь может не выбрать последовательность и
+        /// кликат в пустоту - его нужно предупредить, что это ни к чему не приведет
+        qDebug() << ui->listWidget_2->currentRow() << " " << index;
+    }
+}
+
+
+/*!
+ * \brief Обработчик нажатия кнопки "Генерация шума".
+ * \details Запускает процесс генерации ошибки по заданным параметрам.
+ * \param Отсутствуют.
+ * \return Отсутствуют.
+*/
+void StudyForm::on_pushButtonAutoNoise_clicked() {
+
+}

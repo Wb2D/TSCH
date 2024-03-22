@@ -25339,6 +25339,9 @@ QSlider::handle:horizontal {
             </item>
             <item row="0" column="1">
              <widget class="QSlider" name="horizontalSliderError1">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
               <property name="minimumSize">
                <size>
                 <width>35</width>
@@ -25451,6 +25454,9 @@ QSlider::handle:horizontal {
             </item>
             <item row="0" column="1">
              <widget class="QSlider" name="horizontalSliderError2">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
               <property name="minimumSize">
                <size>
                 <width>35</width>
@@ -25960,7 +25966,7 @@ QSlider::handle:horizontal {
               <item row="0" column="2">
                <layout class="QGridLayout" name="gridLayout_61">
                 <item row="11" column="0">
-                 <widget class="QLabel" name="labelY_id_74_2_2">
+                 <widget class="ClickableLabel" name="labelY_id_74_2_2">
                   <property name="minimumSize">
                    <size>
                     <width>30</width>
@@ -26034,7 +26040,7 @@ QSlider::handle:horizontal {
                  </spacer>
                 </item>
                 <item row="7" column="0">
-                 <widget class="QLabel" name="labelY_id_74_2_4">
+                 <widget class="ClickableLabel" name="labelY_id_74_2_4">
                   <property name="minimumSize">
                    <size>
                     <width>30</width>
@@ -26069,7 +26075,7 @@ QSlider::handle:horizontal {
                  </widget>
                 </item>
                 <item row="13" column="0">
-                 <widget class="QLabel" name="labelY_id_74_2_1">
+                 <widget class="ClickableLabel" name="labelY_id_74_2_1">
                   <property name="minimumSize">
                    <size>
                     <width>30</width>
@@ -26104,7 +26110,7 @@ QSlider::handle:horizontal {
                  </widget>
                 </item>
                 <item row="9" column="0">
-                 <widget class="QLabel" name="labelY_id_74_2_3">
+                 <widget class="ClickableLabel" name="labelY_id_74_2_3">
                   <property name="minimumSize">
                    <size>
                     <width>30</width>
@@ -26152,7 +26158,7 @@ QSlider::handle:horizontal {
                  </spacer>
                 </item>
                 <item row="3" column="0">
-                 <widget class="QLabel" name="labelY_id_74_2_6">
+                 <widget class="ClickableLabel" name="labelY_id_74_2_6">
                   <property name="minimumSize">
                    <size>
                     <width>30</width>
@@ -26187,7 +26193,7 @@ QSlider::handle:horizontal {
                  </widget>
                 </item>
                 <item row="5" column="0">
-                 <widget class="QLabel" name="labelY_id_74_2_5">
+                 <widget class="ClickableLabel" name="labelY_id_74_2_5">
                   <property name="minimumSize">
                    <size>
                     <width>30</width>
@@ -26235,7 +26241,7 @@ QSlider::handle:horizontal {
                  </spacer>
                 </item>
                 <item row="1" column="0">
-                 <widget class="QLabel" name="labelY_id_74_2_7">
+                 <widget class="ClickableLabel" name="labelY_id_74_2_7">
                   <property name="minimumSize">
                    <size>
                     <width>30</width>
@@ -31869,6 +31875,9 @@ QSlider::handle:horizontal {
             </item>
             <item row="0" column="1">
              <widget class="QSlider" name="horizontalSliderNoiseToAll">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
               <property name="minimumSize">
                <size>
                 <width>35</width>
@@ -31980,7 +31989,10 @@ QSlider::handle:horizontal {
              </spacer>
             </item>
             <item row="0" column="1">
-             <widget class="QSlider" name="horizontalNoiseToCustom">
+             <widget class="QSlider" name="horizontalSliderToCustom">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
               <property name="minimumSize">
                <size>
                 <width>35</width>
@@ -33109,6 +33121,14 @@ QSlider::handle:horizontal {
    <header location="global">Include/frame.h</header>
    <container>1</container>
   </customwidget>
+  <customwidget>
+   <class>ClickableLabel</class>
+   <extends>QLabel</extends>
+   <header>Include/clickablelabel.h</header>
+   <slots>
+    <signal>doubleClicked()</signal>
+   </slots>
+  </customwidget>
  </customwidgets>
  <tabstops>
   <tabstop>pushButtonClose</tabstop>
@@ -33134,8 +33154,8 @@ QSlider::handle:horizontal {
    <slot>on_pushSliderFormInput_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>162</x>
-     <y>152</y>
+     <x>166</x>
+     <y>137</y>
     </hint>
     <hint type="destinationlabel">
      <x>150</x>
@@ -33150,8 +33170,8 @@ QSlider::handle:horizontal {
    <slot>on_pushSliderFormInput_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>160</x>
-     <y>184</y>
+     <x>164</x>
+     <y>169</y>
     </hint>
     <hint type="destinationlabel">
      <x>158</x>
@@ -33166,8 +33186,8 @@ QSlider::handle:horizontal {
    <slot>on_pushSliderDataType_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>162</x>
-     <y>272</y>
+     <x>166</x>
+     <y>145</y>
     </hint>
     <hint type="destinationlabel">
      <x>123</x>
@@ -33182,8 +33202,8 @@ QSlider::handle:horizontal {
    <slot>on_pushSliderDataType_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>162</x>
-     <y>304</y>
+     <x>166</x>
+     <y>177</y>
     </hint>
     <hint type="destinationlabel">
      <x>86</x>
@@ -33198,8 +33218,8 @@ QSlider::handle:horizontal {
    <slot>on_pushSliderNS_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>352</x>
-     <y>265</y>
+     <x>183</x>
+     <y>229</y>
     </hint>
     <hint type="destinationlabel">
      <x>479</x>
@@ -33214,8 +33234,8 @@ QSlider::handle:horizontal {
    <slot>on_pushSliderNS_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>352</x>
-     <y>301</y>
+     <x>183</x>
+     <y>260</y>
     </hint>
     <hint type="destinationlabel">
      <x>362</x>
@@ -33230,8 +33250,8 @@ QSlider::handle:horizontal {
    <slot>on_pushSliderNS_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>352</x>
-     <y>157</y>
+     <x>183</x>
+     <y>136</y>
     </hint>
     <hint type="destinationlabel">
      <x>373</x>
@@ -33246,8 +33266,8 @@ QSlider::handle:horizontal {
    <slot>on_pushSliderNS_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>352</x>
-     <y>193</y>
+     <x>183</x>
+     <y>167</y>
     </hint>
     <hint type="destinationlabel">
      <x>404</x>
@@ -33262,8 +33282,8 @@ QSlider::handle:horizontal {
    <slot>on_pushSliderNS_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>352</x>
-     <y>229</y>
+     <x>183</x>
+     <y>198</y>
     </hint>
     <hint type="destinationlabel">
      <x>440</x>
@@ -33278,8 +33298,8 @@ QSlider::handle:horizontal {
    <slot>on_pushSliderEncoder_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>832</x>
-     <y>132</y>
+     <x>216</x>
+     <y>134</y>
     </hint>
     <hint type="destinationlabel">
      <x>790</x>
@@ -33294,7 +33314,7 @@ QSlider::handle:horizontal {
    <slot>on_pushSliderEncoder_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>813</x>
+     <x>216</x>
      <y>164</y>
     </hint>
     <hint type="destinationlabel">
@@ -33310,8 +33330,8 @@ QSlider::handle:horizontal {
    <slot>on_pushSliderEncoder_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>823</x>
-     <y>203</y>
+     <x>216</x>
+     <y>193</y>
     </hint>
     <hint type="destinationlabel">
      <x>823</x>
@@ -33326,8 +33346,8 @@ QSlider::handle:horizontal {
    <slot>on_pushSliderEncoder_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>835</x>
-     <y>246</y>
+     <x>216</x>
+     <y>223</y>
     </hint>
     <hint type="destinationlabel">
      <x>838</x>
@@ -33342,12 +33362,124 @@ QSlider::handle:horizontal {
    <slot>on_pushSliderEncoder_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>821</x>
-     <y>284</y>
+     <x>216</x>
+     <y>253</y>
     </hint>
     <hint type="destinationlabel">
      <x>836</x>
      <y>49</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>horizontalSliderNoiseManual</sender>
+   <signal>actionTriggered(int)</signal>
+   <receiver>StudyForm</receiver>
+   <slot>on_pushSliderFormInputNoise_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>407</x>
+     <y>124</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>449</x>
+     <y>-3</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>horizontalSliderNoiseAuto</sender>
+   <signal>actionTriggered(int)</signal>
+   <receiver>StudyForm</receiver>
+   <slot>on_pushSliderFormInputNoise_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>432</x>
+     <y>160</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>648</x>
+     <y>-4</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>horizontalSliderError1</sender>
+   <signal>actionTriggered(int)</signal>
+   <receiver>StudyForm</receiver>
+   <slot>on_pushSliderErrorType_clicled()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>421</x>
+     <y>253</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>360</x>
+     <y>-3</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>horizontalSliderError2</sender>
+   <signal>actionTriggered(int)</signal>
+   <receiver>StudyForm</receiver>
+   <slot>on_pushSliderErrorType_clicled()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>413</x>
+     <y>286</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>849</x>
+     <y>0</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>horizontalSliderNoiseToAll</sender>
+   <signal>actionTriggered(int)</signal>
+   <receiver>StudyForm</receiver>
+   <slot>on_pushSliderUseTo_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>416</x>
+     <y>381</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>362</x>
+     <y>751</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>horizontalSliderToCustom</sender>
+   <signal>actionTriggered(int)</signal>
+   <receiver>StudyForm</receiver>
+   <slot>on_pushSliderUseTo_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>426</x>
+     <y>411</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>425</x>
+     <y>751</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>labelY_id_74_2_7</sender>
+   <signal>doubleClicked()</signal>
+   <receiver>StudyForm</receiver>
+   <slot>onDataLabel_doubleClicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>317</x>
+     <y>153</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>377</x>
+     <y>-13</y>
     </hint>
    </hints>
   </connection>
@@ -33358,5 +33490,9 @@ QSlider::handle:horizontal {
   <slot>on_pushSliderNS_clicked()</slot>
   <slot>on_pushButtonViewList()</slot>
   <slot>on_pushSliderEncoder_clicked()</slot>
+  <slot>on_pushSliderFormInputNoise_clicked()</slot>
+  <slot>on_pushSliderErrorType_clicled()</slot>
+  <slot>on_pushSliderUseTo_clicked()</slot>
+  <slot>onDataLabel_doubleClicked()</slot>
  </slots>
 </ui>
