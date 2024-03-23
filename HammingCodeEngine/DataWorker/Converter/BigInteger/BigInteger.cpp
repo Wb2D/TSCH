@@ -170,3 +170,13 @@ BigInteger BigInteger::subdigit(const int &from, const int &to) const {
     }
     return result;
 }
+
+
+/*!
+ * \brief Метод заменяет значение в последовательности на случайное отличное от текущего.
+ * \param index Индекс цифры.
+ * \return Отсутствуют.
+*/
+void BigInteger::distort(const int &index) {
+    data[index] = NumberGenerator::number(0, 9, data[index]);
+}

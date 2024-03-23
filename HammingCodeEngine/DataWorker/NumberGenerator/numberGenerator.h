@@ -21,6 +21,8 @@ class NumberGenerator {
 public:
     static QString generate(const int&, const int&);
     static QString generate(const int&);
+    static int number(const int&, const int&);
+    static int number(const int&, const int&, const int&);
 
 private:
     static const QString arr; //!< Строка с символами для генерации чисел.

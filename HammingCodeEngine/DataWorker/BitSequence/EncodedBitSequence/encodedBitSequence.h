@@ -22,11 +22,11 @@
 
 class EncodedBitSequence {
 public:
-    EncodedBitSequence() : data(), method(0), iteration(0) {    }
+    EncodedBitSequence() : data(), method(0), size(0) {    }
     EncodedBitSequence(const QVector<QPair<BitSequence, BitSequence>> &data, const int &method,
-                       const int &iteration) : data(data), method(method), iteration(iteration) {   }
+                       const int &size) : data(data), method(method), size(size) {   }
     EncodedBitSequence(const EncodedBitSequence &obj)
-        : data(obj.data), method(obj.method),  iteration(obj.iteration) {    }
+        : data(obj.data), method(obj.method),  size(obj.size) {    }
     EncodedBitSequence& operator=(const EncodedBitSequence&);
     QPair<BitSequence, BitSequence>& operator[](int index) { return data[index]; }
     const QPair<BitSequence, BitSequence>& operator[](int index) const { return data[index]; }
@@ -35,13 +35,14 @@ public:
     void addData(const QPair<BitSequence, BitSequence> &pair) { data.push_back(pair); }
     void setMethod(const int &method) { this->method = method; }
     const int &getMethod() const { return method; }
-    void setIteration(const int &iteration) { this->iteration = iteration; }
-    const int &getIteration() const { return iteration; }
+    void setSize(const int &size) { this->size = size; }
+    const int &getSize() const { return size; }
+    void addError(const int&, const int&);
 
 private:
     QVector<QPair<BitSequence, BitSequence>> data; ///< пара из обычной и закодированной посл.
     int method; ///< алгоритм, используемый для кодирование
-    int iteration; ///< число частей, на которые была разбита последовательность при кодировании
+    int size; ///< размер последовательности
 };
 
 

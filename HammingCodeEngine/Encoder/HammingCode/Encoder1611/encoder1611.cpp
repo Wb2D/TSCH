@@ -22,7 +22,7 @@ EncodedBitSequence Encoder1611:: start(const BitSequence &data) {
         result.addData(QPair<BitSequence, BitSequence>(bitSeq, eData));
     }
     result.setMethod(4);
-    result.setIteration(eSize / 11);
+    result.setSize(16);
     return result;
 }
 

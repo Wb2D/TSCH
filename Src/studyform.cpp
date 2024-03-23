@@ -26,13 +26,13 @@ StudyForm::StudyForm(QWidget *parent) :
     //wGeometry = QRect();
     //sizeGrip = new QSizeGrip(this);
     //ui->gridLayout_9->addWidget(sizeGrip, ui->gridLayout_9->columnCount(), Qt::AlignBottom | Qt::AlignRight);
-    inputFlag = NO_MODE;
-    typeFlag = NO_TYPE;
-    numberFlag = NO_SYSTEM;
-    algFlag = NO_ALG;
-    noiseFlag = NO_MODE;
-    errorFlag = NO_ERR;
-    impactFlag = NO_IMPACT;
+    encodeInputFlag = NO_MODE;
+    encodeTypeFlag = NO_TYPE;
+    encodeNumberFlag = NO_SYSTEM;
+    encodeAlgFlag = NO_ALG;
+    noiseInputFlag = NO_MODE;
+    noiseErrorFlag = NO_ERR;
+    noiseImpactFlag = NO_IMPACT;
     bitSeq = BitSequence();
     clearEncodedBitSeq = EncodedBitSequence();
     modEncodedBitSeq = EncodedBitSequence();
@@ -46,11 +46,23 @@ StudyForm::StudyForm(QWidget *parent) :
     ui->frame_9->setStackedWidget(ui->stackedWidget);
     ui->frame_10->setStackedWidget(ui->stackedWidget);
     ui->frame_12->setStackedWidget(ui->stackedWidget);
+    ui->frame_20->setStackedWidget(ui->stackedWidget);
+    ui->frame_16->setStackedWidget(ui->stackedWidget);
+    ui->frame_13->setStackedWidget(ui->stackedWidget);
+    ui->frame_15->setStackedWidget(ui->stackedWidget);
+    ui->frame_18->setStackedWidget(ui->stackedWidget);
+    ui->frame_14->setStackedWidget(ui->stackedWidget);
+    ui->frame_17->setStackedWidget(ui->stackedWidget);
+    connect(ui->textEditData, &QTextEdit::textChanged, this, [=]() {
+        ui->listWidget->clear();
+        ui->listWidget_2->clear();
+        resetData();
+    });
     connect(ui->listWidget, &QListWidget::itemClicked, this, [=](QListWidgetItem *item) {
         setBitsEncoding(ui->listWidget->count() - ui->listWidget->row(item) - 1);
     });
     connect(ui->listWidget_2, &QListWidget::itemClicked, this, [=](QListWidgetItem *item) {
-        setBitsNoise(ui->listWidget_2->count() - ui->listWidget_2->row(item) - 1);
+        setBitsNoise(ui->listWidget_2->count() - ui->listWidget_2->row(item) - 1, false);
     });
 }
 
@@ -250,10 +262,10 @@ void StudyForm::on_pushSliderFormInput_clicked() {
     if (senderSlider == ui->horizontalSliderFormInput_1) {
         ui->horizontalSliderFormInput_2->setValue(0);
         if(senderSlider->value() == 0) {
-            inputFlag = MANUAL;
+            encodeInputFlag = MANUAL;
             ui->textEditData->setReadOnly(false);
         } else {
-            inputFlag = NO_MODE;
+            encodeInputFlag = NO_MODE;
             ui->textEditData->setReadOnly(true);
         }
         ui->spinBoxAmount->setReadOnly(true);
@@ -261,11 +273,11 @@ void StudyForm::on_pushSliderFormInput_clicked() {
     } else if (senderSlider == ui->horizontalSliderFormInput_2) {
         ui->horizontalSliderFormInput_1->setValue(0);
         if(senderSlider->value() == 0) {
-            inputFlag = GENERATED;
+            encodeInputFlag = GENERATED;
             ui->spinBoxAmount->setReadOnly(false);
             ui->pushButtonAutoGen->setEnabled(true);
         } else {
-            inputFlag = NO_MODE;
+            encodeInputFlag = NO_MODE;
             ui->spinBoxAmount->setReadOnly(true);
             ui->pushButtonAutoGen->setEnabled(false);
         }
@@ -294,19 +306,19 @@ void StudyForm::on_pushSliderDataType_clicked() {
     if (senderSlider == ui->horizontalSliderDataType_1) {
         ui->horizontalSliderDataType_2->setValue(0);
         if(senderSlider->value() == 0) {
-            typeFlag = NUMERIC;
+            encodeTypeFlag = NUMERIC;
             setEnabledNS(true);
         } else {
-            typeFlag = NO_TYPE;
+            encodeTypeFlag = NO_TYPE;
             setEnabledNS(false);
         }
     } else if (senderSlider == ui->horizontalSliderDataType_2) {
         ui->horizontalSliderDataType_1->setValue(0);
         if(senderSlider->value() == 0) {
-            typeFlag = TEXT;
+            encodeTypeFlag = TEXT;
             setEnabledNS(false);
         } else {
-            typeFlag = NO_TYPE;
+            encodeTypeFlag = NO_TYPE;
             setEnabledNS(false);
         }
     }
@@ -342,17 +354,17 @@ void StudyForm::on_pushSliderNS_clicked() {
     }
     if (senderSlider->value() == 0) {
         if (senderSlider == ui->horizontalSliderNS2)
-            numberFlag = BINARY;
+            encodeNumberFlag = BINARY;
         else if (senderSlider == ui->horizontalSliderNS4)
-            numberFlag = QUATERNARY;
+            encodeNumberFlag = QUATERNARY;
         else if (senderSlider == ui->horizontalSliderNS8)
-            numberFlag = OCTAL;
+            encodeNumberFlag = OCTAL;
         else if (senderSlider == ui->horizontalSliderNS10)
-            numberFlag = DECIMAL;
+            encodeNumberFlag = DECIMAL;
         else if (senderSlider == ui->horizontalSliderNS16)
-            numberFlag = HEXADECIMAL;
+            encodeNumberFlag = HEXADECIMAL;
     } else {
-        numberFlag = NO_SYSTEM;
+        encodeNumberFlag = NO_SYSTEM;
     }
     bool enableFrame = senderSlider == ui->horizontalSliderNS10 || senderSlider->value() == 1;
     ui->horizontalSliderEncoder1511d->setEnabled(enableFrame);
@@ -386,26 +398,26 @@ void StudyForm::on_pushSliderEncoder_clicked() {
     }
     if (!senderSlider->value()) {
         if(senderSlider == ui->horizontalSliderEncoder74) {
-            algFlag = ALG_74;
+            encodeAlgFlag = ALG_74;
         } else if(senderSlider == ui->horizontalSliderEncoder84) {
-            algFlag = ALG_84;
+            encodeAlgFlag = ALG_84;
         } else if(senderSlider == ui->horizontalSliderEncoder1511) {
-            algFlag = ALG_1511;
+            encodeAlgFlag = ALG_1511;
         } else if(senderSlider == ui->horizontalSliderEncoder1611) {
-            algFlag = ALG_1611;
+            encodeAlgFlag = ALG_1611;
         } else if(senderSlider == ui->horizontalSliderEncoder1511d) {
-            algFlag = ALG_1511d;
+            encodeAlgFlag = ALG_1511d;
         }
-        ui->stackedWidget_2->setCurrentIndex(algFlag);
-        ui->stackedWidget_3->setCurrentIndex(algFlag);
-        ui->stackedWidget_4->setCurrentIndex(algFlag);
-        if (algFlag == ALG_74 || algFlag == ALG_84) {
+        ui->stackedWidget_2->setCurrentIndex(encodeAlgFlag);
+        ui->stackedWidget_3->setCurrentIndex(encodeAlgFlag);
+        ui->stackedWidget_4->setCurrentIndex(encodeAlgFlag);
+        if (encodeAlgFlag == ALG_74 || encodeAlgFlag == ALG_84) {
             ui->stackedWidget_5->setCurrentIndex(0);
-        } else if(algFlag != NO_ALG) {
+        } else if(encodeAlgFlag != NO_ALG) {
             ui->stackedWidget_5->setCurrentIndex(1);
         }
     } else {
-        algFlag = NO_ALG;
+        encodeAlgFlag = NO_ALG;
     }
 }
 
@@ -417,7 +429,7 @@ void StudyForm::on_pushSliderEncoder_clicked() {
  * \return Отсутствуют.
 */
 void StudyForm::on_pushButtonAutoGen_clicked() {
-    switch (typeFlag) {
+    switch (encodeTypeFlag) {
     case NO_TYPE: {
         NotificationForm *notification = new NotificationForm("Генерация невозможна. Выберите тип данных.");
         this->setEnabled(false);
@@ -433,7 +445,7 @@ void StudyForm::on_pushButtonAutoGen_clicked() {
         break;
     }
     case NUMERIC: {
-        switch(numberFlag) {
+        switch(encodeNumberFlag) {
         case NO_SYSTEM: {
             NotificationForm *notification = new NotificationForm("Генерация невозможна. Выберите систему счисления.");
             this->setEnabled(false);
@@ -478,7 +490,7 @@ void StudyForm::on_pushButtonAutoGen_clicked() {
  * \return Отсутствуют.
 */
 void StudyForm::on_pushButtonEncode_clicked() {
-    if(typeFlag == NO_TYPE) {
+    if(encodeTypeFlag == NO_TYPE) {
         NotificationForm *notification = new NotificationForm("Кодирование невозможна. Выберите тип данных.");
         this->setEnabled(false);
         notification->show();
@@ -489,12 +501,12 @@ void StudyForm::on_pushButtonEncode_clicked() {
     } else {
         QString data = ui->textEditData->toPlainText();
         bool dataFlag = false;
-        if(typeFlag == TEXT) {
+        if(encodeTypeFlag == TEXT) {
             dataFlag = true;
             Converter::toBinary(bitSeq, data);
         } else {
-            Converter::toBinary(bitSeq, data, numberFlag);
-            switch (numberFlag) {
+            Converter::toBinary(bitSeq, data, encodeNumberFlag);
+            switch (encodeNumberFlag) {
             case NO_SYSTEM: {
                 break;
             }
@@ -521,7 +533,7 @@ void StudyForm::on_pushButtonEncode_clicked() {
             }
         }
         if(dataFlag) {
-            switch (algFlag) {
+            switch (encodeAlgFlag) {
             case NO_ALG: {
                 NotificationForm *notification = new NotificationForm("Кодирование невозможно. "
                                                                       "Выберите алгоритм.");
@@ -627,10 +639,10 @@ void StudyForm::setListInt(const int &size, const BigInteger &data, QListWidget 
 */
 void StudyForm::setBitsEncoding(const int &index) {
     QString data, encodedData;
-    if(algFlag != ALG_1511d) {
+    if(encodeAlgFlag != ALG_1511d) {
         data = clearEncodedBitSeq[index].first.toString();
         encodedData = clearEncodedBitSeq[index].second.toString();
-        switch (algFlag) {
+        switch (encodeAlgFlag) {
         case NO_ALG: {
             break;
         }
@@ -769,25 +781,27 @@ void StudyForm::setBitsEncoding(const int &index) {
  * \param size Длина битовой последовательности.
  * \return Отсутствуют.
 */
-void StudyForm::setBitsNoise(const int &index) {
+void StudyForm::setBitsNoise(const int &index, const bool &onlyMode) {
     QString data, encodedData, modData;
-    if(algFlag != ALG_1511d) {
+    if(encodeAlgFlag != ALG_1511d) {
         data = clearEncodedBitSeq[index].first.toString();
         encodedData = clearEncodedBitSeq[index].second.toString();
         modData = modEncodedBitSeq[index].second.toString();
-        switch (algFlag) {
+        switch (encodeAlgFlag) {
         case NO_ALG: {
             break;
         }
         case ALG_74: {
             /// \brief Установка значений во вкладке "Шум"
-            ui->labelY_id_74_2_7->setText(encodedData.at(0));
-            ui->labelY_id_74_2_6->setText(encodedData.at(1));
-            ui->labelY_id_74_2_5->setText(encodedData.at(2));
-            ui->labelY_id_74_2_4->setText(encodedData.at(3));
-            ui->labelY_id_74_2_3->setText(encodedData.at(4));
-            ui->labelY_id_74_2_2->setText(encodedData.at(5));
-            ui->labelY_id_74_2_1->setText(encodedData.at(6));
+            if(!onlyMode) {
+                ui->labelY_id_74_2_7->setText(encodedData.at(0));
+                ui->labelY_id_74_2_6->setText(encodedData.at(1));
+                ui->labelY_id_74_2_5->setText(encodedData.at(2));
+                ui->labelY_id_74_2_4->setText(encodedData.at(3));
+                ui->labelY_id_74_2_3->setText(encodedData.at(4));
+                ui->labelY_id_74_2_2->setText(encodedData.at(5));
+                ui->labelY_id_74_2_1->setText(encodedData.at(6));
+            }
             ui->labelY_od_74_2_7->setText(modData.at(0));
             ui->labelY_od_74_2_6->setText(modData.at(1));
             ui->labelY_od_74_2_5->setText(modData.at(2));
@@ -798,14 +812,16 @@ void StudyForm::setBitsNoise(const int &index) {
             break;
         }
         case ALG_84: {
-            ui->labelY_id_84_2_8->setText(encodedData.at(0));
-            ui->labelY_id_84_2_7->setText(encodedData.at(1));
-            ui->labelY_id_84_2_6->setText(encodedData.at(2));
-            ui->labelY_id_84_2_5->setText(encodedData.at(3));
-            ui->labelY_id_84_2_4->setText(encodedData.at(4));
-            ui->labelY_id_84_2_3->setText(encodedData.at(5));
-            ui->labelY_id_84_2_2->setText(encodedData.at(6));
-            ui->labelY_id_84_2_1->setText(encodedData.at(7));
+            if(!onlyMode) {
+                ui->labelY_id_84_2_8->setText(encodedData.at(0));
+                ui->labelY_id_84_2_7->setText(encodedData.at(1));
+                ui->labelY_id_84_2_6->setText(encodedData.at(2));
+                ui->labelY_id_84_2_5->setText(encodedData.at(3));
+                ui->labelY_id_84_2_4->setText(encodedData.at(4));
+                ui->labelY_id_84_2_3->setText(encodedData.at(5));
+                ui->labelY_id_84_2_2->setText(encodedData.at(6));
+                ui->labelY_id_84_2_1->setText(encodedData.at(7));
+            }
             ui->labelY_od_84_2_8->setText(modData.at(0));
             ui->labelY_od_84_2_7->setText(modData.at(1));
             ui->labelY_od_84_2_6->setText(modData.at(2));
@@ -817,21 +833,23 @@ void StudyForm::setBitsNoise(const int &index) {
             break;
         }
         case ALG_1511: {
-            ui->labelY_id_1511_2_15->setText(encodedData.at(0));
-            ui->labelY_id_1511_2_14->setText(encodedData.at(1));
-            ui->labelY_id_1511_2_13->setText(encodedData.at(2));
-            ui->labelY_id_1511_2_12->setText(encodedData.at(3));
-            ui->labelY_id_1511_2_11->setText(encodedData.at(4));
-            ui->labelY_id_1511_2_10->setText(encodedData.at(5));
-            ui->labelY_id_1511_2_9->setText(encodedData.at(6));
-            ui->labelY_id_1511_2_8->setText(encodedData.at(7));
-            ui->labelY_id_1511_2_7->setText(encodedData.at(8));
-            ui->labelY_id_1511_2_6->setText(encodedData.at(9));
-            ui->labelY_id_1511_2_5->setText(encodedData.at(10));
-            ui->labelY_id_1511_2_4->setText(encodedData.at(11));
-            ui->labelY_id_1511_2_3->setText(encodedData.at(12));
-            ui->labelY_id_1511_2_2->setText(encodedData.at(13));
-            ui->labelY_id_1511_2_1->setText(encodedData.at(14));
+            if(!onlyMode) {
+                ui->labelY_id_1511_2_15->setText(encodedData.at(0));
+                ui->labelY_id_1511_2_14->setText(encodedData.at(1));
+                ui->labelY_id_1511_2_13->setText(encodedData.at(2));
+                ui->labelY_id_1511_2_12->setText(encodedData.at(3));
+                ui->labelY_id_1511_2_11->setText(encodedData.at(4));
+                ui->labelY_id_1511_2_10->setText(encodedData.at(5));
+                ui->labelY_id_1511_2_9->setText(encodedData.at(6));
+                ui->labelY_id_1511_2_8->setText(encodedData.at(7));
+                ui->labelY_id_1511_2_7->setText(encodedData.at(8));
+                ui->labelY_id_1511_2_6->setText(encodedData.at(9));
+                ui->labelY_id_1511_2_5->setText(encodedData.at(10));
+                ui->labelY_id_1511_2_4->setText(encodedData.at(11));
+                ui->labelY_id_1511_2_3->setText(encodedData.at(12));
+                ui->labelY_id_1511_2_2->setText(encodedData.at(13));
+                ui->labelY_id_1511_2_1->setText(encodedData.at(14));
+            }
             ui->labelY_od_1511_2_15->setText(modData.at(0));
             ui->labelY_od_1511_2_14->setText(modData.at(1));
             ui->labelY_od_1511_2_13->setText(modData.at(2));
@@ -850,22 +868,24 @@ void StudyForm::setBitsNoise(const int &index) {
             break;
         }
         case ALG_1611: {
-            ui->labelY_id_1611_2_16->setText(encodedData.at(0));
-            ui->labelY_id_1611_2_15->setText(encodedData.at(1));
-            ui->labelY_id_1611_2_14->setText(encodedData.at(2));
-            ui->labelY_id_1611_2_13->setText(encodedData.at(3));
-            ui->labelY_id_1611_2_12->setText(encodedData.at(4));
-            ui->labelY_id_1611_2_11->setText(encodedData.at(5));
-            ui->labelY_id_1611_2_10->setText(encodedData.at(6));
-            ui->labelY_id_1611_2_9->setText(encodedData.at(7));
-            ui->labelY_id_1611_2_8->setText(encodedData.at(8));
-            ui->labelY_id_1611_2_7->setText(encodedData.at(9));
-            ui->labelY_id_1611_2_6->setText(encodedData.at(10));
-            ui->labelY_id_1611_2_5->setText(encodedData.at(11));
-            ui->labelY_id_1611_2_4->setText(encodedData.at(12));
-            ui->labelY_id_1611_2_3->setText(encodedData.at(13));
-            ui->labelY_id_1611_2_2->setText(encodedData.at(14));
-            ui->labelY_id_1611_2_1->setText(encodedData.at(15));
+            if(!onlyMode) {
+                ui->labelY_id_1611_2_16->setText(encodedData.at(0));
+                ui->labelY_id_1611_2_15->setText(encodedData.at(1));
+                ui->labelY_id_1611_2_14->setText(encodedData.at(2));
+                ui->labelY_id_1611_2_13->setText(encodedData.at(3));
+                ui->labelY_id_1611_2_12->setText(encodedData.at(4));
+                ui->labelY_id_1611_2_11->setText(encodedData.at(5));
+                ui->labelY_id_1611_2_10->setText(encodedData.at(6));
+                ui->labelY_id_1611_2_9->setText(encodedData.at(7));
+                ui->labelY_id_1611_2_8->setText(encodedData.at(8));
+                ui->labelY_id_1611_2_7->setText(encodedData.at(9));
+                ui->labelY_id_1611_2_6->setText(encodedData.at(10));
+                ui->labelY_id_1611_2_5->setText(encodedData.at(11));
+                ui->labelY_id_1611_2_4->setText(encodedData.at(12));
+                ui->labelY_id_1611_2_3->setText(encodedData.at(13));
+                ui->labelY_id_1611_2_2->setText(encodedData.at(14));
+                ui->labelY_id_1611_2_1->setText(encodedData.at(15));
+            }
             ui->labelY_od_1611_2_16->setText(modData.at(0));
             ui->labelY_od_1611_2_15->setText(modData.at(1));
             ui->labelY_od_1611_2_14->setText(modData.at(2));
@@ -892,21 +912,23 @@ void StudyForm::setBitsNoise(const int &index) {
         data = clearEncodedBigInt[index].first.toString();
         encodedData = clearEncodedBigInt[index].second.toString();
         modData = modEncodedBigInt[index].second.toString();
-        ui->labelY_id_d1511_2_15->setText(encodedData.at(0));
-        ui->labelY_id_d1511_2_14->setText(encodedData.at(1));
-        ui->labelY_id_d1511_2_13->setText(encodedData.at(2));
-        ui->labelY_id_d1511_2_12->setText(encodedData.at(3));
-        ui->labelY_id_d1511_2_11->setText(encodedData.at(4));
-        ui->labelY_id_d1511_2_10->setText(encodedData.at(5));
-        ui->labelY_id_d1511_2_9->setText(encodedData.at(6));
-        ui->labelY_id_d1511_2_8->setText(encodedData.at(7));
-        ui->labelY_id_d1511_2_7->setText(encodedData.at(8));
-        ui->labelY_id_d1511_2_6->setText(encodedData.at(9));
-        ui->labelY_id_d1511_2_5->setText(encodedData.at(10));
-        ui->labelY_id_d1511_2_4->setText(encodedData.at(11));
-        ui->labelY_id_d1511_2_3->setText(encodedData.at(12));
-        ui->labelY_id_d1511_2_2->setText(encodedData.at(13));
-        ui->labelY_id_d1511_2_1->setText(encodedData.at(14));
+        if(!onlyMode) {
+            ui->labelY_id_d1511_2_15->setText(encodedData.at(0));
+            ui->labelY_id_d1511_2_14->setText(encodedData.at(1));
+            ui->labelY_id_d1511_2_13->setText(encodedData.at(2));
+            ui->labelY_id_d1511_2_12->setText(encodedData.at(3));
+            ui->labelY_id_d1511_2_11->setText(encodedData.at(4));
+            ui->labelY_id_d1511_2_10->setText(encodedData.at(5));
+            ui->labelY_id_d1511_2_9->setText(encodedData.at(6));
+            ui->labelY_id_d1511_2_8->setText(encodedData.at(7));
+            ui->labelY_id_d1511_2_7->setText(encodedData.at(8));
+            ui->labelY_id_d1511_2_6->setText(encodedData.at(9));
+            ui->labelY_id_d1511_2_5->setText(encodedData.at(10));
+            ui->labelY_id_d1511_2_4->setText(encodedData.at(11));
+            ui->labelY_id_d1511_2_3->setText(encodedData.at(12));
+            ui->labelY_id_d1511_2_2->setText(encodedData.at(13));
+            ui->labelY_id_d1511_2_1->setText(encodedData.at(14));
+        }
         ui->labelY_od_d1511_2_15->setText(modData.at(0));
         ui->labelY_od_d1511_2_14->setText(modData.at(1));
         ui->labelY_od_d1511_2_13->setText(modData.at(2));
@@ -923,23 +945,25 @@ void StudyForm::setBitsNoise(const int &index) {
         ui->labelY_od_d1511_2_2->setText(modData.at(13));
         ui->labelY_od_d1511_2_1->setText(modData.at(14));
     }
-    if (algFlag == ALG_74 || algFlag == ALG_84) {
-        ui->labelX_d_74_2_4->setText(data.at(0));
-        ui->labelX_d_74_2_3->setText(data.at(1));
-        ui->labelX_d_74_2_2->setText(data.at(2));
-        ui->labelX_d_74_2_1->setText(data.at(3));
-    } else if (algFlag != NO_ALG) {
-        ui->labelX_d_1511_2_11->setText(data.at(0));
-        ui->labelX_d_1511_2_10->setText(data.at(1));
-        ui->labelX_d_1511_2_9->setText(data.at(2));
-        ui->labelX_d_1511_2_8->setText(data.at(3));
-        ui->labelX_d_1511_2_7->setText(data.at(4));
-        ui->labelX_d_1511_2_6->setText(data.at(5));
-        ui->labelX_d_1511_2_5->setText(data.at(6));
-        ui->labelX_d_1511_2_4->setText(data.at(7));
-        ui->labelX_d_1511_2_3->setText(data.at(8));
-        ui->labelX_d_1511_2_2->setText(data.at(9));
-        ui->labelX_d_1511_2_1->setText(data.at(10));
+    if(!onlyMode) {
+        if (encodeAlgFlag == ALG_74 || encodeAlgFlag == ALG_84) {
+            ui->labelX_d_74_2_4->setText(data.at(0));
+            ui->labelX_d_74_2_3->setText(data.at(1));
+            ui->labelX_d_74_2_2->setText(data.at(2));
+            ui->labelX_d_74_2_1->setText(data.at(3));
+        } else if (encodeAlgFlag != NO_ALG) {
+            ui->labelX_d_1511_2_11->setText(data.at(0));
+            ui->labelX_d_1511_2_10->setText(data.at(1));
+            ui->labelX_d_1511_2_9->setText(data.at(2));
+            ui->labelX_d_1511_2_8->setText(data.at(3));
+            ui->labelX_d_1511_2_7->setText(data.at(4));
+            ui->labelX_d_1511_2_6->setText(data.at(5));
+            ui->labelX_d_1511_2_5->setText(data.at(6));
+            ui->labelX_d_1511_2_4->setText(data.at(7));
+            ui->labelX_d_1511_2_3->setText(data.at(8));
+            ui->labelX_d_1511_2_2->setText(data.at(9));
+            ui->labelX_d_1511_2_1->setText(data.at(10));
+        }
     }
 }
 
@@ -955,7 +979,7 @@ void StudyForm::resetAlgo() {
     ui->horizontalSliderEncoder1511->setValue(0);
     ui->horizontalSliderEncoder1611->setValue(0);
     ui->horizontalSliderEncoder1511d->setValue(0);
-    algFlag = NO_ALG;
+    encodeAlgFlag = NO_ALG;
 }
 
 
@@ -970,7 +994,7 @@ void StudyForm::resetNS() {
     ui->horizontalSliderNS8->setValue(0);
     ui->horizontalSliderNS10->setValue(0);
     ui->horizontalSliderNS16->setValue(0);
-    numberFlag = NO_SYSTEM;
+    encodeNumberFlag = NO_SYSTEM;
 }
 
 
@@ -1349,9 +1373,9 @@ void StudyForm::on_pushSliderFormInputNoise_clicked() {
     if (senderSlider == ui->horizontalSliderNoiseManual) {
         ui->horizontalSliderNoiseAuto->setValue(0);
         if (senderSlider->value() == 0) {
-            noiseFlag = MANUAL;
+            noiseInputFlag = MANUAL;
         } else {
-            noiseFlag = NO_MODE;
+            noiseInputFlag = NO_MODE;
         }
         ui->horizontalSliderError1->setEnabled(false);
         ui->horizontalSliderError2->setEnabled(false);
@@ -1361,14 +1385,14 @@ void StudyForm::on_pushSliderFormInputNoise_clicked() {
     } else if (senderSlider == ui->horizontalSliderNoiseAuto) {
         ui->horizontalSliderNoiseManual->setValue(0);
         if (senderSlider->value() == 0) {
-            noiseFlag = GENERATED;
+            noiseInputFlag = GENERATED;
             ui->horizontalSliderError1->setEnabled(true);
             ui->horizontalSliderError2->setEnabled(true);
             ui->horizontalSliderNoiseToAll->setEnabled(true);
             ui->horizontalSliderToCustom->setEnabled(true);
             ui->pushButtonAutoNoise->setEnabled(true);
         } else {
-            noiseFlag = NO_MODE;
+            noiseInputFlag = NO_MODE;
             ui->horizontalSliderError1->setEnabled(false);
             ui->horizontalSliderError2->setEnabled(false);
             ui->horizontalSliderNoiseToAll->setEnabled(false);
@@ -1380,11 +1404,13 @@ void StudyForm::on_pushSliderFormInputNoise_clicked() {
             (senderSlider == ui->horizontalSliderNoiseManual && senderSlider->value() != 0);
     if(enableButton) {
         removeEffect(ui->frame_15);
+        setShadow(ui->frame_15);
         removeEffect(ui->frame_18);
+        setShadow(ui->frame_18);
         removeEffect(ui->frame_19);
     } else {
-        setBlur(ui->frame_15, BLUR_RADIUS_2);
-        setBlur(ui->frame_18, BLUR_RADIUS_2);
+        setBlur(ui->frame_15, BLUR_RADIUS_1);
+        setBlur(ui->frame_18, BLUR_RADIUS_1);
         setBlur(ui->frame_19, BLUR_RADIUS_2);
     }
     ui->frame_15->update();
@@ -1404,16 +1430,16 @@ void StudyForm::on_pushSliderErrorType_clicled() {
     if (senderSlider == ui->horizontalSliderError1) {
         ui->horizontalSliderError2->setValue(0);
         if (senderSlider->value() == 0) {
-            errorFlag = SINGLE;
+            noiseErrorFlag = SINGLE;
         } else {
-            errorFlag = NO_ERR;
+            noiseErrorFlag = NO_ERR;
         }
     } else if (senderSlider == ui->horizontalSliderError2) {
         ui->horizontalSliderError1->setValue(0);
         if (senderSlider->value() == 0) {
-            errorFlag = DOUBLE;
+            noiseErrorFlag = DOUBLE;
         } else {
-            errorFlag = NO_ERR;
+            noiseErrorFlag = NO_ERR;
         }
     }
 }
@@ -1430,16 +1456,16 @@ void StudyForm::on_pushSliderUseTo_clicked() {
     if (senderSlider == ui->horizontalSliderNoiseToAll) {
         ui->horizontalSliderToCustom->setValue(0);
         if (senderSlider->value() == 0) {
-            impactFlag = TO_ALL;
+            noiseImpactFlag = TO_ALL;
         } else {
-            impactFlag = NO_IMPACT;
+            noiseImpactFlag = NO_IMPACT;
         }
     } else if (senderSlider == ui->horizontalSliderToCustom) {
         ui->horizontalSliderNoiseToAll->setValue(0);
         if (senderSlider->value() == 0) {
-            impactFlag = TO_CUSTOM;
+            noiseImpactFlag = TO_CUSTOM;
         } else {
-            impactFlag = NO_IMPACT;
+            noiseImpactFlag = NO_IMPACT;
         }
     }
 }
@@ -1453,35 +1479,176 @@ void StudyForm::on_pushSliderUseTo_clicked() {
  * \return Отсутствуют.
 */
 void StudyForm::onDataLabel_doubleClicked() {
-    if (noiseFlag == MANUAL) {
+    if (noiseInputFlag == MANUAL && encodeAlgFlag != NO_ALG) {
         ClickableLabel *senderLabel = qobject_cast<ClickableLabel*>(sender());
-        int index = 0;
-        switch (algFlag) {
+        int indexSeq = ui->listWidget_2->currentRow();
+        int indexVal = -1;
+        switch (encodeAlgFlag) {
         case ALG_74: {
             if (senderLabel == ui->labelY_id_74_2_1) {
-                index = 0;
+                indexVal = 0;
             } else if (senderLabel == ui->labelY_id_74_2_2) {
-                index = 1;
+                indexVal = 1;
             } else if (senderLabel == ui->labelY_id_74_2_3) {
-                index = 2;
+                indexVal = 2;
             } else if (senderLabel == ui->labelY_id_74_2_4) {
-                index = 3;
+                indexVal = 3;
             } else if (senderLabel == ui->labelY_id_74_2_5) {
-                index = 4;
+                indexVal = 4;
             } else if (senderLabel == ui->labelY_id_74_2_6) {
-                index = 5;
+                indexVal = 5;
             } else if(senderLabel == ui->labelY_id_74_2_7) {
-                index = 6;
+                indexVal = 6;
             }
             break;
         }
-            /// \todo Добавить остальные алгоритмы
-        default:
+        case ALG_84: {
+            if (senderLabel == ui->labelY_id_74_2_1) {
+                indexVal = 0;
+            } else if (senderLabel == ui->labelY_id_84_2_2) {
+                indexVal = 1;
+            } else if (senderLabel == ui->labelY_id_84_2_3) {
+                indexVal = 2;
+            } else if (senderLabel == ui->labelY_id_84_2_4) {
+                indexVal = 3;
+            } else if (senderLabel == ui->labelY_id_84_2_5) {
+                indexVal = 4;
+            } else if (senderLabel == ui->labelY_id_84_2_6) {
+                indexVal = 5;
+            } else if(senderLabel == ui->labelY_id_84_2_7) {
+                indexVal = 6;
+            } else if(senderLabel == ui->labelY_id_84_2_8) {
+                indexVal = 7;
+            }
             break;
         }
-        /// \todo Здесь пользователь может не выбрать последовательность и
-        /// кликат в пустоту - его нужно предупредить, что это ни к чему не приведет
-        qDebug() << ui->listWidget_2->currentRow() << " " << index;
+        case ALG_1511: {
+            if (senderLabel == ui->labelY_id_1511_2_1) {
+                indexVal = 0;
+            } else if (senderLabel == ui->labelY_id_1511_2_2) {
+                indexVal = 1;
+            } else if (senderLabel == ui->labelY_id_1511_2_3) {
+                indexVal = 2;
+            } else if (senderLabel == ui->labelY_id_1511_2_4) {
+                indexVal = 3;
+            } else if (senderLabel == ui->labelY_id_1511_2_5) {
+                indexVal = 4;
+            } else if (senderLabel == ui->labelY_id_1511_2_6) {
+                indexVal = 5;
+            } else if(senderLabel == ui->labelY_id_1511_2_7) {
+                indexVal = 6;
+            } else if(senderLabel == ui->labelY_id_1511_2_8) {
+                indexVal = 7;
+            } else if(senderLabel == ui->labelY_id_1511_2_9) {
+                indexVal = 8;
+            } else if(senderLabel == ui->labelY_id_1511_2_10) {
+                indexVal = 9;
+            } else if(senderLabel == ui->labelY_id_1511_2_11) {
+                indexVal = 10;
+            } else if(senderLabel == ui->labelY_id_1511_2_12) {
+                indexVal = 11;
+            } else if(senderLabel == ui->labelY_id_1511_2_13) {
+                indexVal = 12;
+            } else if(senderLabel == ui->labelY_id_1511_2_14) {
+                indexVal = 13;
+            } else if(senderLabel == ui->labelY_id_1511_2_15) {
+                indexVal = 14;
+            }
+            break;
+        }
+        case ALG_1611: {
+            if (senderLabel == ui->labelY_id_1611_2_1) {
+                indexVal = 0;
+            } else if (senderLabel == ui->labelY_id_1611_2_2) {
+                indexVal = 1;
+            } else if (senderLabel == ui->labelY_id_1611_2_3) {
+                indexVal = 2;
+            } else if (senderLabel == ui->labelY_id_1611_2_4) {
+                indexVal = 3;
+            } else if (senderLabel == ui->labelY_id_1611_2_5) {
+                indexVal = 4;
+            } else if (senderLabel == ui->labelY_id_1611_2_6) {
+                indexVal = 5;
+            } else if(senderLabel == ui->labelY_id_1611_2_7) {
+                indexVal = 6;
+            } else if(senderLabel == ui->labelY_id_1611_2_8) {
+                indexVal = 7;
+            } else if(senderLabel == ui->labelY_id_1611_2_9) {
+                indexVal = 8;
+            } else if(senderLabel == ui->labelY_id_1611_2_10) {
+                indexVal = 9;
+            } else if(senderLabel == ui->labelY_id_1611_2_11) {
+                indexVal = 10;
+            } else if(senderLabel == ui->labelY_id_1611_2_12) {
+                indexVal = 11;
+            } else if(senderLabel == ui->labelY_id_1611_2_13) {
+                indexVal = 12;
+            } else if(senderLabel == ui->labelY_id_1611_2_14) {
+                indexVal = 13;
+            } else if(senderLabel == ui->labelY_id_1611_2_15) {
+                indexVal = 14;
+            } else if(senderLabel == ui->labelY_id_1611_2_16) {
+                indexVal = 15;
+            }
+            break;
+        }
+        case ALG_1511d: {
+            if (senderLabel == ui->labelY_id_d1511_2_1) {
+                indexVal = 0;
+            } else if (senderLabel == ui->labelY_id_d1511_2_2) {
+                indexVal = 1;
+            } else if (senderLabel == ui->labelY_id_d1511_2_3) {
+                indexVal = 2;
+            } else if (senderLabel == ui->labelY_id_d1511_2_4) {
+                indexVal = 3;
+            } else if (senderLabel == ui->labelY_id_d1511_2_5) {
+                indexVal = 4;
+            } else if (senderLabel == ui->labelY_id_d1511_2_6) {
+                indexVal = 5;
+            } else if(senderLabel == ui->labelY_id_d1511_2_7) {
+                indexVal = 6;
+            } else if(senderLabel == ui->labelY_id_d1511_2_8) {
+                indexVal = 7;
+            } else if(senderLabel == ui->labelY_id_d1511_2_9) {
+                indexVal = 8;
+            } else if(senderLabel == ui->labelY_id_d1511_2_10) {
+                indexVal = 9;
+            } else if(senderLabel == ui->labelY_id_d1511_2_11) {
+                indexVal = 10;
+            } else if(senderLabel == ui->labelY_id_d1511_2_12) {
+                indexVal = 11;
+            } else if(senderLabel == ui->labelY_id_d1511_2_13) {
+                indexVal = 12;
+            } else if(senderLabel == ui->labelY_id_d1511_2_14) {
+                indexVal = 13;
+            } else if(senderLabel == ui->labelY_id_d1511_2_15) {
+                indexVal = 14;
+            }
+            break;
+        }
+        default: {
+            break;
+        }
+        }
+        if(indexSeq != -1 && indexVal != -1) {
+            indexSeq = ui->listWidget_2->count() - indexSeq - 1;
+            if (encodeAlgFlag != ALG_1511d) {
+                modEncodedBitSeq.addError(indexSeq, indexVal);
+                setBitsNoise(indexSeq, true);
+            } else {
+                modEncodedBigInt.addError(indexSeq, indexVal);
+                setBitsNoise(indexSeq, true);
+            }
+        } else {
+            NotificationForm *notification = new NotificationForm("Для добавления ошибки в ручном "
+                                                                  "режиме выберите последовательность.");
+            this->setEnabled(false);
+            notification->show();
+            QObject::connect(notification, &NotificationForm::finished, this, [=]() {
+                notification->deleteLater();
+                this->setEnabled(true);
+            });
+        }
     }
 }
 
@@ -1493,5 +1660,90 @@ void StudyForm::onDataLabel_doubleClicked() {
  * \return Отсутствуют.
 */
 void StudyForm::on_pushButtonAutoNoise_clicked() {
+    if (noiseInputFlag == GENERATED && encodeAlgFlag != NO_ALG) {
+        if(noiseErrorFlag != NO_ERR) {
+            if(noiseImpactFlag != NO_IMPACT) {
+                modEncodedBitSeq = clearEncodedBitSeq;
+                modEncodedBigInt = clearEncodedBigInt;
+                QList<int> listSeq;
+                switch (noiseImpactFlag) {
+                case TO_ALL: {
+                    for(int i = 0; i < ui->listWidget_2->count(); ++i) {
+                        listSeq.push_back(i);
+                    }
+                    break;
+                }
+                case TO_CUSTOM: {
+                    /// \todo Сделать окно с возможностью множественного выбора.
+                    /// Либо разрешить множественное выделение текущего листВиджета
+                    break;
+                }
+                default: {
+                    break; }
+                }
+                for(const int &i : listSeq) {
+                    int index = ui->listWidget_2->count() - i - 1;
+                    if(encodeAlgFlag != ALG_1511d) {
+                        autoError(true, noiseErrorFlag, index);
+                    } else {
+                        autoError(false, noiseErrorFlag, index);
+                    }
+                    ui->listWidget_2->setCurrentRow(i);
+                    setBitsNoise(index, false);
+                }
+            } else {
+                NotificationForm *notification = new NotificationForm("Для автоматического искажения последовательности "
+                                                                      "выберите формат применения.");
+                            this->setEnabled(false);
+                            notification->show();
+                            QObject::connect(notification, &NotificationForm::finished, this, [=]() {
+                                notification->deleteLater();
+                                this->setEnabled(true);
+                            });
+            }
+        } else {
+            NotificationForm *notification = new NotificationForm("Для автоматического искажения последовательности "
+                                                                  "выберите тип ошибки.");
+            this->setEnabled(false);
+            notification->show();
+            QObject::connect(notification, &NotificationForm::finished, this, [=]() {
+                notification->deleteLater();
+                this->setEnabled(true);
+            });
+        }
+    }
+}
 
+
+/*!
+ * \brief Метод автоматически добавляет одиночную или двойную ошибку в указаннюу последовательность.
+ * \param type Данные, с которыми работает метод: BitSequence или BigInteger.
+ * \param typeError Тип ошибки: одиночная или двойная.
+ * \param index Номер последовательности, которая подвергается воздействию.
+ * \return Отсутствуют.
+*/
+void StudyForm::autoError(const bool &type, const int &typeError, const int &index) {
+    int amount;
+    if(type) {
+        amount = clearEncodedBitSeq.getSize();
+    } else {
+        amount = clearEncodedBigInt.getSize();
+    }
+    if(typeError == 1) {
+        if(type) {
+            modEncodedBitSeq.addError(index, NumberGenerator::number(0, amount - 1));
+        } else {
+            modEncodedBigInt.addError(index, NumberGenerator::number(0, amount - 1));
+        }
+    } else if(typeError == 2) {
+        int firstVal = NumberGenerator::number(0, amount - 1);
+        int secondVal = NumberGenerator::number(0, amount - 1, firstVal);
+        if(type) {
+            modEncodedBitSeq.addError(index, firstVal);
+            modEncodedBitSeq.addError(index, secondVal);
+        } else {
+            modEncodedBigInt.addError(index, firstVal);
+            modEncodedBigInt.addError(index, secondVal);
+        }
+    }
 }

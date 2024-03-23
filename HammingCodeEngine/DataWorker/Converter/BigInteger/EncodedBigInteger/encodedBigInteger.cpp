@@ -12,7 +12,21 @@ EncodedBigInteger& EncodedBigInteger::EncodedBigInteger::operator=(const Encoded
     if(this != &obj) {
         data =  obj.data;
         method = obj.method;
-        iteration = obj.iteration;
+        size = obj.size;
     }
     return *this;
+}
+
+
+/*!
+ * \brief Оператор изменяет указанную цифру в последовательности.
+ * \param i Индекс последовательности.
+ * \return Отсутствуют.
+*/
+void EncodedBigInteger::addError(const int &i, const int &j) {
+    if(i < data.size() && j < size) {
+        data[i].second.distort(j);
+    } else {
+        qDebug() << "ERROR : EncodedBitSequence -> addError -> (index out of range)";
+    }
 }

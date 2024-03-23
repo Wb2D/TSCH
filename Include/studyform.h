@@ -9,6 +9,7 @@
 #include <QGraphicsDropShadowEffect>
 #include <QRegularExpression>
 #include <QPair>
+#include <QList>
 //#include <QSizeGrip>
 
 #include "Include/notificationform.h"
@@ -100,7 +101,7 @@ private:
     void setListSeq(const int&, const BitSequence&, QListWidget*);
     void setListInt(const int&, const BigInteger&, QListWidget*);
     void setBitsEncoding(const int&);
-    void setBitsNoise(const int&);
+    void setBitsNoise(const int&, const bool&);
     void resetAlgo();
     void resetPage74();
     void resetPage84();
@@ -112,6 +113,7 @@ private:
     void resetLabelXd11();
     void resetLabelXd4();
     void setEnabledNS(const bool&);
+    void autoError(const bool&, const int&, const int&);
 
     static const QRegularExpression BINARY_REGEX;
     static const QRegularExpression QUATERNARY_REGEX;
@@ -123,13 +125,13 @@ private:
         NO_MODE,
         MANUAL,
         GENERATED,
-    } inputFlag, noiseFlag;
+    } encodeInputFlag, noiseInputFlag;
 
     enum DataType {
         NO_TYPE,
         TEXT,
         NUMERIC,
-    } typeFlag;
+    } encodeTypeFlag;
 
     enum NumberSystem {
         NO_SYSTEM,
@@ -138,7 +140,7 @@ private:
         OCTAL = 8,
         DECIMAL = 10,
         HEXADECIMAL = 16,
-    } numberFlag;
+    } encodeNumberFlag;
 
     enum Algorithm {
         NO_ALG = -1,
@@ -147,19 +149,19 @@ private:
         ALG_1511,
         ALG_1611,
         ALG_1511d,
-    } algFlag;
+    } encodeAlgFlag;
 
     enum ErrorType {
         NO_ERR,
         SINGLE,
         DOUBLE,
-    } errorFlag;
+    } noiseErrorFlag;
 
     enum ErrorImpact {
         NO_IMPACT,
         TO_ALL,
         TO_CUSTOM,
-    } impactFlag;
+    } noiseImpactFlag;
 
     Ui::StudyForm *ui;
     //QSizeGrip *sizeGrip;

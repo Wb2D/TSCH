@@ -6,6 +6,7 @@
 #include <QString>
 #include <QDebug>
 
+#include "HammingCodeEngine/DataWorker/NumberGenerator/numberGenerator.h"
 
 
 
@@ -38,6 +39,7 @@ public:
     int operator[](const int& index) const;
     int length() const;
     BigInteger subdigit(const int &from, const int &to) const;
+    void distort(const int&);
 
 private:
     void removeZeros();

@@ -21,7 +21,7 @@ EncodedBitSequence Encoder1511:: start(const BitSequence &data) {
         result.addData(QPair<BitSequence, BitSequence>(bitSeq, eData));
     }
     result.setMethod(3);
-    result.setIteration(eSize / 11);
+    result.setSize(15);
     return result;
 }
 

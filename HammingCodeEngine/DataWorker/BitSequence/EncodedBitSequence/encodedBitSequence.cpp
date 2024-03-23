@@ -12,7 +12,21 @@ EncodedBitSequence& EncodedBitSequence::operator=(const EncodedBitSequence &obj)
     if (this != &obj) {
         data = obj.data;
         method = obj.method;
-        iteration = obj.iteration;
+        size = obj.size;
     }
     return *this;
+}
+
+
+/*!
+ * \brief Оператор изменяет указанный бит в последовательности.
+ * \param i Индекс последовательности.
+ * \return Отсутствуют.
+*/
+void EncodedBitSequence::addError(const int &i, const int &j) {
+    if(i < data.size() && j < size) {
+        data[i].second.reverse(j);
+    } else {
+        qDebug() << "ERROR : EncodedBitSequence -> addError -> (index out of range)";
+    }
 }

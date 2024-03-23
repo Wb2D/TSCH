@@ -22,7 +22,7 @@ EncodedBitSequence Encoder84::start(const BitSequence &data) {
         result.addData(QPair<BitSequence, BitSequence>(bitSeq, eData));
     }
     result.setMethod(2);
-    result.setIteration(eSize / 4);
+    result.setSize(8);
     return result;
 }
 

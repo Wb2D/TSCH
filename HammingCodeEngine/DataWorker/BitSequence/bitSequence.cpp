@@ -4,6 +4,50 @@
 
 
 /*!
+ * \brief Конструктор копирования объекта BitSequence.
+ * \param obj Ссылка на копируемый объект BitSequence.
+ * \return Отсутствуют.
+*/
+BitSequence::BitSequence(const BitSequence &obj) {
+    bitCount = obj.bitCount;
+    arraySize = obj.arraySize;
+    bitArray = new bool[arraySize];
+    for (int i = 0; i < arraySize; ++i) {
+        bitArray[i] = obj.bitArray[i];
+    }
+}
+
+
+/*!
+ * \brief Оператор присваивания для объектов BitSequence.
+ * \param obj Ссылка на объект BitSequence, данные которого будут скопированы.
+ * \return Ссылка на текущий объект BitSequence после присваивания.
+*/
+BitSequence& BitSequence::operator=(const BitSequence &obj) {
+    if (this != &obj) {
+        delete[] bitArray;
+        bitCount = obj.bitCount;
+        arraySize = obj.arraySize;
+        bitArray = new bool[arraySize];
+        for (int i = 0; i < arraySize; ++i) {
+            bitArray[i] = obj.bitArray[i];
+        }
+    }
+    return *this;
+}
+
+
+/*!
+ * \brief Деструктор объекта BitSequence.
+ * \param Отсутствуют.
+ * \return Отсутствуют.
+*/
+BitSequence::~BitSequence() {
+    delete[] bitArray;
+}
+
+
+/*!
  * \brief Метод изменяет размер последовательности битов.
  * \param length Новая длина последовательности.
  * \return Отсутствуют.
@@ -35,6 +79,19 @@ bool BitSequence::operator[](const int &index) const {
     return *(bitArray + index);
 }
 
+
+/*!
+ * \brief Метод реверса бита по указанному индексу.
+ * \param index Индекс бита.
+ * \return Отсутствуют.
+*/
+void BitSequence::reverse(const int &index) {
+    if (index < 0 || index >= bitCount) {
+        qWarning() << "ERROR : BitSequence -> bitsArray -> (index out of range)";
+        return;
+    }
+    *(bitArray + index) = !(*(bitArray + index));
+}
 
 /*!
  * \brief Метод устанавливает значение бита по указанному индексу.

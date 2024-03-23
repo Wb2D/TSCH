@@ -22,7 +22,7 @@ EncodedBigInteger EncoderDecimal1511::start(const BigInteger &data) {
         result.addData(QPair<BigInteger, BigInteger>(bigInteger, encodedBigInt));
     }
     result.setMethod(5);
-    result.setIteration(eSize / 11);
+    result.setSize(15);
     return result;
 }
 

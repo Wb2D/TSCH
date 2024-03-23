@@ -20,8 +20,13 @@
 class BitSequence {
 public:
     BitSequence() : bitArray(NULL), bitCount(0), arraySize(0) {}
+    BitSequence(const BitSequence&);
+    BitSequence& operator=(const BitSequence&);
+    ~BitSequence();
+
     int length() const { return bitCount; }
     bool operator[](const int&) const;
+    void reverse(const int&);
     void set(const int&, const bool&);
     void append(const bool&);
     void append(const BitSequence&);
