@@ -5,6 +5,8 @@
 #include "Include/mainwindow.h"
 #include "Include/notificationform.h"
 
+#include "HammingCodeEngine/Decoder/HammingCode/Decoder74/decoder74.h"
+
 
 
 
@@ -35,4 +37,26 @@ int main(int argc, char *argv[]) {
     MainWindow w;
     w.show();
     return a.exec();
+
+//    Q_UNUSED(argc)
+//    Q_UNUSED(argv)
+
+//    BitSequence test1;
+//    QString number1 = NumberGenerator::generate(10, 2);
+//    Converter::toBinary(test1, number1, 10);
+//    qDebug() << number1 << " " << test1.toString();
+
+//    EncodedBitSequence eTest1 = Encoder74::start(test1);
+//    qDebug() << eTest1.getFirst() << " " << eTest1.getSecond();
+
+//    qDebug() << "AFTER ERROR";
+//    eTest1.addError(0, 0);
+//    qDebug() << eTest1.getFirst() << " " << eTest1.getSecond();
+
+//    qDebug() << "AFTER DECODE";
+
+//    QPair<EncodedBitSequence, QVector<int>> dTest1 = Decoder74::start(eTest1);
+//    qDebug() << dTest1.first.getFirst() << " " << dTest1.first.getSecond();
+
+    return 0;
 }

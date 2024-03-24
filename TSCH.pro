@@ -13,6 +13,7 @@ CONFIG += c++11
 SOURCES += \
     DBWorker\dbworker.cpp \
     ErrorTracker\errortracker.cpp \
+    HammingCodeEngine\Decoder\HammingCode\Decoder74\decoder74.cpp \
     HammingCodeEngine\DataWorker\BitSequence\EncodedBitSequence\encodedBitSequence.cpp \
     HammingCodeEngine\DataWorker\BitSequence\bitSequence.cpp \
     HammingCodeEngine\DataWorker\Converter\BigInteger\BigInteger.cpp \
@@ -35,6 +36,7 @@ SOURCES += \
 HEADERS += \
     DBWorker\dbworker.h \
     ErrorTracker\errortracker.h \
+    HammingCodeEngine\Decoder\HammingCode\Decoder74\decoder74.h \
     HammingCodeEngine\DataWorker\BitSequence\EncodedBitSequence\encodedBitSequence.h \
     HammingCodeEngine\DataWorker\BitSequence\bitSequence.h \
     HammingCodeEngine\DataWorker\Converter\BigInteger\BigInteger.h \

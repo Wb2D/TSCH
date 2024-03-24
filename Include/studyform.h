@@ -10,6 +10,7 @@
 #include <QRegularExpression>
 #include <QPair>
 #include <QList>
+#include <QTimer>
 //#include <QSizeGrip>
 
 #include "Include/notificationform.h"
@@ -27,6 +28,8 @@
 #include "HammingCodeEngine/Encoder/HammingCode/Encoder1511/encoder1511.h"
 #include "HammingCodeEngine/Encoder/HammingCode/Encoder1611/encoder1611.h"
 #include "HammingCodeEngine/Encoder/HammingCode/EncoderDecimal1511/encoderDecimal1511.h"
+
+#include "HammingCodeEngine/Decoder/HammingCode/Decoder74/decoder74.h"
 
 
 
@@ -94,6 +97,10 @@ private slots:
     void on_pushButtonAutoNoise_clicked();
     void onDataLabel_doubleClicked();
 
+    void on_pushButtonDecoding_clicked();
+
+    void on_pushButtonCopyData_clicked();
+
 private:
     void setShadow(QWidget*);
     void setBlur(QWidget*, int);
@@ -131,7 +138,7 @@ private:
         NO_TYPE,
         TEXT,
         NUMERIC,
-    } encodeTypeFlag;
+    } encodeTypeFlag, decodeTypeFlag;
 
     enum NumberSystem {
         NO_SYSTEM,
@@ -140,7 +147,7 @@ private:
         OCTAL = 8,
         DECIMAL = 10,
         HEXADECIMAL = 16,
-    } encodeNumberFlag;
+    } encodeNumberFlag, decodeNumberFlag;
 
     enum Algorithm {
         NO_ALG = -1,
@@ -149,7 +156,7 @@ private:
         ALG_1511,
         ALG_1611,
         ALG_1511d,
-    } encodeAlgFlag;
+    } encodeAlgFlag, decodeAlgFlag;
 
     enum ErrorType {
         NO_ERR,
@@ -174,6 +181,7 @@ private:
     BigInteger bigInt;
     EncodedBigInteger clearEncodedBigInt;
     EncodedBigInteger modEncodedBigInt;
+    QPair<EncodedBitSequence, QVector<int>> decodedData;
     //EncodedBigInteger e
     //QRect wGeometry;
     static const int BLUR_RADIUS_1 = 8;

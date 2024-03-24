@@ -30,3 +30,31 @@ void EncodedBitSequence::addError(const int &i, const int &j) {
         qDebug() << "ERROR : EncodedBitSequence -> addError -> (index out of range)";
     }
 }
+
+
+/*!
+ * \brief Оператор возвращает строку, состоящую из парх первых значений.
+ * \param Отсутствуют.
+ * \return Отсутствуют.
+*/
+QString EncodedBitSequence::getFirst() const {
+    QString result;
+    for(const auto &i : data) {
+        result.push_front(i.first.toString());
+    }
+    return result;
+}
+
+
+/*!
+ * \brief Оператор возвращает строку, состоящую из парх вторых значений.
+ * \param Отсутствуют.
+ * \return Отсутствуют.
+*/
+QString EncodedBitSequence::getSecond() const {
+    QString result;
+    for(const auto &i : data) {
+        result.push_front(i.second.toString());
+    }
+    return result;
+}

@@ -31,6 +31,7 @@ public:
     void append(const bool&);
     void append(const BitSequence&);
     QString toString() const;
+    int toDecimal() const;
     BitSequence subsequence(int, int) const;
 
 private:

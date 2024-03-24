@@ -37,7 +37,11 @@ public:
     const int &getMethod() const { return method; }
     void setSize(const int &size) { this->size = size; }
     const int &getSize() const { return size; }
+    int getAmount() const { return data.length(); }
     void addError(const int&, const int&);
+
+    QString getFirst() const;
+    QString getSecond() const;
 
 private:
     QVector<QPair<BitSequence, BitSequence>> data; ///< пара из обычной и закодированной посл.

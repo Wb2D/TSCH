@@ -33,12 +33,16 @@ StudyForm::StudyForm(QWidget *parent) :
     noiseInputFlag = NO_MODE;
     noiseErrorFlag = NO_ERR;
     noiseImpactFlag = NO_IMPACT;
+    decodeTypeFlag = NO_TYPE;
+    decodeNumberFlag = NO_SYSTEM;
+    decodeAlgFlag = NO_ALG;
     bitSeq = BitSequence();
     clearEncodedBitSeq = EncodedBitSequence();
     modEncodedBitSeq = EncodedBitSequence();
     bigInt = BigInteger();
     clearEncodedBigInt = EncodedBigInteger();
     modEncodedBigInt = EncodedBigInteger();
+    decodedData = QPair<EncodedBitSequence, QVector<int>>();
     ui->frame_6->setStackedWidget(ui->stackedWidget);
     ui->frame_4->setStackedWidget(ui->stackedWidget);
     ui->frame_5->setStackedWidget(ui->stackedWidget);
@@ -53,6 +57,13 @@ StudyForm::StudyForm(QWidget *parent) :
     ui->frame_18->setStackedWidget(ui->stackedWidget);
     ui->frame_14->setStackedWidget(ui->stackedWidget);
     ui->frame_17->setStackedWidget(ui->stackedWidget);
+    ui->frame_22->setStackedWidget(ui->stackedWidget);
+    ui->frame_28->setStackedWidget(ui->stackedWidget);
+    ui->frame_29->setStackedWidget(ui->stackedWidget);
+    ui->frame_24->setStackedWidget(ui->stackedWidget);
+    ui->frame_21->setStackedWidget(ui->stackedWidget);
+    ui->frame_27->setStackedWidget(ui->stackedWidget);
+    ui->frame_26->setStackedWidget(ui->stackedWidget);
     connect(ui->textEditData, &QTextEdit::textChanged, this, [=]() {
         ui->listWidget->clear();
         ui->listWidget_2->clear();
@@ -327,9 +338,14 @@ void StudyForm::on_pushSliderDataType_clicked() {
     if (enableFrame) {
         removeEffect(ui->frame_5);
         setShadow(ui->frame_5);
+        removeEffect(ui->frame_11);
     } else {
         setBlur(ui->frame_5, BLUR_RADIUS_1);
+        setBlur(ui->frame_11, BLUR_RADIUS_2);
     }
+    ui->horizontalSliderEncoder1511d->setEnabled(enableFrame);
+    ui->frame_5->update();
+    ui->frame_11->update();
 }
 
 
@@ -379,7 +395,6 @@ void StudyForm::on_pushSliderNS_clicked() {
 
 /*!
  * \brief Обработчик нажатия кнопки "Выбор алгоритма кодирования".
- * \details Обрабатывает нажатие кнопки выбора алгоритма кодирования.
  * \param Отсутствуют.
  * \return Отсутствуют.
 */
@@ -1359,6 +1374,16 @@ void StudyForm::on_pushButtonNoise_clicked() {
 
 
 /*!
+ * \brief Обработчик нажатия кнопки "Декодирование".
+ * \param Отсутствуют.
+ * \return Отсутствуют.
+*/
+void StudyForm::on_pushButtonDecoding_clicked() {
+    ui->stackedWidget->setCurrentIndex(2);
+}
+
+
+/*!
  * \brief Обработчик нажатия кнопки "Выбор формы ввода".
  * \details Выбирается ручное добавление или автоматическая генерация.
  * \param Отсутствуют.
@@ -1690,16 +1715,19 @@ void StudyForm::on_pushButtonAutoNoise_clicked() {
                     }
                     ui->listWidget_2->setCurrentRow(i);
                     setBitsNoise(index, false);
+                    QEventLoop loop;
+                    QTimer::singleShot(250, &loop, &QEventLoop::quit);
+                    loop.exec();
                 }
             } else {
                 NotificationForm *notification = new NotificationForm("Для автоматического искажения последовательности "
                                                                       "выберите формат применения.");
-                            this->setEnabled(false);
-                            notification->show();
-                            QObject::connect(notification, &NotificationForm::finished, this, [=]() {
-                                notification->deleteLater();
-                                this->setEnabled(true);
-                            });
+                this->setEnabled(false);
+                notification->show();
+                QObject::connect(notification, &NotificationForm::finished, this, [=]() {
+                    notification->deleteLater();
+                    this->setEnabled(true);
+                });
             }
         } else {
             NotificationForm *notification = new NotificationForm("Для автоматического искажения последовательности "
@@ -1747,3 +1775,196 @@ void StudyForm::autoError(const bool &type, const int &typeError, const int &ind
         }
     }
 }
+
+
+/*!
+ * \brief Обработчик нажатия кнопки "Копировать".
+ * \details Копирует данные о текущей закодированной последовательности.
+ * \param Отсутствуют.
+ * \return Отсутствуют.
+*/
+void StudyForm::on_pushButtonCopyData_clicked() {
+    if(ui->listWidget->count() != 0) {
+        decodeTypeFlag = encodeTypeFlag;
+        switch (decodeTypeFlag) {
+        case NO_TYPE: {
+            ui->horizontalSliderDataType_3->setValue(0);
+            ui->horizontalSliderDataType_4->setValue(0);
+            break;
+        }
+        case NUMERIC: {
+            ui->horizontalSliderDataType_3->setValue(1);
+            ui->horizontalSliderDataType_4->setValue(0);
+            break;
+        }
+        case TEXT: {
+            ui->horizontalSliderDataType_3->setValue(0);
+            ui->horizontalSliderDataType_4->setValue(1);
+            break;
+        }
+        }
+        if (decodeTypeFlag == TEXT) {
+            setBlur(ui->frame_29, BLUR_RADIUS_1);
+            decodeNumberFlag = NO_SYSTEM;
+            ui->horizontalSliderNS2_2->setValue(0);
+            ui->horizontalSliderNS4_2->setValue(0);
+            ui->horizontalSliderNS8_2->setValue(0);
+            ui->horizontalSliderNS10_2->setValue(0);
+            ui->horizontalSliderNS16_2->setValue(0);
+        } else {
+            removeEffect(ui->frame_29);
+            setShadow(ui->frame_29);
+            decodeNumberFlag = encodeNumberFlag;
+            switch (decodeNumberFlag) {
+            case NO_SYSTEM: {
+                ui->horizontalSliderNS2_2->setValue(0);
+                ui->horizontalSliderNS4_2->setValue(0);
+                ui->horizontalSliderNS8_2->setValue(0);
+                ui->horizontalSliderNS10_2->setValue(0);
+                ui->horizontalSliderNS16_2->setValue(0);
+                break;
+            }
+            case BINARY: {
+                ui->horizontalSliderNS2_2->setValue(1);
+                ui->horizontalSliderNS4_2->setValue(0);
+                ui->horizontalSliderNS8_2->setValue(0);
+                ui->horizontalSliderNS10_2->setValue(0);
+                ui->horizontalSliderNS16_2->setValue(0);
+                break;
+            }
+            case QUATERNARY: {
+                ui->horizontalSliderNS2_2->setValue(0);
+                ui->horizontalSliderNS4_2->setValue(1);
+                ui->horizontalSliderNS8_2->setValue(0);
+                ui->horizontalSliderNS10_2->setValue(0);
+                ui->horizontalSliderNS16_2->setValue(0);
+                break;
+            }
+            case OCTAL: {
+                ui->horizontalSliderNS2_2->setValue(0);
+                ui->horizontalSliderNS4_2->setValue(0);
+                ui->horizontalSliderNS8_2->setValue(1);
+                ui->horizontalSliderNS10_2->setValue(0);
+                ui->horizontalSliderNS16_2->setValue(0);
+                break;
+            }
+            case DECIMAL: {
+                ui->horizontalSliderNS2_2->setValue(0);
+                ui->horizontalSliderNS4_2->setValue(0);
+                ui->horizontalSliderNS8_2->setValue(0);
+                ui->horizontalSliderNS10_2->setValue(1);
+                ui->horizontalSliderNS16_2->setValue(0);
+                break;
+            }
+            case HEXADECIMAL: {
+                ui->horizontalSliderNS2_2->setValue(0);
+                ui->horizontalSliderNS4_2->setValue(0);
+                ui->horizontalSliderNS8_2->setValue(0);
+                ui->horizontalSliderNS10_2->setValue(0);
+                ui->horizontalSliderNS16_2->setValue(1);
+                break;
+            }
+            }
+        }
+        if (decodeTypeFlag == NUMERIC) {
+            ui->horizontalSliderNS2_2->setEnabled(true);
+            ui->horizontalSliderNS4_2->setEnabled(true);
+            ui->horizontalSliderNS8_2->setEnabled(true);
+            ui->horizontalSliderNS10_2->setEnabled(true);
+            ui->horizontalSliderNS16_2->setEnabled(true);
+        } else {
+            ui->horizontalSliderNS2_2->setEnabled(false);
+            ui->horizontalSliderNS4_2->setEnabled(false);
+            ui->horizontalSliderNS8_2->setEnabled(false);
+            ui->horizontalSliderNS10_2->setEnabled(false);
+            ui->horizontalSliderNS16_2->setEnabled(false);
+        }
+        ui->frame_29->update();
+        if(decodeNumberFlag != DECIMAL) {
+            ui->horizontalSliderEncoder1511d_2->setEnabled(false);
+            setBlur(ui->frame_25, BLUR_RADIUS_1);
+        } else {
+            ui->frame_25->setEnabled(true);
+            ui->horizontalSliderEncoder1511d_2->setEnabled(true);
+            removeEffect(ui->frame_25);
+        }
+        ui->frame_25->update();
+        decodeAlgFlag = encodeAlgFlag;
+        switch (decodeAlgFlag) {
+        case NO_ALG: {
+            ui->horizontalSliderEncoder74_2->setValue(0);
+            ui->horizontalSliderEncoder84_2->setValue(0);
+            ui->horizontalSliderEncoder1511_2->setValue(0);
+            ui->horizontalSliderEncoder1611_2->setValue(0);
+            ui->horizontalSliderEncoder1511d_2->setValue(0);
+            break;
+        }
+        case ALG_74: {
+            ui->horizontalSliderEncoder74_2->setValue(1);
+            ui->horizontalSliderEncoder84_2->setValue(0);
+            ui->horizontalSliderEncoder1511_2->setValue(0);
+            ui->horizontalSliderEncoder1611_2->setValue(0);
+            ui->horizontalSliderEncoder1511d_2->setValue(0);
+            break;
+        }
+        case ALG_84: {
+            ui->horizontalSliderEncoder74_2->setValue(0);
+            ui->horizontalSliderEncoder84_2->setValue(1);
+            ui->horizontalSliderEncoder1511_2->setValue(0);
+            ui->horizontalSliderEncoder1611_2->setValue(0);
+            ui->horizontalSliderEncoder1511d_2->setValue(0);
+            break;
+        }
+        case ALG_1511: {
+            ui->horizontalSliderEncoder74_2->setValue(0);
+            ui->horizontalSliderEncoder84_2->setValue(0);
+            ui->horizontalSliderEncoder1511_2->setValue(1);
+            ui->horizontalSliderEncoder1611_2->setValue(0);
+            ui->horizontalSliderEncoder1511d_2->setValue(0);
+            break;
+        }
+        case ALG_1611: {
+            ui->horizontalSliderEncoder74_2->setValue(0);
+            ui->horizontalSliderEncoder84_2->setValue(0);
+            ui->horizontalSliderEncoder1511_2->setValue(0);
+            ui->horizontalSliderEncoder1611_2->setValue(1);
+            ui->horizontalSliderEncoder1511d_2->setValue(0);
+            break;
+        }
+        case ALG_1511d: {
+            ui->horizontalSliderEncoder74_2->setValue(0);
+            ui->horizontalSliderEncoder84_2->setValue(0);
+            ui->horizontalSliderEncoder1511_2->setValue(0);
+            ui->horizontalSliderEncoder1611_2->setValue(0);
+            ui->horizontalSliderEncoder1511d_2->setValue(1);
+            break;
+        }
+        }
+        if(decodeAlgFlag == ALG_1511d) {
+            /// \todo когда доделаю функционал - добавлю.
+        } else {
+            ui->textEditData_2->setText(modEncodedBitSeq.getSecond());
+        }
+    } else {
+        NotificationForm *notification = new NotificationForm("При копировании данных произошла ошибка. "
+                                                              "Сначала необходимо провести кодирование.");
+        this->setEnabled(false);
+        notification->show();
+        QObject::connect(notification, &NotificationForm::finished, this, [=]() {
+            notification->deleteLater();
+            this->setEnabled(true);
+        });
+    }
+}
+
+
+/*!
+ * \brief Обработчик нажатия кнопки "Декодирование".
+ * \details Осуществл.
+ * \param Отсутствуют.
+ * \return Отсутствуют.
+*/
+void StudyForm::on_pushButtonDecode_clicked() {
+
+}
+

@@ -149,6 +149,26 @@ QString BitSequence::toString() const {
 
 
 /*!
+ * \brief Метод возвращает строковое представление последовательности битов.
+ * \param Отсутствуют.
+ * \return Строковое представление последовательности битов.
+*/
+int BitSequence::toDecimal() const {
+    int result = 0;
+    int pow = 2;
+    for (int i = 0; i < bitCount; ++i) {
+        if(!i) {
+            result += bitArray[i];
+        } else {
+            result += bitArray[i] * pow;
+            pow *= 2;
+        }
+    }
+    return result;
+}
+
+
+/*!
  * \brief Метод возвращает подпоследовательность битов в заданном диапазоне.
  * \param from Начальный индекс подпоследовательности.
  * \param to Конечный индекс подпоследовательности.

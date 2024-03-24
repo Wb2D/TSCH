@@ -25,9 +25,9 @@ class Converter {
 public:
     static void toBinary(BitSequence &bitSequency, const QString &number, const int &base);
     static void toBinary(BitSequence &bitSequency, const QString &number); ///< воспринимается, как текст
+    static BigInteger toDecimal(const QString &number, const int &base);
 
 private:
-    static BigInteger toDecimal(const QString &number, const int &base);
     static int charToDecimal(QChar ch);
     static BitSequence charToByte(const QChar &ch);
 
