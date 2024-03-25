@@ -64,7 +64,6 @@ int NumberGenerator::number(const int &left, const int &right) {
  * \return Случайное целое число в заданном диапазоне.
 */
 int NumberGenerator::number(const int &left, const int &right, const int &exclude) {
-    qDebug() << left << " " << right << " " << exclude;
     QRandomGenerator rg = QRandomGenerator::securelySeeded();
     int randomNumber = -1;
     if (exclude > left && exclude < right) {

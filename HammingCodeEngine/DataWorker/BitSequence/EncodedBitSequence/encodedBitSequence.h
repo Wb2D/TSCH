@@ -23,6 +23,7 @@
 class EncodedBitSequence {
 public:
     EncodedBitSequence() : data(), method(0), size(0) {    }
+    EncodedBitSequence(const BitSequence&, const int&, const int&, const bool&);
     EncodedBitSequence(const QVector<QPair<BitSequence, BitSequence>> &data, const int &method,
                        const int &size) : data(data), method(method), size(size) {   }
     EncodedBitSequence(const EncodedBitSequence &obj)

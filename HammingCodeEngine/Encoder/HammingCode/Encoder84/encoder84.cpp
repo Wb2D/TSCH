@@ -36,8 +36,7 @@ void Encoder84::encode(const BitSequence &data, BitSequence &result) {
     bool e1 = int(data[0] + data[1] + data[3]) % 2;
     bool e2 = int(data[0] + data[2] + data[3]) % 2;
     bool e3 = int(data[1] + data[2] + data[3]) % 2;
-
-    result.append(int(e1 + e2 +e3 + data[0] + data[1] + data[2] + data[3]));
+    result.append(int(e1 + e2 +e3 + data[0] + data[1] + data[2] + data[3]) % 2);
     result.append(e1);
     result.append(e2);
     result.append(data[0]);

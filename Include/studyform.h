@@ -30,6 +30,8 @@
 #include "HammingCodeEngine/Encoder/HammingCode/EncoderDecimal1511/encoderDecimal1511.h"
 
 #include "HammingCodeEngine/Decoder/HammingCode/Decoder74/decoder74.h"
+#include "HammingCodeEngine/Decoder/HammingCode/Decoder84/decoder84.h"
+#include "HammingCodeEngine/Decoder/HammingCode/Decoder1511/decoder1511.h"
 
 
 
@@ -78,6 +80,7 @@ protected:
 
 private slots:
     /// \brief Слоты для вкладки Кодирование.
+    void on_pushButtonEncoding_clicked();
     void on_pushButtonClose_clicked();
     void on_pushButtonMinimize_clicked();
     void on_pushSliderFormInput_clicked();
@@ -88,18 +91,17 @@ private slots:
     void on_pushButtonClose_2_clicked();
     void on_pushButtonAutoGen_clicked();
     void on_pushButtonEncode_clicked();
-    void on_pushButtonEncoding_clicked();
-    void on_pushButtonNoise_clicked();
     /// \brief Слоты для вкладки Шум.
+    void on_pushButtonNoise_clicked();
     void on_pushSliderFormInputNoise_clicked();
     void on_pushSliderErrorType_clicled();
     void on_pushSliderUseTo_clicked();
     void on_pushButtonAutoNoise_clicked();
     void onDataLabel_doubleClicked();
-
+    /// \brief Слоты для вкладки Декодирование.
     void on_pushButtonDecoding_clicked();
-
     void on_pushButtonCopyData_clicked();
+    void on_pushButtonDecode_clicked();
 
 private:
     void setShadow(QWidget*);
@@ -110,17 +112,18 @@ private:
     void setBitsEncoding(const int&);
     void setBitsNoise(const int&, const bool&);
     void resetAlgo();
-    void resetPage74();
-    void resetPage84();
-    void resetPage1511();
-    void resetPage1611();
-    void resetPage1511d();
-    void resetData();
-    void resetNS();
+    void resetPageEncoder74();
+    void resetPageEncoder84();
+    void resetPageEncoder1511();
+    void resetPageEncoder1611();
+    void resetPageEncoder1511d();
+    void resetEncoderData();
+    void resetEncodrNS();
     void resetLabelXd11();
     void resetLabelXd4();
     void setEnabledNS(const bool&);
     void autoError(const bool&, const int&, const int&);
+    void setBitsDecoding(const int&);
 
     static const QRegularExpression BINARY_REGEX;
     static const QRegularExpression QUATERNARY_REGEX;
@@ -181,7 +184,7 @@ private:
     BigInteger bigInt;
     EncodedBigInteger clearEncodedBigInt;
     EncodedBigInteger modEncodedBigInt;
-    QPair<EncodedBitSequence, QVector<int>> decodedData;
+    QPair<EncodedBitSequence, QVector<BitSequence>> decodedData;
     //EncodedBigInteger e
     //QRect wGeometry;
     static const int BLUR_RADIUS_1 = 8;

@@ -1,5 +1,5 @@
-#ifndef DECODER74_H
-#define DECODER74_H
+#ifndef DECODER84_H
+#define DECODER84_H
 
 #include <QPair>
 #include <QVector>
@@ -10,16 +10,16 @@
 
 
 /*!
- * \brief Класс Decoder74 реализует алгоритм декодирования кода Хэмминга (7,4).
+ * \brief Класс Decoder84 реализует алгоритм декодирования кода Хэмминга (8,4).
  * \author Wb2D
- * \date 24 марта 2024
- * \details Этот класс декодирует закодированную битовую последовательность с использованием кода Хэмминга (7,4).
+ * \date 25 марта 2024
+ * \details Этот класс декодирует закодированную битовую последовательность с использованием кода Хэмминга (8,4).
  * Процесс декодирования включает в себя выявление и исправление ошибок в закодированных данных. Алгоритм
- * декодирования кода Хэмминга (7,4) работает путем вычисления синдромов на основе проверочных бит и последующего
+ * декодирования кода Хэмминга (8,4) работает путем вычисления синдромов на основе проверочных бит и последующего
  * исправления ошибок.
 */
 
-class Decoder74 {
+class Decoder84 {
 public:
     static QPair<EncodedBitSequence, QVector<BitSequence>> start(const EncodedBitSequence &data);
 
@@ -27,4 +27,4 @@ private:
     static BitSequence decode(const BitSequence &data, BitSequence &result);
 };
 
-#endif //DECODER74_H
+#endif //DECODER84_H

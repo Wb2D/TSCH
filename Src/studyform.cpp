@@ -42,7 +42,7 @@ StudyForm::StudyForm(QWidget *parent) :
     bigInt = BigInteger();
     clearEncodedBigInt = EncodedBigInteger();
     modEncodedBigInt = EncodedBigInteger();
-    decodedData = QPair<EncodedBitSequence, QVector<int>>();
+    decodedData = QPair<EncodedBitSequence, QVector<BitSequence>>();
     ui->frame_6->setStackedWidget(ui->stackedWidget);
     ui->frame_4->setStackedWidget(ui->stackedWidget);
     ui->frame_5->setStackedWidget(ui->stackedWidget);
@@ -67,13 +67,16 @@ StudyForm::StudyForm(QWidget *parent) :
     connect(ui->textEditData, &QTextEdit::textChanged, this, [=]() {
         ui->listWidget->clear();
         ui->listWidget_2->clear();
-        resetData();
+        resetEncoderData();
     });
     connect(ui->listWidget, &QListWidget::itemClicked, this, [=](QListWidgetItem *item) {
         setBitsEncoding(ui->listWidget->count() - ui->listWidget->row(item) - 1);
     });
     connect(ui->listWidget_2, &QListWidget::itemClicked, this, [=](QListWidgetItem *item) {
         setBitsNoise(ui->listWidget_2->count() - ui->listWidget_2->row(item) - 1, false);
+    });
+    connect(ui->listWidget_3, &QListWidget::itemClicked, this, [=](QListWidgetItem *item) {
+        setBitsDecoding(ui->listWidget_3->count() - ui->listWidget_3->row(item) - 1);
     });
 }
 
@@ -312,7 +315,7 @@ void StudyForm::on_pushSliderFormInput_clicked() {
  * \return Отсутствуют.
 */
 void StudyForm::on_pushSliderDataType_clicked() {
-    resetNS();
+    resetEncodrNS();
     QSlider* senderSlider = qobject_cast<QSlider*>(sender());
     if (senderSlider == ui->horizontalSliderDataType_1) {
         ui->horizontalSliderDataType_2->setValue(0);
@@ -399,7 +402,7 @@ void StudyForm::on_pushSliderNS_clicked() {
  * \return Отсутствуют.
 */
 void StudyForm::on_pushSliderEncoder_clicked() {
-    resetData();
+    resetEncoderData();
     QSlider *senderSlider = qobject_cast<QSlider*>(sender());
     QList<QSlider*> sliders = { ui->horizontalSliderEncoder74,
                                 ui->horizontalSliderEncoder84,
@@ -1003,7 +1006,7 @@ void StudyForm::resetAlgo() {
  * \param Отсутствуют.
  * \return Отсутствуют.
 */
-void StudyForm::resetNS() {
+void StudyForm::resetEncodrNS() {
     ui->horizontalSliderNS2->setValue(0);
     ui->horizontalSliderNS4->setValue(0);
     ui->horizontalSliderNS8->setValue(0);
@@ -1032,7 +1035,7 @@ void StudyForm::setEnabledNS(const bool &flag) {
  * \param Отсутствуют.
  * \return Отсутствуют.
 */
-void StudyForm::resetPage74() {
+void StudyForm::resetPageEncoder74() {
     ui->labelX_id_74_4->clear();
     ui->labelX_id_74_3->clear();
     ui->labelX_id_74_2->clear();
@@ -1067,7 +1070,7 @@ void StudyForm::resetPage74() {
  * \param Отсутствуют.
  * \return Отсутствуют.
 */
-void StudyForm::resetPage84() {
+void StudyForm::resetPageEncoder84() {
     ui->labelX_id_84_4->clear();
     ui->labelX_id_84_3->clear();
     ui->labelX_id_84_2->clear();
@@ -1105,7 +1108,7 @@ void StudyForm::resetPage84() {
  * \param Отсутствуют.
  * \return Отсутствуют.
 */
-void StudyForm::resetPage1511() {
+void StudyForm::resetPageEncoder1511() {
     ui->labelX_id_1511_11->clear();
     ui->labelX_id_1511_10->clear();
     ui->labelX_id_1511_9->clear();
@@ -1171,7 +1174,7 @@ void StudyForm::resetPage1511() {
  * \param Отсутствуют.
  * \return Отсутствуют.
 */
-void StudyForm::resetPage1611() {
+void StudyForm::resetPageEncoder1611() {
     ui->labelX_id_1611_11->clear();
     ui->labelX_id_1611_10->clear();
     ui->labelX_id_1611_9->clear();
@@ -1240,7 +1243,7 @@ void StudyForm::resetPage1611() {
  * \param Отсутствуют.
  * \return Отсутствуют.
 */
-void StudyForm::resetPage1511d() {
+void StudyForm::resetPageEncoder1511d() {
     ui->labelX_id_d1511_11->clear();
     ui->labelX_id_d1511_10->clear();
     ui->labelX_id_d1511_9->clear();
@@ -1340,14 +1343,14 @@ void StudyForm::resetLabelXd4() {
  * \param Отсутствуют.
  * \return Отсутствуют.
 */
-void StudyForm::resetData() {
+void StudyForm::resetEncoderData() {
     ui->listWidget->clear();
     ui->listWidget_2->clear();
-    resetPage74();
-    resetPage84();
-    resetPage1511();
-    resetPage1611();
-    resetPage1511d();
+    resetPageEncoder74();
+    resetPageEncoder84();
+    resetPageEncoder1511();
+    resetPageEncoder1611();
+    resetPageEncoder1511d();
 }
 
 
@@ -1494,7 +1497,6 @@ void StudyForm::on_pushSliderUseTo_clicked() {
         }
     }
 }
-
 
 
 /*!
@@ -1900,6 +1902,7 @@ void StudyForm::on_pushButtonCopyData_clicked() {
             break;
         }
         case ALG_74: {
+            ui->stackedWidget_6->setCurrentIndex(0);
             ui->horizontalSliderEncoder74_2->setValue(1);
             ui->horizontalSliderEncoder84_2->setValue(0);
             ui->horizontalSliderEncoder1511_2->setValue(0);
@@ -1908,6 +1911,7 @@ void StudyForm::on_pushButtonCopyData_clicked() {
             break;
         }
         case ALG_84: {
+            ui->stackedWidget_6->setCurrentIndex(1);
             ui->horizontalSliderEncoder74_2->setValue(0);
             ui->horizontalSliderEncoder84_2->setValue(1);
             ui->horizontalSliderEncoder1511_2->setValue(0);
@@ -1916,6 +1920,7 @@ void StudyForm::on_pushButtonCopyData_clicked() {
             break;
         }
         case ALG_1511: {
+            ui->stackedWidget_6->setCurrentIndex(2);
             ui->horizontalSliderEncoder74_2->setValue(0);
             ui->horizontalSliderEncoder84_2->setValue(0);
             ui->horizontalSliderEncoder1511_2->setValue(1);
@@ -1924,6 +1929,7 @@ void StudyForm::on_pushButtonCopyData_clicked() {
             break;
         }
         case ALG_1611: {
+            ui->stackedWidget_6->setCurrentIndex(3);
             ui->horizontalSliderEncoder74_2->setValue(0);
             ui->horizontalSliderEncoder84_2->setValue(0);
             ui->horizontalSliderEncoder1511_2->setValue(0);
@@ -1932,6 +1938,7 @@ void StudyForm::on_pushButtonCopyData_clicked() {
             break;
         }
         case ALG_1511d: {
+            ui->stackedWidget_6->setCurrentIndex(4);
             ui->horizontalSliderEncoder74_2->setValue(0);
             ui->horizontalSliderEncoder84_2->setValue(0);
             ui->horizontalSliderEncoder1511_2->setValue(0);
@@ -1965,6 +1972,204 @@ void StudyForm::on_pushButtonCopyData_clicked() {
  * \return Отсутствуют.
 */
 void StudyForm::on_pushButtonDecode_clicked() {
-
+    if(encodeTypeFlag == NO_TYPE) {
+        NotificationForm *notification = new NotificationForm("Декодирование невозможна. Выберите тип данных.");
+        this->setEnabled(false);
+        notification->show();
+        QObject::connect(notification, &NotificationForm::finished, this, [=]() {
+            notification->deleteLater();
+            this->setEnabled(true);
+        });
+    } else {
+        QString data = ui->textEditData_2->toPlainText();
+        BitSequence seq = BitSequence();
+        switch (encodeAlgFlag) {
+        case NO_ALG: {
+            NotificationForm *notification = new NotificationForm("Декодирование невозможно. "
+                                                                  "Выберите алгоритм.");
+            this->setEnabled(false);
+            notification->show();
+            QObject::connect(notification, &NotificationForm::finished, this, [=]() {
+                notification->deleteLater();
+                this->setEnabled(true);
+            });
+            break;
+        }
+        case ALG_74: {
+            Converter::toBinary(seq, data, 2);
+            setListSeq(7, seq, ui->listWidget_3);
+            decodedData = Decoder74::start(EncodedBitSequence(seq, ALG_74, 7, true));
+            break;
+        }
+        case ALG_84: {
+            Converter::toBinary(seq, data, 2);
+            setListSeq(8, seq, ui->listWidget_3);
+            decodedData = Decoder84::start(EncodedBitSequence(seq, ALG_84, 8, true));
+            break;
+        }
+        case ALG_1511: {
+            Converter::toBinary(seq, data, 2);
+            setListSeq(15, seq, ui->listWidget_3);
+            decodedData = Decoder1511::start(EncodedBitSequence(seq, ALG_1511, 15, true));
+            break;
+        }
+        case ALG_1611: {
+//            setListSeq(11, bitSeq, ui->listWidget);
+//            setListSeq(11, bitSeq, ui->listWidget_2);
+//            clearEncodedBitSeq = Encoder1611::start(bitSeq);
+//            modEncodedBitSeq = clearEncodedBitSeq;
+            break;
+        }
+        case ALG_1511d: {
+//            bigInt = BigInteger(data);
+//            setListInt(11, bigInt, ui->listWidget);
+//            setListInt(11, bigInt, ui->listWidget_2);
+//            clearEncodedBigInt = EncoderDecimal1511::start(bigInt);
+//            modEncodedBigInt = clearEncodedBigInt;
+            break;
+        }
+        }
+    }
 }
 
+
+/*!
+ * \brief Метод для установки содержимого ячеек значений для вкладки "Декодирование".
+ * \param index Индекс последовательности.
+ * \return Отсутствуют.
+*/
+void StudyForm::setBitsDecoding(const int &index) {
+    QString eData, dData, syndrom;
+    int syndromIndex = -1;
+    if(encodeAlgFlag != ALG_1511d) {
+        eData = decodedData.first[index].second.toString();
+        dData = decodedData.first[index].first.toString();
+        syndrom = decodedData.second.at(index).toString();
+        switch (encodeAlgFlag) {
+        case NO_ALG: {
+            break;
+        }
+        case ALG_74: {
+            syndromIndex = decodedData.second.at(index).toDecimal();
+            ui->labelY_id_d_74_7->setText(eData.at(0));
+            ui->labelY_id_d_74_6->setText(eData.at(1));
+            ui->labelY_id_d_74_5->setText(eData.at(2));
+            ui->labelY_id_d_74_4->setText(eData.at(3));
+            ui->labelY_id_d_74_3->setText(eData.at(4));
+            ui->labelY_id_d_74_2->setText(eData.at(5));
+            ui->labelY_id_d_74_1->setText(eData.at(6));
+            ui->labelY_id_d_74_2_7->setText(eData.at(0));
+            ui->labelY_id_d_74_2_6->setText(eData.at(1));
+            ui->labelY_id_d_74_2_5->setText(eData.at(2));
+            ui->labelY_id_d_74_2_4->setText(syndrom.at(0));
+            ui->labelY_id_d_74_2_3->setText(eData.at(4));
+            ui->labelY_id_d_74_2_2->setText(syndrom.at(1));
+            ui->labelY_id_d_74_2_1->setText(syndrom.at(2));
+            ui->labelX_74_errorIn->setText(QString::number(syndromIndex));
+            if(syndromIndex) {
+                ui->labelX_74_errorType->setText(QString("Одиночная"));
+            } else {
+                ui->labelX_74_errorType->setText(QString("Отсутствует"));
+            }
+            ui->labelX_od_d_74_4->setText(dData.at(0));
+            ui->labelX_od_d_74_3->setText(dData.at(1));
+            ui->labelX_od_d_74_2->setText(dData.at(2));
+            ui->labelX_od_d_74_1->setText(dData.at(3));
+            break;
+        }
+        case ALG_84: {
+            syndromIndex = decodedData.second.at(index).subsequence(1, 3).toDecimal();
+            ui->labelY_id_d_84_8->setText(eData.at(0));
+            ui->labelY_id_d_84_7->setText(eData.at(1));
+            ui->labelY_id_d_84_6->setText(eData.at(2));
+            ui->labelY_id_d_84_5->setText(eData.at(3));
+            ui->labelY_id_d_84_4->setText(eData.at(4));
+            ui->labelY_id_d_84_3->setText(eData.at(5));
+            ui->labelY_id_d_84_2->setText(eData.at(6));
+            ui->labelY_id_d_84_1->setText(eData.at(7));
+            ui->labelY_id_d_84_2_8->setText(eData.at(0));
+            ui->labelY_id_d_84_2_7->setText(eData.at(1));
+            ui->labelY_id_d_84_2_6->setText(eData.at(2));
+            ui->labelY_id_d_84_2_5->setText(syndrom.at(0));
+            ui->labelY_id_d_84_2_4->setText(eData.at(4));
+            ui->labelY_id_d_84_2_3->setText(syndrom.at(1));
+            ui->labelY_id_d_84_2_2->setText(syndrom.at(2));
+            ui->labelY_id_d_84_2_1->setText(syndrom.at(3));
+            ui->labelX_84_errorIn->setText(QString::number(syndromIndex));
+            if(!decodedData.second[index].toDecimal()) {
+                ui->labelX_84_errorType->setText(QString("Отсутствует"));
+            } else {
+                if(decodedData.second[index][0]) {
+                    ui->labelX_84_errorType->setText(QString("Одиночная"));
+                } else {
+                    ui->labelX_84_errorType->setText(QString("Двойная"));
+                }
+            }
+            ui->labelX_od_d_84_4->setText(dData.at(0));
+            ui->labelX_od_d_84_3->setText(dData.at(1));
+            ui->labelX_od_d_84_2->setText(dData.at(2));
+            ui->labelX_od_d_84_1->setText(dData.at(3));
+            break;
+        }
+        case ALG_1511: {
+            syndromIndex = decodedData.second.at(index).toDecimal();
+            ui->labelY_id_d_1511_15->setText(eData.at(0));
+            ui->labelY_id_d_1511_14->setText(eData.at(1));
+            ui->labelY_id_d_1511_13->setText(eData.at(2));
+            ui->labelY_id_d_1511_12->setText(eData.at(3));
+            ui->labelY_id_d_1511_11->setText(eData.at(4));
+            ui->labelY_id_d_1511_10->setText(eData.at(5));
+            ui->labelY_id_d_1511_9->setText(eData.at(6));
+            ui->labelY_id_d_1511_8->setText(eData.at(7));
+            ui->labelY_id_d_1511_7->setText(eData.at(8));
+            ui->labelY_id_d_1511_6->setText(eData.at(9));
+            ui->labelY_id_d_1511_5->setText(eData.at(10));
+            ui->labelY_id_d_1511_4->setText(eData.at(11));
+            ui->labelY_id_d_1511_3->setText(eData.at(12));
+            ui->labelY_id_d_1511_2->setText(eData.at(13));
+            ui->labelY_id_d_1511_1->setText(eData.at(14));
+            ui->labelY_id_d_1511_2_15->setText(eData.at(0));
+            ui->labelY_id_d_1511_2_14->setText(eData.at(1));
+            ui->labelY_id_d_1511_2_13->setText(eData.at(2));
+            ui->labelY_id_d_1511_2_12->setText(eData.at(3));
+            ui->labelY_id_d_1511_2_11->setText(eData.at(4));
+            ui->labelY_id_d_1511_2_10->setText(eData.at(5));
+            ui->labelY_id_d_1511_2_9->setText(eData.at(6));
+            ui->labelY_id_d_1511_2_8->setText(syndrom.at(0));
+            ui->labelY_id_d_1511_2_7->setText(eData.at(8));
+            ui->labelY_id_d_1511_2_6->setText(eData.at(9));
+            ui->labelY_id_d_1511_2_5->setText(eData.at(10));
+            ui->labelY_id_d_1511_2_4->setText(syndrom.at(1));
+            ui->labelY_id_d_1511_2_3->setText(eData.at(12));
+            ui->labelY_id_d_1511_2_2->setText(syndrom.at(2));
+            ui->labelY_id_d_1511_2_1->setText(syndrom.at(3));
+            ui->labelX_1511_errorIn->setText(QString::number(syndromIndex));
+            if(syndromIndex) {
+                ui->labelX_1511_errorType->setText(QString("Одиночная"));
+            } else {
+                ui->labelX_1511_errorType->setText(QString("Отсутствует"));
+            }
+            ui->labelX_od_d_1511_11->setText(dData.at(0));
+            ui->labelX_od_d_1511_10->setText(dData.at(1));
+            ui->labelX_od_d_1511_9->setText(dData.at(2));
+            ui->labelX_od_d_1511_8->setText(dData.at(3));
+            ui->labelX_od_d_1511_7->setText(dData.at(4));
+            ui->labelX_od_d_1511_6->setText(dData.at(5));
+            ui->labelX_od_d_1511_5->setText(dData.at(6));
+            ui->labelX_od_d_1511_4->setText(dData.at(7));
+            ui->labelX_od_d_1511_3->setText(dData.at(8));
+            ui->labelX_od_d_1511_2->setText(dData.at(9));
+            ui->labelX_od_d_1511_1->setText(dData.at(10));
+            break;
+        }
+        case ALG_1611: {
+            break;
+        }
+        default: {
+            break;
+        }
+        }
+    } else {
+
+    }
+}
