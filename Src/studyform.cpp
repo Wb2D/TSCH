@@ -2014,6 +2014,9 @@ void StudyForm::on_pushButtonDecode_clicked() {
             break;
         }
         case ALG_1611: {
+            Converter::toBinary(seq, data, 2);
+            setListSeq(16, seq, ui->listWidget_3);
+            decodedData = Decoder1611::start(EncodedBitSequence(seq, ALG_1611, 16, true));
 //            setListSeq(11, bitSeq, ui->listWidget);
 //            setListSeq(11, bitSeq, ui->listWidget_2);
 //            clearEncodedBitSeq = Encoder1611::start(bitSeq);
@@ -2163,6 +2166,58 @@ void StudyForm::setBitsDecoding(const int &index) {
             break;
         }
         case ALG_1611: {
+            syndromIndex = decodedData.second.at(index).subsequence(1, 4).toDecimal();
+            ui->labelY_id_d_1611_15->setText(eData.at(0));
+            ui->labelY_id_d_1611_14->setText(eData.at(1));
+            ui->labelY_id_d_1611_13->setText(eData.at(2));
+            ui->labelY_id_d_1611_12->setText(eData.at(3));
+            ui->labelY_id_d_1611_11->setText(eData.at(4));
+            ui->labelY_id_d_1611_10->setText(eData.at(5));
+            ui->labelY_id_d_1611_9->setText(eData.at(6));
+            ui->labelY_id_d_1611_8->setText(eData.at(7));
+            ui->labelY_id_d_1611_7->setText(eData.at(8));
+            ui->labelY_id_d_1611_6->setText(eData.at(9));
+            ui->labelY_id_d_1611_5->setText(eData.at(10));
+            ui->labelY_id_d_1611_4->setText(eData.at(11));
+            ui->labelY_id_d_1611_3->setText(eData.at(12));
+            ui->labelY_id_d_1611_2->setText(eData.at(13));
+            ui->labelY_id_d_1611_1->setText(eData.at(14));
+            ui->labelY_id_d_1611_2_15->setText(eData.at(0));
+            ui->labelY_id_d_1611_2_14->setText(eData.at(1));
+            ui->labelY_id_d_1611_2_13->setText(eData.at(2));
+            ui->labelY_id_d_1611_2_12->setText(eData.at(3));
+            ui->labelY_id_d_1611_2_11->setText(eData.at(4));
+            ui->labelY_id_d_1611_2_10->setText(eData.at(5));
+            ui->labelY_id_d_1611_2_9->setText(syndrom.at(0));
+            ui->labelY_id_d_1611_2_8->setText(eData.at(7));
+            ui->labelY_id_d_1611_2_7->setText(eData.at(8));
+            ui->labelY_id_d_1611_2_6->setText(eData.at(9));
+            ui->labelY_id_d_1611_2_5->setText(syndrom.at(1));
+            ui->labelY_id_d_1611_2_4->setText(eData.at(11));
+            ui->labelY_id_d_1611_2_3->setText(syndrom.at(2));
+            ui->labelY_id_d_1611_2_2->setText(syndrom.at(3));
+            ui->labelY_id_d_1611_2_1->setText(syndrom.at(4));
+            ui->labelX_1611_errorIn->setText(QString::number(syndromIndex));
+            if(!decodedData.second[index].toDecimal()) {
+                ui->labelX_1611_errorType->setText(QString("Отсутствует"));
+            } else {
+                if(decodedData.second[index][0]) {
+                    ui->labelX_1611_errorType->setText(QString("Одиночная"));
+                } else {
+                    ui->labelX_1611_errorType->setText(QString("Двойная"));
+                }
+            }
+            ui->labelX_od_d_1611_11->setText(dData.at(0));
+            ui->labelX_od_d_1611_10->setText(dData.at(1));
+            ui->labelX_od_d_1611_9->setText(dData.at(2));
+            ui->labelX_od_d_1611_8->setText(dData.at(3));
+            ui->labelX_od_d_1611_7->setText(dData.at(4));
+            ui->labelX_od_d_1611_6->setText(dData.at(5));
+            ui->labelX_od_d_1611_5->setText(dData.at(6));
+            ui->labelX_od_d_1611_4->setText(dData.at(7));
+            ui->labelX_od_d_1611_3->setText(dData.at(8));
+            ui->labelX_od_d_1611_2->setText(dData.at(9));
+            ui->labelX_od_d_1611_1->setText(dData.at(10));
             break;
         }
         default: {

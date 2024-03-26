@@ -32,6 +32,7 @@
 #include "HammingCodeEngine/Decoder/HammingCode/Decoder74/decoder74.h"
 #include "HammingCodeEngine/Decoder/HammingCode/Decoder84/decoder84.h"
 #include "HammingCodeEngine/Decoder/HammingCode/Decoder1511/decoder1511.h"
+#include "HammingCodeEngine/Decoder/HammingCode/Decoder1611/decoder1611.h"
 
 
 

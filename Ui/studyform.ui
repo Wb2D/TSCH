@@ -3094,7 +3094,7 @@ QSlider::handle:horizontal {
 }</string>
             </property>
             <property name="currentIndex">
-             <number>0</number>
+             <number>3</number>
             </property>
             <widget class="QWidget" name="page_3">
              <layout class="QGridLayout" name="gridLayout_33">
@@ -10103,7 +10103,7 @@ QSlider::handle:horizontal {
 }</string>
                       </property>
                       <property name="text">
-                       <string>&lt;html&gt;y&lt;sub&gt;16&lt;/sub&gt; = x&lt;sub&gt;11&lt;/sub&gt;&lt;/html&gt;</string>
+                       <string>&lt;html&gt;y&lt;sub&gt;15&lt;/sub&gt; = x&lt;sub&gt;11&lt;/sub&gt;&lt;/html&gt;</string>
                       </property>
                      </widget>
                     </item>
@@ -10151,7 +10151,7 @@ QSlider::handle:horizontal {
 }</string>
                       </property>
                       <property name="text">
-                       <string>&lt;html&gt;y&lt;sub&gt;15&lt;/sub&gt; = x&lt;sub&gt;10&lt;/sub&gt;&lt;/html&gt;</string>
+                       <string>&lt;html&gt;y&lt;sub&gt;14&lt;/sub&gt; = x&lt;sub&gt;10&lt;/sub&gt;&lt;/html&gt;</string>
                       </property>
                      </widget>
                     </item>
@@ -10199,7 +10199,7 @@ QSlider::handle:horizontal {
 }</string>
                       </property>
                       <property name="text">
-                       <string>&lt;html&gt;y&lt;sub&gt;14&lt;/sub&gt; = x&lt;sub&gt;9&lt;/sub&gt;&lt;/html&gt;</string>
+                       <string>&lt;html&gt;y&lt;sub&gt;13&lt;/sub&gt; = x&lt;sub&gt;9&lt;/sub&gt;&lt;/html&gt;</string>
                       </property>
                      </widget>
                     </item>
@@ -10247,7 +10247,7 @@ QSlider::handle:horizontal {
 }</string>
                       </property>
                       <property name="text">
-                       <string>&lt;html&gt;y&lt;sub&gt;13&lt;/sub&gt; = x&lt;sub&gt;8&lt;/sub&gt;&lt;/html&gt;</string>
+                       <string>&lt;html&gt;y&lt;sub&gt;12&lt;/sub&gt; = x&lt;sub&gt;8&lt;/sub&gt;&lt;/html&gt;</string>
                       </property>
                      </widget>
                     </item>
@@ -10295,7 +10295,7 @@ QSlider::handle:horizontal {
 }</string>
                       </property>
                       <property name="text">
-                       <string>&lt;html&gt;y&lt;sub&gt;12&lt;/sub&gt; = x&lt;sub&gt;7&lt;/sub&gt;&lt;/html&gt;</string>
+                       <string>&lt;html&gt;y&lt;sub&gt;11&lt;/sub&gt; = x&lt;sub&gt;7&lt;/sub&gt;&lt;/html&gt;</string>
                       </property>
                      </widget>
                     </item>
@@ -10343,7 +10343,7 @@ QSlider::handle:horizontal {
 }</string>
                       </property>
                       <property name="text">
-                       <string>&lt;html&gt;y&lt;sub&gt;11&lt;/sub&gt; = x&lt;sub&gt;6&lt;/sub&gt;&lt;/html&gt;</string>
+                       <string>&lt;html&gt;y&lt;sub&gt;10&lt;/sub&gt; = x&lt;sub&gt;6&lt;/sub&gt;&lt;/html&gt;</string>
                       </property>
                      </widget>
                     </item>
@@ -10391,7 +10391,7 @@ QSlider::handle:horizontal {
 }</string>
                       </property>
                       <property name="text">
-                       <string>&lt;html&gt;y&lt;sub&gt;10&lt;/sub&gt; = x&lt;sub&gt;5&lt;/sub&gt;&lt;/html&gt;</string>
+                       <string>&lt;html&gt;y&lt;sub&gt;9&lt;/sub&gt; = x&lt;sub&gt;5&lt;/sub&gt;&lt;/html&gt;</string>
                       </property>
                      </widget>
                     </item>
@@ -10475,7 +10475,7 @@ QSlider::handle:horizontal {
 }</string>
                       </property>
                       <property name="text">
-                       <string>&lt;html&gt;y&lt;sub&gt;9&lt;/sub&gt; = x&lt;sub&gt;5&lt;/sub&gt; ⊕ x&lt;sub&gt;6&lt;/sub&gt; ⊕ x&lt;sub&gt;7&lt;/sub&gt; ⊕ x&lt;sub&gt;8&lt;/sub&gt; ⊕ x&lt;sub&gt;9&lt;/sub&gt; ⊕ x&lt;sub&gt;10&lt;/sub&gt; ⊕ x&lt;sub&gt;11&lt;/sub&gt;&lt;/html&gt;</string>
+                       <string>&lt;html&gt;y&lt;sub&gt;8&lt;/sub&gt; = x&lt;sub&gt;5&lt;/sub&gt; ⊕ x&lt;sub&gt;6&lt;/sub&gt; ⊕ x&lt;sub&gt;7&lt;/sub&gt; ⊕ x&lt;sub&gt;8&lt;/sub&gt; ⊕ x&lt;sub&gt;9&lt;/sub&gt; ⊕ x&lt;sub&gt;10&lt;/sub&gt; ⊕ x&lt;sub&gt;11&lt;/sub&gt;&lt;/html&gt;</string>
                       </property>
                      </widget>
                     </item>
@@ -10523,7 +10523,7 @@ QSlider::handle:horizontal {
 }</string>
                       </property>
                       <property name="text">
-                       <string>&lt;html&gt;y&lt;sub&gt;8&lt;/sub&gt; = x&lt;sub&gt;4&lt;/sub&gt; &lt;/html&gt;</string>
+                       <string>&lt;html&gt;y&lt;sub&gt;7&lt;/sub&gt; = x&lt;sub&gt;4&lt;/sub&gt; &lt;/html&gt;</string>
                       </property>
                      </widget>
                     </item>
@@ -10571,7 +10571,7 @@ QSlider::handle:horizontal {
 }</string>
                       </property>
                       <property name="text">
-                       <string>&lt;html&gt;y&lt;sub&gt;7&lt;/sub&gt; = x&lt;sub&gt;3&lt;/sub&gt;&lt;/html&gt;</string>
+                       <string>&lt;html&gt;y&lt;sub&gt;6&lt;/sub&gt; = x&lt;sub&gt;3&lt;/sub&gt;&lt;/html&gt;</string>
                       </property>
                      </widget>
                     </item>
@@ -10619,7 +10619,7 @@ QSlider::handle:horizontal {
 }</string>
                       </property>
                       <property name="text">
-                       <string>&lt;html&gt;y&lt;sub&gt;6&lt;/sub&gt; = x&lt;sub&gt;2&lt;/sub&gt;&lt;/html&gt;</string>
+                       <string>&lt;html&gt;y&lt;sub&gt;5&lt;/sub&gt; = x&lt;sub&gt;2&lt;/sub&gt;&lt;/html&gt;</string>
                       </property>
                      </widget>
                     </item>
@@ -10667,7 +10667,7 @@ QSlider::handle:horizontal {
 }</string>
                       </property>
                       <property name="text">
-                       <string>&lt;html&gt;y&lt;sub&gt;5&lt;/sub&gt; = x&lt;sub&gt;2&lt;/sub&gt; ⊕ x&lt;sub&gt;3&lt;/sub&gt; ⊕ x&lt;sub&gt;4&lt;/sub&gt; ⊕ x&lt;sub&gt;8&lt;/sub&gt; ⊕ x&lt;sub&gt;9&lt;/sub&gt; ⊕ x&lt;sub&gt;10&lt;/sub&gt; ⊕ x&lt;sub&gt;11&lt;/sub&gt;&lt;/html&gt;</string>
+                       <string>&lt;html&gt;y&lt;sub&gt;4&lt;/sub&gt; = x&lt;sub&gt;2&lt;/sub&gt; ⊕ x&lt;sub&gt;3&lt;/sub&gt; ⊕ x&lt;sub&gt;4&lt;/sub&gt; ⊕ x&lt;sub&gt;8&lt;/sub&gt; ⊕ x&lt;sub&gt;9&lt;/sub&gt; ⊕ x&lt;sub&gt;10&lt;/sub&gt; ⊕ x&lt;sub&gt;11&lt;/sub&gt;&lt;/html&gt;</string>
                       </property>
                      </widget>
                     </item>
@@ -10715,7 +10715,7 @@ QSlider::handle:horizontal {
 }</string>
                       </property>
                       <property name="text">
-                       <string>&lt;html&gt;y&lt;sub&gt;4&lt;/sub&gt; = x&lt;sub&gt;1&lt;/sub&gt;&lt;/html&gt;</string>
+                       <string>&lt;html&gt;y&lt;sub&gt;3&lt;/sub&gt; = x&lt;sub&gt;1&lt;/sub&gt;&lt;/html&gt;</string>
                       </property>
                      </widget>
                     </item>
@@ -10763,7 +10763,7 @@ QSlider::handle:horizontal {
 }</string>
                       </property>
                       <property name="text">
-                       <string>&lt;html&gt;y&lt;sub&gt;3&lt;/sub&gt; = x&lt;sub&gt;1&lt;/sub&gt; ⊕ x&lt;sub&gt;3&lt;/sub&gt; ⊕ x&lt;sub&gt;4&lt;/sub&gt; ⊕ x&lt;sub&gt;6&lt;/sub&gt; ⊕ x&lt;sub&gt;7&lt;/sub&gt; ⊕ x&lt;sub&gt;10&lt;/sub&gt; ⊕ x&lt;sub&gt;11&lt;/sub&gt;&lt;/html&gt;</string>
+                       <string>&lt;html&gt;y&lt;sub&gt;2&lt;/sub&gt; = x&lt;sub&gt;1&lt;/sub&gt; ⊕ x&lt;sub&gt;3&lt;/sub&gt; ⊕ x&lt;sub&gt;4&lt;/sub&gt; ⊕ x&lt;sub&gt;6&lt;/sub&gt; ⊕ x&lt;sub&gt;7&lt;/sub&gt; ⊕ x&lt;sub&gt;10&lt;/sub&gt; ⊕ x&lt;sub&gt;11&lt;/sub&gt;&lt;/html&gt;</string>
                       </property>
                      </widget>
                     </item>
@@ -10811,7 +10811,7 @@ QSlider::handle:horizontal {
 }</string>
                       </property>
                       <property name="text">
-                       <string>&lt;html&gt;y&lt;sub&gt;2&lt;/sub&gt; = x&lt;sub&gt;1&lt;/sub&gt; ⊕ x&lt;sub&gt;2&lt;/sub&gt; ⊕ x&lt;sub&gt;4&lt;/sub&gt; ⊕ x&lt;sub&gt;5&lt;/sub&gt; ⊕ x&lt;sub&gt;7&lt;/sub&gt; ⊕ x&lt;sub&gt;9&lt;/sub&gt; ⊕ x&lt;sub&gt;11&lt;/sub&gt;&lt;/html&gt;</string>
+                       <string>&lt;html&gt;y&lt;sub&gt;1&lt;/sub&gt; = x&lt;sub&gt;1&lt;/sub&gt; ⊕ x&lt;sub&gt;2&lt;/sub&gt; ⊕ x&lt;sub&gt;4&lt;/sub&gt; ⊕ x&lt;sub&gt;5&lt;/sub&gt; ⊕ x&lt;sub&gt;7&lt;/sub&gt; ⊕ x&lt;sub&gt;9&lt;/sub&gt; ⊕ x&lt;sub&gt;11&lt;/sub&gt;&lt;/html&gt;</string>
                       </property>
                      </widget>
                     </item>
@@ -10859,7 +10859,7 @@ QSlider::handle:horizontal {
 }</string>
                       </property>
                       <property name="text">
-                       <string>&lt;html&gt;y&lt;sub&gt;1&lt;/sub&gt; = x&lt;sub&gt;1&lt;/sub&gt; ⊕ x&lt;sub&gt;2&lt;/sub&gt; ⊕ x&lt;sub&gt;3&lt;/sub&gt; ⊕ x&lt;sub&gt;4&lt;/sub&gt; ⊕ x&lt;sub&gt;5&lt;/sub&gt; ⊕ x&lt;sub&gt;6&lt;/sub&gt; ⊕ x&lt;sub&gt;7&lt;/sub&gt; ⊕&lt;br&gt; ⊕ x&lt;sub&gt;8&lt;/sub&gt; ⊕ x&lt;sub&gt;9&lt;/sub&gt; ⊕ x&lt;sub&gt;10&lt;/sub&gt; ⊕ x&lt;sub&gt;11&lt;/sub&gt; ⊕ y&lt;sub&gt;2&lt;/sub&gt; ⊕ y&lt;sub&gt;3&lt;/sub&gt; ⊕ y&lt;sub&gt;5&lt;/sub&gt; ⊕ y&lt;sub&gt;9&lt;/sub&gt;&lt;/html&gt;</string>
+                       <string>&lt;html&gt;y&lt;sub&gt;0&lt;/sub&gt; = x&lt;sub&gt;1&lt;/sub&gt; ⊕ x&lt;sub&gt;2&lt;/sub&gt; ⊕ x&lt;sub&gt;3&lt;/sub&gt; ⊕ x&lt;sub&gt;4&lt;/sub&gt; ⊕ x&lt;sub&gt;5&lt;/sub&gt; ⊕ x&lt;sub&gt;6&lt;/sub&gt; ⊕ x&lt;sub&gt;7&lt;/sub&gt; ⊕&lt;br&gt; ⊕ x&lt;sub&gt;8&lt;/sub&gt; ⊕ x&lt;sub&gt;9&lt;/sub&gt; ⊕ x&lt;sub&gt;10&lt;/sub&gt; ⊕ x&lt;sub&gt;11&lt;/sub&gt; ⊕ y&lt;sub&gt;1&lt;/sub&gt; ⊕ y&lt;sub&gt;2&lt;/sub&gt; ⊕ y&lt;sub&gt;4&lt;/sub&gt; ⊕ y&lt;sub&gt;8&lt;/sub&gt;&lt;/html&gt;</string>
                       </property>
                      </widget>
                     </item>
@@ -12101,7 +12101,7 @@ QSlider::handle:horizontal {
 }</string>
                         </property>
                         <property name="text">
-                         <string>&lt;html&gt;y&lt;sub&gt;16&lt;/sub&gt;&lt;/html&gt;</string>
+                         <string>&lt;html&gt;y&lt;sub&gt;15&lt;/sub&gt;&lt;/html&gt;</string>
                         </property>
                        </widget>
                       </item>
@@ -12152,7 +12152,7 @@ QSlider::handle:horizontal {
 }</string>
                         </property>
                         <property name="text">
-                         <string>&lt;html&gt;y&lt;sub&gt;15&lt;/sub&gt;&lt;/html&gt;</string>
+                         <string>&lt;html&gt;y&lt;sub&gt;14&lt;/sub&gt;&lt;/html&gt;</string>
                         </property>
                        </widget>
                       </item>
@@ -12203,7 +12203,7 @@ QSlider::handle:horizontal {
 }</string>
                         </property>
                         <property name="text">
-                         <string>&lt;html&gt;y&lt;sub&gt;14&lt;/sub&gt;&lt;/html&gt;</string>
+                         <string>&lt;html&gt;y&lt;sub&gt;13&lt;/sub&gt;&lt;/html&gt;</string>
                         </property>
                        </widget>
                       </item>
@@ -12254,7 +12254,7 @@ QSlider::handle:horizontal {
 }</string>
                         </property>
                         <property name="text">
-                         <string>&lt;html&gt;y&lt;sub&gt;13&lt;/sub&gt;&lt;/html&gt;</string>
+                         <string>&lt;html&gt;y&lt;sub&gt;12&lt;/sub&gt;&lt;/html&gt;</string>
                         </property>
                        </widget>
                       </item>
@@ -12305,7 +12305,7 @@ QSlider::handle:horizontal {
 }</string>
                         </property>
                         <property name="text">
-                         <string>&lt;html&gt;y&lt;sub&gt;12&lt;/sub&gt;&lt;/html&gt;</string>
+                         <string>&lt;html&gt;y&lt;sub&gt;11&lt;/sub&gt;&lt;/html&gt;</string>
                         </property>
                        </widget>
                       </item>
@@ -12356,7 +12356,7 @@ QSlider::handle:horizontal {
 }</string>
                         </property>
                         <property name="text">
-                         <string>&lt;html&gt;y&lt;sub&gt;11&lt;/sub&gt;&lt;/html&gt;</string>
+                         <string>&lt;html&gt;y&lt;sub&gt;10&lt;/sub&gt;&lt;/html&gt;</string>
                         </property>
                        </widget>
                       </item>
@@ -12407,7 +12407,7 @@ QSlider::handle:horizontal {
 }</string>
                         </property>
                         <property name="text">
-                         <string>&lt;html&gt;y&lt;sub&gt;10&lt;/sub&gt;&lt;/html&gt;</string>
+                         <string>&lt;html&gt;y&lt;sub&gt;9&lt;/sub&gt;&lt;/html&gt;</string>
                         </property>
                        </widget>
                       </item>
@@ -12458,7 +12458,7 @@ QSlider::handle:horizontal {
 }</string>
                         </property>
                         <property name="text">
-                         <string>&lt;html&gt;y&lt;sub&gt;9&lt;/sub&gt;&lt;/html&gt;</string>
+                         <string>&lt;html&gt;y&lt;sub&gt;8&lt;/sub&gt;&lt;/html&gt;</string>
                         </property>
                        </widget>
                       </item>
@@ -12509,7 +12509,7 @@ QSlider::handle:horizontal {
 }</string>
                         </property>
                         <property name="text">
-                         <string>&lt;html&gt;y&lt;sub&gt;8&lt;/sub&gt;&lt;/html&gt;</string>
+                         <string>&lt;html&gt;y&lt;sub&gt;7&lt;/sub&gt;&lt;/html&gt;</string>
                         </property>
                        </widget>
                       </item>
@@ -12560,7 +12560,7 @@ QSlider::handle:horizontal {
 }</string>
                         </property>
                         <property name="text">
-                         <string>&lt;html&gt;y&lt;sub&gt;7&lt;/sub&gt;&lt;/html&gt;</string>
+                         <string>&lt;html&gt;y&lt;sub&gt;6&lt;/sub&gt;&lt;/html&gt;</string>
                         </property>
                        </widget>
                       </item>
@@ -12611,7 +12611,7 @@ QSlider::handle:horizontal {
 }</string>
                         </property>
                         <property name="text">
-                         <string>&lt;html&gt;y&lt;sub&gt;6&lt;/sub&gt;&lt;/html&gt;</string>
+                         <string>&lt;html&gt;y&lt;sub&gt;5&lt;/sub&gt;&lt;/html&gt;</string>
                         </property>
                        </widget>
                       </item>
@@ -12662,7 +12662,7 @@ QSlider::handle:horizontal {
 }</string>
                         </property>
                         <property name="text">
-                         <string>&lt;html&gt;y&lt;sub&gt;5&lt;/sub&gt;&lt;/html&gt;</string>
+                         <string>&lt;html&gt;y&lt;sub&gt;4&lt;/sub&gt;&lt;/html&gt;</string>
                         </property>
                        </widget>
                       </item>
@@ -12713,7 +12713,7 @@ QSlider::handle:horizontal {
 }</string>
                         </property>
                         <property name="text">
-                         <string>&lt;html&gt;y&lt;sub&gt;4&lt;/sub&gt;&lt;/html&gt;</string>
+                         <string>&lt;html&gt;y&lt;sub&gt;3&lt;/sub&gt;&lt;/html&gt;</string>
                         </property>
                        </widget>
                       </item>
@@ -12764,7 +12764,7 @@ QSlider::handle:horizontal {
 }</string>
                         </property>
                         <property name="text">
-                         <string>&lt;html&gt;y&lt;sub&gt;3&lt;/sub&gt;&lt;/html&gt;</string>
+                         <string>&lt;html&gt;y&lt;sub&gt;2&lt;/sub&gt;&lt;/html&gt;</string>
                         </property>
                        </widget>
                       </item>
@@ -12815,7 +12815,7 @@ QSlider::handle:horizontal {
 }</string>
                         </property>
                         <property name="text">
-                         <string>&lt;html&gt;y&lt;sub&gt;2&lt;/sub&gt;&lt;/html&gt;</string>
+                         <string>&lt;html&gt;y&lt;sub&gt;1&lt;/sub&gt;&lt;/html&gt;</string>
                         </property>
                        </widget>
                       </item>
@@ -12866,7 +12866,7 @@ QSlider::handle:horizontal {
 }</string>
                         </property>
                         <property name="text">
-                         <string>&lt;html&gt;y&lt;sub&gt;1&lt;/sub&gt;&lt;/html&gt;</string>
+                         <string>&lt;html&gt;y&lt;sub&gt;0&lt;/sub&gt;&lt;/html&gt;</string>
                         </property>
                        </widget>
                       </item>
@@ -20381,7 +20381,7 @@ QSlider::handle:horizontal {
 }</string>
                     </property>
                     <property name="text">
-                     <string>&lt;html&gt;y&lt;sub&gt;1&lt;/sub&gt;&lt;/html&gt;</string>
+                     <string>&lt;html&gt;y&lt;sub&gt;0&lt;/sub&gt;&lt;/html&gt;</string>
                     </property>
                    </widget>
                   </item>
@@ -20416,7 +20416,7 @@ QSlider::handle:horizontal {
 }</string>
                     </property>
                     <property name="text">
-                     <string>&lt;html&gt;y&lt;sub&gt;4&lt;/sub&gt;&lt;/html&gt;</string>
+                     <string>&lt;html&gt;y&lt;sub&gt;3&lt;/sub&gt;&lt;/html&gt;</string>
                     </property>
                    </widget>
                   </item>
@@ -20451,7 +20451,7 @@ QSlider::handle:horizontal {
 }</string>
                     </property>
                     <property name="text">
-                     <string>&lt;html&gt;y&lt;sub&gt;11&lt;/sub&gt;&lt;/html&gt;</string>
+                     <string>&lt;html&gt;y&lt;sub&gt;10&lt;/sub&gt;&lt;/html&gt;</string>
                     </property>
                    </widget>
                   </item>
@@ -20486,7 +20486,7 @@ QSlider::handle:horizontal {
 }</string>
                     </property>
                     <property name="text">
-                     <string>&lt;html&gt;y&lt;sub&gt;9&lt;/sub&gt;&lt;/html&gt;</string>
+                     <string>&lt;html&gt;y&lt;sub&gt;8&lt;/sub&gt;&lt;/html&gt;</string>
                     </property>
                    </widget>
                   </item>
@@ -20547,7 +20547,7 @@ QSlider::handle:horizontal {
 }</string>
                     </property>
                     <property name="text">
-                     <string>&lt;html&gt;y&lt;sub&gt;15&lt;/sub&gt;&lt;/html&gt;</string>
+                     <string>&lt;html&gt;y&lt;sub&gt;14&lt;/sub&gt;&lt;/html&gt;</string>
                     </property>
                    </widget>
                   </item>
@@ -20595,7 +20595,7 @@ QSlider::handle:horizontal {
 }</string>
                     </property>
                     <property name="text">
-                     <string>&lt;html&gt;y&lt;sub&gt;12&lt;/sub&gt;&lt;/html&gt;</string>
+                     <string>&lt;html&gt;y&lt;sub&gt;11&lt;/sub&gt;&lt;/html&gt;</string>
                     </property>
                    </widget>
                   </item>
@@ -20643,7 +20643,7 @@ QSlider::handle:horizontal {
 }</string>
                     </property>
                     <property name="text">
-                     <string>&lt;html&gt;y&lt;sub&gt;10&lt;/sub&gt;&lt;/html&gt;</string>
+                     <string>&lt;html&gt;y&lt;sub&gt;9&lt;/sub&gt;&lt;/html&gt;</string>
                     </property>
                    </widget>
                   </item>
@@ -20691,7 +20691,7 @@ QSlider::handle:horizontal {
 }</string>
                     </property>
                     <property name="text">
-                     <string>&lt;html&gt;y&lt;sub&gt;16&lt;/sub&gt;&lt;/html&gt;</string>
+                     <string>&lt;html&gt;y&lt;sub&gt;15&lt;/sub&gt;&lt;/html&gt;</string>
                     </property>
                    </widget>
                   </item>
@@ -20726,7 +20726,7 @@ QSlider::handle:horizontal {
 }</string>
                     </property>
                     <property name="text">
-                     <string>&lt;html&gt;y&lt;sub&gt;7&lt;/sub&gt;&lt;/html&gt;</string>
+                     <string>&lt;html&gt;y&lt;sub&gt;6&lt;/sub&gt;&lt;/html&gt;</string>
                     </property>
                    </widget>
                   </item>
@@ -20761,7 +20761,7 @@ QSlider::handle:horizontal {
 }</string>
                     </property>
                     <property name="text">
-                     <string>&lt;html&gt;y&lt;sub&gt;3&lt;/sub&gt;&lt;/html&gt;</string>
+                     <string>&lt;html&gt;y&lt;sub&gt;2&lt;/sub&gt;&lt;/html&gt;</string>
                     </property>
                    </widget>
                   </item>
@@ -20822,7 +20822,7 @@ QSlider::handle:horizontal {
 }</string>
                     </property>
                     <property name="text">
-                     <string>&lt;html&gt;y&lt;sub&gt;5&lt;/sub&gt;&lt;/html&gt;</string>
+                     <string>&lt;html&gt;y&lt;sub&gt;4&lt;/sub&gt;&lt;/html&gt;</string>
                     </property>
                    </widget>
                   </item>
@@ -20870,7 +20870,7 @@ QSlider::handle:horizontal {
 }</string>
                     </property>
                     <property name="text">
-                     <string>&lt;html&gt;y&lt;sub&gt;13&lt;/sub&gt;&lt;/html&gt;</string>
+                     <string>&lt;html&gt;y&lt;sub&gt;12&lt;/sub&gt;&lt;/html&gt;</string>
                     </property>
                    </widget>
                   </item>
@@ -20905,7 +20905,7 @@ QSlider::handle:horizontal {
 }</string>
                     </property>
                     <property name="text">
-                     <string>&lt;html&gt;y&lt;sub&gt;8&lt;/sub&gt;&lt;/html&gt;</string>
+                     <string>&lt;html&gt;y&lt;sub&gt;7&lt;/sub&gt;&lt;/html&gt;</string>
                     </property>
                    </widget>
                   </item>
@@ -20940,7 +20940,7 @@ QSlider::handle:horizontal {
 }</string>
                     </property>
                     <property name="text">
-                     <string>&lt;html&gt;y&lt;sub&gt;14&lt;/sub&gt;&lt;/html&gt;</string>
+                     <string>&lt;html&gt;y&lt;sub&gt;13&lt;/sub&gt;&lt;/html&gt;</string>
                     </property>
                    </widget>
                   </item>
@@ -21001,7 +21001,7 @@ QSlider::handle:horizontal {
 }</string>
                     </property>
                     <property name="text">
-                     <string>&lt;html&gt;y&lt;sub&gt;2&lt;/sub&gt;&lt;/html&gt;</string>
+                     <string>&lt;html&gt;y&lt;sub&gt;1&lt;/sub&gt;&lt;/html&gt;</string>
                     </property>
                    </widget>
                   </item>
@@ -21049,7 +21049,7 @@ QSlider::handle:horizontal {
 }</string>
                     </property>
                     <property name="text">
-                     <string>&lt;html&gt;y&lt;sub&gt;6&lt;/sub&gt;&lt;/html&gt;</string>
+                     <string>&lt;html&gt;y&lt;sub&gt;5&lt;/sub&gt;&lt;/html&gt;</string>
                     </property>
                    </widget>
                   </item>
@@ -28448,7 +28448,7 @@ QSlider::handle:horizontal {
 }</string>
                     </property>
                     <property name="text">
-                     <string>&lt;html&gt;y&lt;sub&gt;1&lt;/sub&gt;&lt;/html&gt;</string>
+                     <string>&lt;html&gt;y&lt;sub&gt;0&lt;/sub&gt;&lt;/html&gt;</string>
                     </property>
                    </widget>
                   </item>
@@ -28483,7 +28483,7 @@ QSlider::handle:horizontal {
 }</string>
                     </property>
                     <property name="text">
-                     <string>&lt;html&gt;y&lt;sub&gt;4&lt;/sub&gt;&lt;/html&gt;</string>
+                     <string>&lt;html&gt;y&lt;sub&gt;3&lt;/sub&gt;&lt;/html&gt;</string>
                     </property>
                    </widget>
                   </item>
@@ -28518,7 +28518,7 @@ QSlider::handle:horizontal {
 }</string>
                     </property>
                     <property name="text">
-                     <string>&lt;html&gt;y&lt;sub&gt;11&lt;/sub&gt;&lt;/html&gt;</string>
+                     <string>&lt;html&gt;y&lt;sub&gt;10&lt;/sub&gt;&lt;/html&gt;</string>
                     </property>
                    </widget>
                   </item>
@@ -28553,7 +28553,7 @@ QSlider::handle:horizontal {
 }</string>
                     </property>
                     <property name="text">
-                     <string>&lt;html&gt;y&lt;sub&gt;9&lt;/sub&gt;&lt;/html&gt;</string>
+                     <string>&lt;html&gt;y&lt;sub&gt;8&lt;/sub&gt;&lt;/html&gt;</string>
                     </property>
                    </widget>
                   </item>
@@ -28614,7 +28614,7 @@ QSlider::handle:horizontal {
 }</string>
                     </property>
                     <property name="text">
-                     <string>&lt;html&gt;y&lt;sub&gt;15&lt;/sub&gt;&lt;/html&gt;</string>
+                     <string>&lt;html&gt;y&lt;sub&gt;14&lt;/sub&gt;&lt;/html&gt;</string>
                     </property>
                    </widget>
                   </item>
@@ -28662,7 +28662,7 @@ QSlider::handle:horizontal {
 }</string>
                     </property>
                     <property name="text">
-                     <string>&lt;html&gt;y&lt;sub&gt;12&lt;/sub&gt;&lt;/html&gt;</string>
+                     <string>&lt;html&gt;y&lt;sub&gt;11&lt;/sub&gt;&lt;/html&gt;</string>
                     </property>
                    </widget>
                   </item>
@@ -28710,7 +28710,7 @@ QSlider::handle:horizontal {
 }</string>
                     </property>
                     <property name="text">
-                     <string>&lt;html&gt;y&lt;sub&gt;10&lt;/sub&gt;&lt;/html&gt;</string>
+                     <string>&lt;html&gt;y&lt;sub&gt;9&lt;/sub&gt;&lt;/html&gt;</string>
                     </property>
                    </widget>
                   </item>
@@ -28758,7 +28758,7 @@ QSlider::handle:horizontal {
 }</string>
                     </property>
                     <property name="text">
-                     <string>&lt;html&gt;y&lt;sub&gt;16&lt;/sub&gt;&lt;/html&gt;</string>
+                     <string>&lt;html&gt;y&lt;sub&gt;15&lt;/sub&gt;&lt;/html&gt;</string>
                     </property>
                    </widget>
                   </item>
@@ -28793,7 +28793,7 @@ QSlider::handle:horizontal {
 }</string>
                     </property>
                     <property name="text">
-                     <string>&lt;html&gt;y&lt;sub&gt;7&lt;/sub&gt;&lt;/html&gt;</string>
+                     <string>&lt;html&gt;y&lt;sub&gt;6&lt;/sub&gt;&lt;/html&gt;</string>
                     </property>
                    </widget>
                   </item>
@@ -28828,7 +28828,7 @@ QSlider::handle:horizontal {
 }</string>
                     </property>
                     <property name="text">
-                     <string>&lt;html&gt;y&lt;sub&gt;3&lt;/sub&gt;&lt;/html&gt;</string>
+                     <string>&lt;html&gt;y&lt;sub&gt;2&lt;/sub&gt;&lt;/html&gt;</string>
                     </property>
                    </widget>
                   </item>
@@ -28889,7 +28889,7 @@ QSlider::handle:horizontal {
 }</string>
                     </property>
                     <property name="text">
-                     <string>&lt;html&gt;y&lt;sub&gt;5&lt;/sub&gt;&lt;/html&gt;</string>
+                     <string>&lt;html&gt;y&lt;sub&gt;4&lt;/sub&gt;&lt;/html&gt;</string>
                     </property>
                    </widget>
                   </item>
@@ -28937,7 +28937,7 @@ QSlider::handle:horizontal {
 }</string>
                     </property>
                     <property name="text">
-                     <string>&lt;html&gt;y&lt;sub&gt;13&lt;/sub&gt;&lt;/html&gt;</string>
+                     <string>&lt;html&gt;y&lt;sub&gt;12&lt;/sub&gt;&lt;/html&gt;</string>
                     </property>
                    </widget>
                   </item>
@@ -28972,7 +28972,7 @@ QSlider::handle:horizontal {
 }</string>
                     </property>
                     <property name="text">
-                     <string>&lt;html&gt;y&lt;sub&gt;8&lt;/sub&gt;&lt;/html&gt;</string>
+                     <string>&lt;html&gt;y&lt;sub&gt;7&lt;/sub&gt;&lt;/html&gt;</string>
                     </property>
                    </widget>
                   </item>
@@ -29007,7 +29007,7 @@ QSlider::handle:horizontal {
 }</string>
                     </property>
                     <property name="text">
-                     <string>&lt;html&gt;y&lt;sub&gt;14&lt;/sub&gt;&lt;/html&gt;</string>
+                     <string>&lt;html&gt;y&lt;sub&gt;13&lt;/sub&gt;&lt;/html&gt;</string>
                     </property>
                    </widget>
                   </item>
@@ -29068,7 +29068,7 @@ QSlider::handle:horizontal {
 }</string>
                     </property>
                     <property name="text">
-                     <string>&lt;html&gt;y&lt;sub&gt;2&lt;/sub&gt;&lt;/html&gt;</string>
+                     <string>&lt;html&gt;y&lt;sub&gt;1&lt;/sub&gt;&lt;/html&gt;</string>
                     </property>
                    </widget>
                   </item>
@@ -29116,7 +29116,7 @@ QSlider::handle:horizontal {
 }</string>
                     </property>
                     <property name="text">
-                     <string>&lt;html&gt;y&lt;sub&gt;6&lt;/sub&gt;&lt;/html&gt;</string>
+                     <string>&lt;html&gt;y&lt;sub&gt;5&lt;/sub&gt;&lt;/html&gt;</string>
                     </property>
                    </widget>
                   </item>
@@ -35216,7 +35216,7 @@ QSlider::handle:horizontal {
 }</string>
             </property>
             <property name="currentIndex">
-             <number>2</number>
+             <number>0</number>
             </property>
             <widget class="QWidget" name="page_21">
              <layout class="QGridLayout" name="gridLayout_160">
@@ -45222,6 +45222,132 @@ QSlider::handle:horizontal {
                    </layout>
                   </item>
                   <item>
+                   <layout class="QGridLayout" name="gridLayout_143">
+                    <property name="spacing">
+                     <number>0</number>
+                    </property>
+                    <item row="1" column="0">
+                     <layout class="QHBoxLayout" name="horizontalLayout_101">
+                      <item>
+                       <layout class="QVBoxLayout" name="verticalLayout_56">
+                        <property name="spacing">
+                         <number>0</number>
+                        </property>
+                        <item>
+                         <spacer name="verticalSpacer_433">
+                          <property name="orientation">
+                           <enum>Qt::Vertical</enum>
+                          </property>
+                          <property name="sizeHint" stdset="0">
+                           <size>
+                            <width>20</width>
+                            <height>40</height>
+                           </size>
+                          </property>
+                         </spacer>
+                        </item>
+                        <item>
+                         <layout class="QHBoxLayout" name="horizontalLayout_102">
+                          <property name="spacing">
+                           <number>0</number>
+                          </property>
+                          <item>
+                           <widget class="QLabel" name="labelX_1611_errorType">
+                            <property name="minimumSize">
+                             <size>
+                              <width>120</width>
+                              <height>40</height>
+                             </size>
+                            </property>
+                            <property name="maximumSize">
+                             <size>
+                              <width>120</width>
+                              <height>30</height>
+                             </size>
+                            </property>
+                            <property name="font">
+                             <font>
+                              <family>Roboto</family>
+                              <pointsize>11</pointsize>
+                              <weight>75</weight>
+                              <bold>true</bold>
+                             </font>
+                            </property>
+                            <property name="styleSheet">
+                             <string notr="true">QLabel {
+	 background-color:  rgba(40, 40, 60, 0.9);
+	color: white;
+	 border: 2px solid rgba(150, 30, 70, 1);
+	 border-radius: 5px;
+}</string>
+                            </property>
+                            <property name="text">
+                             <string/>
+                            </property>
+                           </widget>
+                          </item>
+                         </layout>
+                        </item>
+                        <item>
+                         <spacer name="verticalSpacer_434">
+                          <property name="orientation">
+                           <enum>Qt::Vertical</enum>
+                          </property>
+                          <property name="sizeHint" stdset="0">
+                           <size>
+                            <width>20</width>
+                            <height>40</height>
+                           </size>
+                          </property>
+                         </spacer>
+                        </item>
+                       </layout>
+                      </item>
+                     </layout>
+                    </item>
+                    <item row="0" column="0">
+                     <layout class="QHBoxLayout" name="horizontalLayout_103">
+                      <item>
+                       <widget class="QLabel" name="label_53">
+                        <property name="minimumSize">
+                         <size>
+                          <width>150</width>
+                          <height>30</height>
+                         </size>
+                        </property>
+                        <property name="maximumSize">
+                         <size>
+                          <width>150</width>
+                          <height>30</height>
+                         </size>
+                        </property>
+                        <property name="font">
+                         <font>
+                          <family>Roboto</family>
+                          <pointsize>11</pointsize>
+                          <weight>50</weight>
+                          <italic>false</italic>
+                          <bold>false</bold>
+                         </font>
+                        </property>
+                        <property name="styleSheet">
+                         <string notr="true">QLabel {
+    color: rgba(255, 255, 255, 1); /* Белый текст */
+    background-color: transparent; /* Прозрачный фон */
+    border: none; /* Убираем рамку */
+	padding-left: 5px; /* Отступ тексту слева */
+}</string>
+                        </property>
+                        <property name="text">
+                         <string>Тип ошибки</string>
+                        </property>
+                       </widget>
+                      </item>
+                     </layout>
+                    </item>
+                   </layout>
+                  </item>
+                  <item>
                    <layout class="QGridLayout" name="gridLayout_146">
                     <item row="0" column="0">
                      <layout class="QHBoxLayout" name="horizontalLayout_109">
@@ -46506,7 +46632,7 @@ QSlider::handle:horizontal {
 }</string>
                         </property>
                         <property name="text">
-                         <string>&lt;html&gt;y&lt;sub&gt;16&lt;/sub&gt;&lt;/html&gt;</string>
+                         <string>&lt;html&gt;y&lt;sub&gt;15&lt;/sub&gt;&lt;/html&gt;</string>
                         </property>
                        </widget>
                       </item>
@@ -46557,7 +46683,7 @@ QSlider::handle:horizontal {
 }</string>
                         </property>
                         <property name="text">
-                         <string>&lt;html&gt;y&lt;sub&gt;15&lt;/sub&gt;&lt;/html&gt;</string>
+                         <string>&lt;html&gt;y&lt;sub&gt;14&lt;/sub&gt;&lt;/html&gt;</string>
                         </property>
                        </widget>
                       </item>
@@ -46608,7 +46734,7 @@ QSlider::handle:horizontal {
 }</string>
                         </property>
                         <property name="text">
-                         <string>&lt;html&gt;y&lt;sub&gt;14&lt;/sub&gt;&lt;/html&gt;</string>
+                         <string>&lt;html&gt;y&lt;sub&gt;13&lt;/sub&gt;&lt;/html&gt;</string>
                         </property>
                        </widget>
                       </item>
@@ -46659,7 +46785,7 @@ QSlider::handle:horizontal {
 }</string>
                         </property>
                         <property name="text">
-                         <string>&lt;html&gt;y&lt;sub&gt;13&lt;/sub&gt;&lt;/html&gt;</string>
+                         <string>&lt;html&gt;y&lt;sub&gt;12&lt;/sub&gt;&lt;/html&gt;</string>
                         </property>
                        </widget>
                       </item>
@@ -46710,7 +46836,7 @@ QSlider::handle:horizontal {
 }</string>
                         </property>
                         <property name="text">
-                         <string>&lt;html&gt;y&lt;sub&gt;12&lt;/sub&gt;&lt;/html&gt;</string>
+                         <string>&lt;html&gt;y&lt;sub&gt;11&lt;/sub&gt;&lt;/html&gt;</string>
                         </property>
                        </widget>
                       </item>
@@ -46761,7 +46887,7 @@ QSlider::handle:horizontal {
 }</string>
                         </property>
                         <property name="text">
-                         <string>&lt;html&gt;y&lt;sub&gt;11&lt;/sub&gt;&lt;/html&gt;</string>
+                         <string>&lt;html&gt;y&lt;sub&gt;10&lt;/sub&gt;&lt;/html&gt;</string>
                         </property>
                        </widget>
                       </item>
@@ -46812,7 +46938,7 @@ QSlider::handle:horizontal {
 }</string>
                         </property>
                         <property name="text">
-                         <string>&lt;html&gt;y&lt;sub&gt;10&lt;/sub&gt;&lt;/html&gt;</string>
+                         <string>&lt;html&gt;y&lt;sub&gt;9&lt;/sub&gt;&lt;/html&gt;</string>
                         </property>
                        </widget>
                       </item>
@@ -46863,7 +46989,7 @@ QSlider::handle:horizontal {
 }</string>
                         </property>
                         <property name="text">
-                         <string>&lt;html&gt;y&lt;sub&gt;9&lt;/sub&gt;&lt;/html&gt;</string>
+                         <string>&lt;html&gt;y&lt;sub&gt;8&lt;/sub&gt;&lt;/html&gt;</string>
                         </property>
                        </widget>
                       </item>
@@ -46914,7 +47040,7 @@ QSlider::handle:horizontal {
 }</string>
                         </property>
                         <property name="text">
-                         <string>&lt;html&gt;y&lt;sub&gt;8&lt;/sub&gt;&lt;/html&gt;</string>
+                         <string>&lt;html&gt;y&lt;sub&gt;7&lt;/sub&gt;&lt;/html&gt;</string>
                         </property>
                        </widget>
                       </item>
@@ -46965,7 +47091,7 @@ QSlider::handle:horizontal {
 }</string>
                         </property>
                         <property name="text">
-                         <string>&lt;html&gt;y&lt;sub&gt;7&lt;/sub&gt;&lt;/html&gt;</string>
+                         <string>&lt;html&gt;y&lt;sub&gt;6&lt;/sub&gt;&lt;/html&gt;</string>
                         </property>
                        </widget>
                       </item>
@@ -47016,7 +47142,7 @@ QSlider::handle:horizontal {
 }</string>
                         </property>
                         <property name="text">
-                         <string>&lt;html&gt;y&lt;sub&gt;6&lt;/sub&gt;&lt;/html&gt;</string>
+                         <string>&lt;html&gt;y&lt;sub&gt;5&lt;/sub&gt;&lt;/html&gt;</string>
                         </property>
                        </widget>
                       </item>
@@ -47067,7 +47193,7 @@ QSlider::handle:horizontal {
 }</string>
                         </property>
                         <property name="text">
-                         <string>&lt;html&gt;y&lt;sub&gt;5&lt;/sub&gt;&lt;/html&gt;</string>
+                         <string>&lt;html&gt;y&lt;sub&gt;4&lt;/sub&gt;&lt;/html&gt;</string>
                         </property>
                        </widget>
                       </item>
@@ -47118,7 +47244,7 @@ QSlider::handle:horizontal {
 }</string>
                         </property>
                         <property name="text">
-                         <string>&lt;html&gt;y&lt;sub&gt;4&lt;/sub&gt;&lt;/html&gt;</string>
+                         <string>&lt;html&gt;y&lt;sub&gt;3&lt;/sub&gt;&lt;/html&gt;</string>
                         </property>
                        </widget>
                       </item>
@@ -47169,7 +47295,7 @@ QSlider::handle:horizontal {
 }</string>
                         </property>
                         <property name="text">
-                         <string>&lt;html&gt;y&lt;sub&gt;3&lt;/sub&gt;&lt;/html&gt;</string>
+                         <string>&lt;html&gt;y&lt;sub&gt;2&lt;/sub&gt;&lt;/html&gt;</string>
                         </property>
                        </widget>
                       </item>
@@ -47220,7 +47346,7 @@ QSlider::handle:horizontal {
 }</string>
                         </property>
                         <property name="text">
-                         <string>&lt;html&gt;y&lt;sub&gt;2&lt;/sub&gt;&lt;/html&gt;</string>
+                         <string>&lt;html&gt;y&lt;sub&gt;1&lt;/sub&gt;&lt;/html&gt;</string>
                         </property>
                        </widget>
                       </item>
@@ -47271,7 +47397,7 @@ QSlider::handle:horizontal {
 }</string>
                         </property>
                         <property name="text">
-                         <string>&lt;html&gt;y&lt;sub&gt;1&lt;/sub&gt;&lt;/html&gt;</string>
+                         <string>&lt;html&gt;y&lt;sub&gt;0&lt;/sub&gt;&lt;/html&gt;</string>
                         </property>
                        </widget>
                       </item>
@@ -48149,7 +48275,7 @@ QSlider::handle:horizontal {
 }</string>
                           </property>
                           <property name="text">
-                           <string>&lt;html&gt;y&lt;sub&gt;12&lt;/sub&gt;&lt;/html&gt;</string>
+                           <string>&lt;html&gt;y&lt;sub&gt;11&lt;/sub&gt;&lt;/html&gt;</string>
                           </property>
                          </widget>
                         </item>
@@ -48184,7 +48310,7 @@ QSlider::handle:horizontal {
 }</string>
                           </property>
                           <property name="text">
-                           <string>&lt;html&gt;y&lt;sub&gt;8&lt;/sub&gt;&lt;/html&gt;</string>
+                           <string>&lt;html&gt;y&lt;sub&gt;7&lt;/sub&gt;&lt;/html&gt;</string>
                           </property>
                          </widget>
                         </item>
@@ -48235,7 +48361,7 @@ QSlider::handle:horizontal {
 }</string>
                           </property>
                           <property name="text">
-                           <string>&lt;html&gt;y&lt;sub&gt;6&lt;/sub&gt;&lt;/html&gt;</string>
+                           <string>&lt;html&gt;y&lt;sub&gt;5&lt;/sub&gt;&lt;/html&gt;</string>
                           </property>
                          </widget>
                         </item>
@@ -48286,7 +48412,7 @@ QSlider::handle:horizontal {
 }</string>
                           </property>
                           <property name="text">
-                           <string>&lt;html&gt;y&lt;sub&gt;4&lt;/sub&gt;&lt;/html&gt;</string>
+                           <string>&lt;html&gt;y&lt;sub&gt;3&lt;/sub&gt;&lt;/html&gt;</string>
                           </property>
                          </widget>
                         </item>
@@ -48353,7 +48479,7 @@ QSlider::handle:horizontal {
 }</string>
                           </property>
                           <property name="text">
-                           <string>&lt;html&gt;y&lt;sub&gt;7&lt;/sub&gt;&lt;/html&gt;</string>
+                           <string>&lt;html&gt;y&lt;sub&gt;6&lt;/sub&gt;&lt;/html&gt;</string>
                           </property>
                          </widget>
                         </item>
@@ -48436,7 +48562,7 @@ QSlider::handle:horizontal {
 }</string>
                           </property>
                           <property name="text">
-                           <string>&lt;html&gt;y&lt;sub&gt;14&lt;/sub&gt;&lt;/html&gt;</string>
+                           <string>&lt;html&gt;y&lt;sub&gt;13&lt;/sub&gt;&lt;/html&gt;</string>
                           </property>
                          </widget>
                         </item>
@@ -48471,7 +48597,7 @@ QSlider::handle:horizontal {
 }</string>
                           </property>
                           <property name="text">
-                           <string>&lt;html&gt;y&lt;sub&gt;16&lt;/sub&gt;&lt;/html&gt;</string>
+                           <string>&lt;html&gt;y&lt;sub&gt;15&lt;/sub&gt;&lt;/html&gt;</string>
                           </property>
                          </widget>
                         </item>
@@ -48506,7 +48632,7 @@ QSlider::handle:horizontal {
 }</string>
                           </property>
                           <property name="text">
-                           <string>&lt;html&gt;y&lt;sub&gt;11&lt;/sub&gt;&lt;/html&gt;</string>
+                           <string>&lt;html&gt;y&lt;sub&gt;10&lt;/sub&gt;&lt;/html&gt;</string>
                           </property>
                          </widget>
                         </item>
@@ -48541,7 +48667,7 @@ QSlider::handle:horizontal {
 }</string>
                           </property>
                           <property name="text">
-                           <string>&lt;html&gt;y&lt;sub&gt;15&lt;/sub&gt;&lt;/html&gt;</string>
+                           <string>&lt;html&gt;y&lt;sub&gt;14&lt;/sub&gt;&lt;/html&gt;</string>
                           </property>
                          </widget>
                         </item>
@@ -48576,7 +48702,7 @@ QSlider::handle:horizontal {
 }</string>
                           </property>
                           <property name="text">
-                           <string>&lt;html&gt;y&lt;sub&gt;13&lt;/sub&gt;&lt;/html&gt;</string>
+                           <string>&lt;html&gt;y&lt;sub&gt;12&lt;/sub&gt;&lt;/html&gt;</string>
                           </property>
                          </widget>
                         </item>
@@ -48611,7 +48737,7 @@ QSlider::handle:horizontal {
 }</string>
                           </property>
                           <property name="text">
-                           <string>&lt;html&gt;y&lt;sub&gt;10&lt;/sub&gt;&lt;/html&gt;</string>
+                           <string>&lt;html&gt;y&lt;sub&gt;9&lt;/sub&gt;&lt;/html&gt;</string>
                           </property>
                          </widget>
                         </item>
@@ -49346,7 +49472,7 @@ QSlider::handle:horizontal {
 }</string>
                           </property>
                           <property name="text">
-                           <string>&lt;html&gt;y&lt;sub&gt;9&lt;/sub&gt;&lt;/html&gt;</string>
+                           <string>&lt;html&gt;y&lt;sub&gt;8&lt;/sub&gt;&lt;/html&gt;</string>
                           </property>
                          </widget>
                         </item>
@@ -49397,7 +49523,7 @@ QSlider::handle:horizontal {
 }</string>
                           </property>
                           <property name="text">
-                           <string>&lt;html&gt;y&lt;sub&gt;5&lt;/sub&gt;&lt;/html&gt;</string>
+                           <string>&lt;html&gt;y&lt;sub&gt;4&lt;/sub&gt;&lt;/html&gt;</string>
                           </property>
                          </widget>
                         </item>
@@ -49448,7 +49574,7 @@ QSlider::handle:horizontal {
 }</string>
                           </property>
                           <property name="text">
-                           <string>&lt;html&gt;y&lt;sub&gt;3&lt;/sub&gt;&lt;/html&gt;</string>
+                           <string>&lt;html&gt;y&lt;sub&gt;2&lt;/sub&gt;&lt;/html&gt;</string>
                           </property>
                          </widget>
                         </item>
@@ -49499,7 +49625,7 @@ QSlider::handle:horizontal {
 }</string>
                           </property>
                           <property name="text">
-                           <string>&lt;html&gt;y&lt;sub&gt;2&lt;/sub&gt;&lt;/html&gt;</string>
+                           <string>&lt;html&gt;y&lt;sub&gt;1&lt;/sub&gt;&lt;/html&gt;</string>
                           </property>
                          </widget>
                         </item>
@@ -49550,7 +49676,7 @@ QSlider::handle:horizontal {
 }</string>
                           </property>
                           <property name="text">
-                           <string>&lt;html&gt;y&lt;sub&gt;1&lt;/sub&gt;&lt;/html&gt;</string>
+                           <string>&lt;html&gt;y&lt;sub&gt;0&lt;/sub&gt;&lt;/html&gt;</string>
                           </property>
                          </widget>
                         </item>

@@ -14,6 +14,7 @@ SOURCES += \
     DBWorker\dbworker.cpp \
     ErrorTracker\errortracker.cpp \
     HammingCodeEngine/Decoder/HammingCode/Decoder1511/decoder1511.cpp \
+    HammingCodeEngine/Decoder/HammingCode/Decoder1611/decoder1611.cpp \
     HammingCodeEngine/Decoder/HammingCode/Decoder84/decoder84.cpp \
     HammingCodeEngine\Decoder\HammingCode\Decoder74\decoder74.cpp \
     HammingCodeEngine\DataWorker\BitSequence\EncodedBitSequence\encodedBitSequence.cpp \
@@ -39,6 +40,7 @@ HEADERS += \
     DBWorker\dbworker.h \
     ErrorTracker\errortracker.h \
     HammingCodeEngine/Decoder/HammingCode/Decoder1511/decoder1511.h \
+    HammingCodeEngine/Decoder/HammingCode/Decoder1611/decoder1611.h \
     HammingCodeEngine/Decoder/HammingCode/Decoder84/decoder84.h \
     HammingCodeEngine\Decoder\HammingCode\Decoder74\decoder74.h \
     HammingCodeEngine\DataWorker\BitSequence\EncodedBitSequence\encodedBitSequence.h \
