@@ -23,12 +23,13 @@
 class EncodedBigInteger {
 public:
     EncodedBigInteger() : data(), method(0), size(0) {     }
+    EncodedBigInteger(const BigInteger&, const int&, const int&, const bool&);
     EncodedBigInteger(const QVector<QPair<BigInteger, BigInteger>> &data, const int &method,
                       const int &size) : data(data), method(method), size(size) {    }
     EncodedBigInteger(const EncodedBigInteger &obj)
         : data(obj.data), method(obj.method), size(obj.size) {    }
-    const QPair<BigInteger, BigInteger>& operator[](int index) const { return data[index]; }
     EncodedBigInteger& operator=(const EncodedBigInteger&);
+    const QPair<BigInteger, BigInteger>& operator[](int index) const { return data[index]; }
     void addData(const QPair<BigInteger, BigInteger> &pair) { data.push_back(pair); }
     void setData(const QVector<QPair<BigInteger, BigInteger>> &data) { this->data = data; }
     const QVector<QPair<BigInteger, BigInteger>> &getData() const { return data; }
@@ -36,7 +37,11 @@ public:
     const int &getMethod() const { return method; }
     void setSize(const int &size) { this->size = size; }
     const int &getSize() const { return size; }
+    int getAmount() const { return data.length(); }
     void addError(const int&, const int&);
+
+    QString getFirst() const;
+    QString getSecond() const;
 
 private:
     QVector<QPair<BigInteger, BigInteger>> data;

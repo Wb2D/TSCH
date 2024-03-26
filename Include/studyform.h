@@ -33,6 +33,7 @@
 #include "HammingCodeEngine/Decoder/HammingCode/Decoder84/decoder84.h"
 #include "HammingCodeEngine/Decoder/HammingCode/Decoder1511/decoder1511.h"
 #include "HammingCodeEngine/Decoder/HammingCode/Decoder1611/decoder1611.h"
+#include "HammingCodeEngine/Decoder/HammingCode/DecoderDecimal1511/decoderDecimal1511.h"
 
 
 
@@ -103,6 +104,9 @@ private slots:
     void on_pushButtonDecoding_clicked();
     void on_pushButtonCopyData_clicked();
     void on_pushButtonDecode_clicked();
+    void on_pushSliderDataType_2_clicked();
+    void on_pushSliderNS_2_clicked();
+    void on_pushSliderDecoder_clicked();
 
 private:
     void setShadow(QWidget*);
@@ -119,12 +123,21 @@ private:
     void resetPageEncoder1611();
     void resetPageEncoder1511d();
     void resetEncoderData();
-    void resetEncodrNS();
+    void resetEncoderNS();
     void resetLabelXd11();
     void resetLabelXd4();
     void setEnabledNS(const bool&);
     void autoError(const bool&, const int&, const int&);
     void setBitsDecoding(const int&);
+    void setEnabledNS_2(const bool&);
+    void resetEncoderNS_2();
+    void resetAlgo_2();
+    void resetPageDecoder74();
+    void resetPageDecoder84();
+    void resetPageDecoder1511();
+    void resetPageDecoder1611();
+    void resetPageDecoder1511d();
+    void resetDecoderData();
 
     static const QRegularExpression BINARY_REGEX;
     static const QRegularExpression QUATERNARY_REGEX;
@@ -185,7 +198,8 @@ private:
     BigInteger bigInt;
     EncodedBigInteger clearEncodedBigInt;
     EncodedBigInteger modEncodedBigInt;
-    QPair<EncodedBitSequence, QVector<BitSequence>> decodedData;
+    QPair<EncodedBitSequence, QVector<BitSequence>> decodedBitData;
+    QPair<EncodedBigInteger, QVector<BigInteger>> decodedIntData;
     //EncodedBigInteger e
     //QRect wGeometry;
     static const int BLUR_RADIUS_1 = 8;

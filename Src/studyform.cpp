@@ -42,7 +42,8 @@ StudyForm::StudyForm(QWidget *parent) :
     bigInt = BigInteger();
     clearEncodedBigInt = EncodedBigInteger();
     modEncodedBigInt = EncodedBigInteger();
-    decodedData = QPair<EncodedBitSequence, QVector<BitSequence>>();
+    decodedBitData = QPair<EncodedBitSequence, QVector<BitSequence>>();
+    decodedIntData = QPair<EncodedBigInteger, QVector<BigInteger>>();
     ui->frame_6->setStackedWidget(ui->stackedWidget);
     ui->frame_4->setStackedWidget(ui->stackedWidget);
     ui->frame_5->setStackedWidget(ui->stackedWidget);
@@ -65,9 +66,10 @@ StudyForm::StudyForm(QWidget *parent) :
     ui->frame_27->setStackedWidget(ui->stackedWidget);
     ui->frame_26->setStackedWidget(ui->stackedWidget);
     connect(ui->textEditData, &QTextEdit::textChanged, this, [=]() {
-        ui->listWidget->clear();
-        ui->listWidget_2->clear();
         resetEncoderData();
+    });
+    connect(ui->textEditData_2, &QTextEdit::textChanged, this, [=]() {
+        resetDecoderData();
     });
     connect(ui->listWidget, &QListWidget::itemClicked, this, [=](QListWidgetItem *item) {
         setBitsEncoding(ui->listWidget->count() - ui->listWidget->row(item) - 1);
@@ -315,7 +317,7 @@ void StudyForm::on_pushSliderFormInput_clicked() {
  * \return Отсутствуют.
 */
 void StudyForm::on_pushSliderDataType_clicked() {
-    resetEncodrNS();
+    resetEncoderNS();
     QSlider* senderSlider = qobject_cast<QSlider*>(sender());
     if (senderSlider == ui->horizontalSliderDataType_1) {
         ui->horizontalSliderDataType_2->setValue(0);
@@ -1006,7 +1008,7 @@ void StudyForm::resetAlgo() {
  * \param Отсутствуют.
  * \return Отсутствуют.
 */
-void StudyForm::resetEncodrNS() {
+void StudyForm::resetEncoderNS() {
     ui->horizontalSliderNS2->setValue(0);
     ui->horizontalSliderNS4->setValue(0);
     ui->horizontalSliderNS8->setValue(0);
@@ -1948,7 +1950,7 @@ void StudyForm::on_pushButtonCopyData_clicked() {
         }
         }
         if(decodeAlgFlag == ALG_1511d) {
-            /// \todo когда доделаю функционал - добавлю.
+            ui->textEditData_2->setText(modEncodedBigInt.getSecond());
         } else {
             ui->textEditData_2->setText(modEncodedBitSeq.getSecond());
         }
@@ -1972,8 +1974,8 @@ void StudyForm::on_pushButtonCopyData_clicked() {
  * \return Отсутствуют.
 */
 void StudyForm::on_pushButtonDecode_clicked() {
-    if(encodeTypeFlag == NO_TYPE) {
-        NotificationForm *notification = new NotificationForm("Декодирование невозможна. Выберите тип данных.");
+    if(decodeTypeFlag == NO_TYPE) {
+        NotificationForm *notification = new NotificationForm("Декодирование невозможно. Выберите тип данных.");
         this->setEnabled(false);
         notification->show();
         QObject::connect(notification, &NotificationForm::finished, this, [=]() {
@@ -1982,55 +1984,70 @@ void StudyForm::on_pushButtonDecode_clicked() {
         });
     } else {
         QString data = ui->textEditData_2->toPlainText();
-        BitSequence seq = BitSequence();
-        switch (encodeAlgFlag) {
-        case NO_ALG: {
-            NotificationForm *notification = new NotificationForm("Декодирование невозможно. "
-                                                                  "Выберите алгоритм.");
+        if (data.length()) {
+            if(BINARY_REGEX.match(data).hasMatch() ||
+                    (decodeAlgFlag == ALG_1511d && DECIMAL_REGEX.match(data).hasMatch())) {
+                BitSequence seq = BitSequence();
+                switch (decodeAlgFlag) {
+                case NO_ALG: {
+                    NotificationForm *notification = new NotificationForm("Декодирование невозможно. "
+                                                                          "Выберите алгоритм.");
+                    this->setEnabled(false);
+                    notification->show();
+                    QObject::connect(notification, &NotificationForm::finished, this, [=]() {
+                        notification->deleteLater();
+                        this->setEnabled(true);
+                    });
+                    break;
+                }
+                case ALG_74: {
+                    Converter::toBinary(seq, data, 2);
+                    setListSeq(7, seq, ui->listWidget_3);
+                    decodedBitData = Decoder74::start(EncodedBitSequence(seq, ALG_74, 7, true));
+                    break;
+                }
+                case ALG_84: {
+                    Converter::toBinary(seq, data, 2);
+                    setListSeq(8, seq, ui->listWidget_3);
+                    decodedBitData = Decoder84::start(EncodedBitSequence(seq, ALG_84, 8, true));
+                    break;
+                }
+                case ALG_1511: {
+                    Converter::toBinary(seq, data, 2);
+                    setListSeq(15, seq, ui->listWidget_3);
+                    decodedBitData = Decoder1511::start(EncodedBitSequence(seq, ALG_1511, 15, true));
+                    break;
+                }
+                case ALG_1611: {
+                    Converter::toBinary(seq, data, 2);
+                    setListSeq(16, seq, ui->listWidget_3);
+                    decodedBitData = Decoder1611::start(EncodedBitSequence(seq, ALG_1611, 16, true));
+                    break;
+                }
+                case ALG_1511d: {
+                    BigInteger tmp(data);
+                    setListInt(15, tmp, ui->listWidget_3);
+                    decodedIntData = DecoderDecimal1511::start(EncodedBigInteger(tmp, ALG_1511d, 15, true));
+                    break;
+                }
+                }
+            } else {
+                NotificationForm *notification = new NotificationForm("Декодирование невозможно. Введены неверные входные данные.");
+                this->setEnabled(false);
+                notification->show();
+                QObject::connect(notification, &NotificationForm::finished, this, [=]() {
+                    notification->deleteLater();
+                    this->setEnabled(true);
+                });
+            }
+        } else {
+            NotificationForm *notification = new NotificationForm("Декодирование невозможно. Отсутствуют входные данные.");
             this->setEnabled(false);
             notification->show();
             QObject::connect(notification, &NotificationForm::finished, this, [=]() {
                 notification->deleteLater();
                 this->setEnabled(true);
             });
-            break;
-        }
-        case ALG_74: {
-            Converter::toBinary(seq, data, 2);
-            setListSeq(7, seq, ui->listWidget_3);
-            decodedData = Decoder74::start(EncodedBitSequence(seq, ALG_74, 7, true));
-            break;
-        }
-        case ALG_84: {
-            Converter::toBinary(seq, data, 2);
-            setListSeq(8, seq, ui->listWidget_3);
-            decodedData = Decoder84::start(EncodedBitSequence(seq, ALG_84, 8, true));
-            break;
-        }
-        case ALG_1511: {
-            Converter::toBinary(seq, data, 2);
-            setListSeq(15, seq, ui->listWidget_3);
-            decodedData = Decoder1511::start(EncodedBitSequence(seq, ALG_1511, 15, true));
-            break;
-        }
-        case ALG_1611: {
-            Converter::toBinary(seq, data, 2);
-            setListSeq(16, seq, ui->listWidget_3);
-            decodedData = Decoder1611::start(EncodedBitSequence(seq, ALG_1611, 16, true));
-//            setListSeq(11, bitSeq, ui->listWidget);
-//            setListSeq(11, bitSeq, ui->listWidget_2);
-//            clearEncodedBitSeq = Encoder1611::start(bitSeq);
-//            modEncodedBitSeq = clearEncodedBitSeq;
-            break;
-        }
-        case ALG_1511d: {
-//            bigInt = BigInteger(data);
-//            setListInt(11, bigInt, ui->listWidget);
-//            setListInt(11, bigInt, ui->listWidget_2);
-//            clearEncodedBigInt = EncoderDecimal1511::start(bigInt);
-//            modEncodedBigInt = clearEncodedBigInt;
-            break;
-        }
         }
     }
 }
@@ -2044,16 +2061,16 @@ void StudyForm::on_pushButtonDecode_clicked() {
 void StudyForm::setBitsDecoding(const int &index) {
     QString eData, dData, syndrom;
     int syndromIndex = -1;
-    if(encodeAlgFlag != ALG_1511d) {
-        eData = decodedData.first[index].second.toString();
-        dData = decodedData.first[index].first.toString();
-        syndrom = decodedData.second.at(index).toString();
-        switch (encodeAlgFlag) {
+    if(decodeAlgFlag != ALG_1511d) {
+        eData = decodedBitData.first[index].second.toString();
+        dData = decodedBitData.first[index].first.toString();
+        syndrom = decodedBitData.second.at(index).toString();
+        switch (decodeAlgFlag) {
         case NO_ALG: {
             break;
         }
         case ALG_74: {
-            syndromIndex = decodedData.second.at(index).toDecimal();
+            syndromIndex = decodedBitData.second.at(index).toDecimal();
             ui->labelY_id_d_74_7->setText(eData.at(0));
             ui->labelY_id_d_74_6->setText(eData.at(1));
             ui->labelY_id_d_74_5->setText(eData.at(2));
@@ -2081,7 +2098,7 @@ void StudyForm::setBitsDecoding(const int &index) {
             break;
         }
         case ALG_84: {
-            syndromIndex = decodedData.second.at(index).subsequence(1, 3).toDecimal();
+            syndromIndex = decodedBitData.second.at(index).subsequence(1, 3).toDecimal();
             ui->labelY_id_d_84_8->setText(eData.at(0));
             ui->labelY_id_d_84_7->setText(eData.at(1));
             ui->labelY_id_d_84_6->setText(eData.at(2));
@@ -2099,10 +2116,10 @@ void StudyForm::setBitsDecoding(const int &index) {
             ui->labelY_id_d_84_2_2->setText(syndrom.at(2));
             ui->labelY_id_d_84_2_1->setText(syndrom.at(3));
             ui->labelX_84_errorIn->setText(QString::number(syndromIndex));
-            if(!decodedData.second[index].toDecimal()) {
+            if(!decodedBitData.second[index].toDecimal()) {
                 ui->labelX_84_errorType->setText(QString("Отсутствует"));
             } else {
-                if(decodedData.second[index][0]) {
+                if(decodedBitData.second[index][0]) {
                     ui->labelX_84_errorType->setText(QString("Одиночная"));
                 } else {
                     ui->labelX_84_errorType->setText(QString("Двойная"));
@@ -2115,7 +2132,7 @@ void StudyForm::setBitsDecoding(const int &index) {
             break;
         }
         case ALG_1511: {
-            syndromIndex = decodedData.second.at(index).toDecimal();
+            syndromIndex = decodedBitData.second.at(index).toDecimal();
             ui->labelY_id_d_1511_15->setText(eData.at(0));
             ui->labelY_id_d_1511_14->setText(eData.at(1));
             ui->labelY_id_d_1511_13->setText(eData.at(2));
@@ -2166,7 +2183,7 @@ void StudyForm::setBitsDecoding(const int &index) {
             break;
         }
         case ALG_1611: {
-            syndromIndex = decodedData.second.at(index).subsequence(1, 4).toDecimal();
+            syndromIndex = decodedBitData.second.at(index).subsequence(1, 4).toDecimal();
             ui->labelY_id_d_1611_15->setText(eData.at(0));
             ui->labelY_id_d_1611_14->setText(eData.at(1));
             ui->labelY_id_d_1611_13->setText(eData.at(2));
@@ -2198,10 +2215,10 @@ void StudyForm::setBitsDecoding(const int &index) {
             ui->labelY_id_d_1611_2_2->setText(syndrom.at(3));
             ui->labelY_id_d_1611_2_1->setText(syndrom.at(4));
             ui->labelX_1611_errorIn->setText(QString::number(syndromIndex));
-            if(!decodedData.second[index].toDecimal()) {
+            if(!decodedBitData.second[index].toDecimal()) {
                 ui->labelX_1611_errorType->setText(QString("Отсутствует"));
             } else {
-                if(decodedData.second[index][0]) {
+                if(decodedBitData.second[index][0]) {
                     ui->labelX_1611_errorType->setText(QString("Одиночная"));
                 } else {
                     ui->labelX_1611_errorType->setText(QString("Двойная"));
@@ -2225,6 +2242,403 @@ void StudyForm::setBitsDecoding(const int &index) {
         }
         }
     } else {
-
+        eData = decodedIntData.first[index].second.toString();
+        dData = decodedIntData.first[index].first.toString();
+        syndrom = decodedIntData.second.at(index).toString();
+        BitSequence seq = BitSequence();
+        seq.append(decodedIntData.second.at(index)[0] > 0);
+        seq.append(decodedIntData.second.at(index)[1] > 0);
+        seq.append(decodedIntData.second.at(index)[2] > 0);
+        seq.append(decodedIntData.second.at(index)[3] > 0);
+        syndromIndex = seq.toDecimal();
+        ui->labelY_id_d_d1511_15->setText(eData.at(0));
+        ui->labelY_id_d_d1511_14->setText(eData.at(1));
+        ui->labelY_id_d_d1511_13->setText(eData.at(2));
+        ui->labelY_id_d_d1511_12->setText(eData.at(3));
+        ui->labelY_id_d_d1511_11->setText(eData.at(4));
+        ui->labelY_id_d_d1511_10->setText(eData.at(5));
+        ui->labelY_id_d_d1511_9->setText(eData.at(6));
+        ui->labelY_id_d_d1511_8->setText(eData.at(7));
+        ui->labelY_id_d_d1511_7->setText(eData.at(8));
+        ui->labelY_id_d_d1511_6->setText(eData.at(9));
+        ui->labelY_id_d_d1511_5->setText(eData.at(10));
+        ui->labelY_id_d_d1511_4->setText(eData.at(11));
+        ui->labelY_id_d_d1511_3->setText(eData.at(12));
+        ui->labelY_id_d_d1511_2->setText(eData.at(13));
+        ui->labelY_id_d_d1511_1->setText(eData.at(14));
+        ui->labelY_id_d_d1511_2_15->setText(eData.at(0));
+        ui->labelY_id_d_d1511_2_14->setText(eData.at(1));
+        ui->labelY_id_d_d1511_2_13->setText(eData.at(2));
+        ui->labelY_id_d_d1511_2_12->setText(eData.at(3));
+        ui->labelY_id_d_d1511_2_11->setText(eData.at(4));
+        ui->labelY_id_d_d1511_2_10->setText(eData.at(5));
+        ui->labelY_id_d_d1511_2_9->setText(eData.at(6));
+        ui->labelY_id_d_d1511_2_8->setText(syndrom.at(0));
+        ui->labelY_id_d_d1511_2_7->setText(eData.at(8));
+        ui->labelY_id_d_d1511_2_6->setText(eData.at(9));
+        ui->labelY_id_d_d1511_2_5->setText(eData.at(10));
+        ui->labelY_id_d_d1511_2_4->setText(syndrom.at(1));
+        ui->labelY_id_d_d1511_2_3->setText(eData.at(12));
+        ui->labelY_id_d_d1511_2_2->setText(syndrom.at(2));
+        ui->labelY_id_d_d1511_2_1->setText(syndrom.at(3));
+        ui->labelX_d1511_errorIn->setText(QString::number(syndromIndex));
+        if(syndromIndex) {
+            ui->labelX_d1511_errorType->setText(QString("Одиночная"));
+        } else {
+            ui->labelX_d1511_errorType->setText(QString("Отсутствует"));
+        }
+        ui->labelX_od_d_d1511_11->setText(dData.at(0));
+        ui->labelX_od_d_d1511_10->setText(dData.at(1));
+        ui->labelX_od_d_d1511_9->setText(dData.at(2));
+        ui->labelX_od_d_d1511_8->setText(dData.at(3));
+        ui->labelX_od_d_d1511_7->setText(dData.at(4));
+        ui->labelX_od_d_d1511_6->setText(dData.at(5));
+        ui->labelX_od_d_d1511_5->setText(dData.at(6));
+        ui->labelX_od_d_d1511_4->setText(dData.at(7));
+        ui->labelX_od_d_d1511_3->setText(dData.at(8));
+        ui->labelX_od_d_d1511_2->setText(dData.at(9));
+        ui->labelX_od_d_d1511_1->setText(dData.at(10));
     }
+}
+
+
+/*!
+ * \brief Обработчик нажатия кнопки "Выбор типа входных данных" во вкладке Декодирование.
+ * \param Отсутствуют.
+ * \return Отсутствуют.
+*/
+void StudyForm::on_pushSliderDataType_2_clicked() {
+    resetEncoderNS_2();
+    QSlider* senderSlider = qobject_cast<QSlider*>(sender());
+    if (senderSlider == ui->horizontalSliderDataType_3) {
+        ui->horizontalSliderDataType_4->setValue(0);
+        if(senderSlider->value() == 0) {
+            decodeTypeFlag = NUMERIC;
+            setEnabledNS_2(true);
+        } else {
+            decodeTypeFlag = NO_TYPE;
+            setEnabledNS_2(false);
+        }
+    } else if (senderSlider == ui->horizontalSliderDataType_4) {
+        ui->horizontalSliderDataType_3->setValue(0);
+        if(senderSlider->value() == 0) {
+            decodeTypeFlag = TEXT;
+            setEnabledNS_2(false);
+        } else {
+            decodeTypeFlag = NO_TYPE;
+            setEnabledNS_2(false);
+        }
+    }
+    bool enableFrame = senderSlider != ui->horizontalSliderDataType_4 ||
+                       (senderSlider->value() == 1);
+    if (enableFrame) {
+        removeEffect(ui->frame_29);
+        setShadow(ui->frame_29);
+        removeEffect(ui->frame_25);
+    } else {
+        setBlur(ui->frame_29, BLUR_RADIUS_1);
+        setBlur(ui->frame_25, BLUR_RADIUS_2);
+    }
+    ui->horizontalSliderEncoder1511d_2->setEnabled(enableFrame);
+    ui->frame_29->update();
+    ui->frame_25->update();
+}
+
+
+void StudyForm::setEnabledNS_2(const bool &flag) {
+    ui->horizontalSliderNS2_2->setEnabled(flag);
+    ui->horizontalSliderNS4_2->setEnabled(flag);
+    ui->horizontalSliderNS8_2->setEnabled(flag);
+    ui->horizontalSliderNS10_2->setEnabled(flag);
+    ui->horizontalSliderNS16_2->setEnabled(flag);
+}
+
+
+void StudyForm::on_pushSliderNS_2_clicked() {
+    resetAlgo_2();
+    QSlider* senderSlider = qobject_cast<QSlider*>(sender());
+    QList<QSlider*> sliders = { ui->horizontalSliderNS2_2,
+                                ui->horizontalSliderNS4_2,
+                                ui->horizontalSliderNS8_2,
+                                ui->horizontalSliderNS10_2,
+                                ui->horizontalSliderNS16_2, };
+    for (QSlider *slider : sliders) {
+        if (slider != senderSlider) {
+            slider->setValue(0);
+        }
+    }
+    if (senderSlider->value() == 0) {
+        if (senderSlider == ui->horizontalSliderNS2_2)
+            decodeNumberFlag = BINARY;
+        else if (senderSlider == ui->horizontalSliderNS4_2)
+            decodeNumberFlag = QUATERNARY;
+        else if (senderSlider == ui->horizontalSliderNS8_2)
+            decodeNumberFlag = OCTAL;
+        else if (senderSlider == ui->horizontalSliderNS10_2)
+            decodeNumberFlag = DECIMAL;
+        else if (senderSlider == ui->horizontalSliderNS16_2)
+            decodeNumberFlag = HEXADECIMAL;
+    } else {
+        decodeNumberFlag = NO_SYSTEM;
+    }
+    bool enableFrame = senderSlider == ui->horizontalSliderNS10_2 || senderSlider->value() == 1;
+    ui->horizontalSliderEncoder1511d_2->setEnabled(enableFrame);
+    if(enableFrame) {
+        removeEffect(ui->frame_25);
+    } else {
+        setBlur(ui->frame_25, BLUR_RADIUS_1);
+    }
+    ui->frame_25->update();
+}
+
+
+void StudyForm::resetEncoderNS_2() {
+    ui->horizontalSliderNS2_2->setValue(0);
+    ui->horizontalSliderNS4_2->setValue(0);
+    ui->horizontalSliderNS8_2->setValue(0);
+    ui->horizontalSliderNS10_2->setValue(0);
+    ui->horizontalSliderNS16_2->setValue(0);
+}
+
+
+void StudyForm::resetAlgo_2() {
+    ui->horizontalSliderEncoder74_2->setValue(0);
+    ui->horizontalSliderEncoder84_2->setValue(0);
+    ui->horizontalSliderEncoder1511_2->setValue(0);
+    ui->horizontalSliderEncoder1611_2->setValue(0);
+    ui->horizontalSliderEncoder1511d_2->setValue(0);
+}
+
+
+void StudyForm::on_pushSliderDecoder_clicked() {
+    resetDecoderData();
+    QSlider *senderSlider = qobject_cast<QSlider*>(sender());
+    QList<QSlider*> sliders = { ui->horizontalSliderEncoder74_2,
+                                ui->horizontalSliderEncoder84_2,
+                                ui->horizontalSliderEncoder1511_2,
+                                ui->horizontalSliderEncoder1611_2,
+                                ui->horizontalSliderEncoder1511d_2, };
+    for (QSlider *slider : sliders) {
+        if(slider != senderSlider) {
+            slider->setValue(0);
+        }
+    }
+    if (!senderSlider->value()) {
+        if(senderSlider == ui->horizontalSliderEncoder74_2) {
+            decodeAlgFlag = ALG_74;
+        } else if(senderSlider == ui->horizontalSliderEncoder84_2) {
+            decodeAlgFlag = ALG_84;
+        } else if(senderSlider == ui->horizontalSliderEncoder1511_2) {
+            decodeAlgFlag = ALG_1511;
+        } else if(senderSlider == ui->horizontalSliderEncoder1611_2) {
+            decodeAlgFlag = ALG_1611;
+        } else if(senderSlider == ui->horizontalSliderEncoder1511d_2) {
+            decodeAlgFlag = ALG_1511d;
+        }
+        ui->stackedWidget_6->setCurrentIndex(decodeAlgFlag);
+    } else {
+        decodeAlgFlag = NO_ALG;
+    }
+}
+
+
+void StudyForm::resetDecoderData() {
+    ui->textEditData_3->clear();
+    ui->listWidget_3->clear();
+    resetPageDecoder74();
+    resetPageDecoder84();
+    resetPageDecoder1511();
+    resetPageDecoder1611();
+    resetPageDecoder1511d();
+}
+
+
+void StudyForm::resetPageDecoder74() {
+    ui->labelY_id_d_74_7->clear();
+    ui->labelY_id_d_74_6->clear();
+    ui->labelY_id_d_74_5->clear();
+    ui->labelY_id_d_74_4->clear();
+    ui->labelY_id_d_74_3->clear();
+    ui->labelY_id_d_74_2->clear();
+    ui->labelY_id_d_74_1->clear();
+    ui->labelY_id_d_74_2_7->clear();
+    ui->labelY_id_d_74_2_6->clear();
+    ui->labelY_id_d_74_2_5->clear();
+    ui->labelY_id_d_74_2_4->clear();
+    ui->labelY_id_d_74_2_3->clear();
+    ui->labelY_id_d_74_2_2->clear();
+    ui->labelY_id_d_74_2_1->clear();
+    ui->labelX_74_errorIn->clear();
+    ui->labelX_74_errorType->clear();
+    ui->labelX_od_d_74_4->clear();
+    ui->labelX_od_d_74_3->clear();
+    ui->labelX_od_d_74_2->clear();
+    ui->labelX_od_d_74_1->clear();
+}
+
+
+void StudyForm::resetPageDecoder84() {
+    ui->labelY_id_d_84_8->clear();
+    ui->labelY_id_d_84_7->clear();
+    ui->labelY_id_d_84_6->clear();
+    ui->labelY_id_d_84_5->clear();
+    ui->labelY_id_d_84_4->clear();
+    ui->labelY_id_d_84_3->clear();
+    ui->labelY_id_d_84_2->clear();
+    ui->labelY_id_d_84_1->clear();
+    ui->labelY_id_d_84_2_8->clear();
+    ui->labelY_id_d_84_2_7->clear();
+    ui->labelY_id_d_84_2_6->clear();
+    ui->labelY_id_d_84_2_5->clear();
+    ui->labelY_id_d_84_2_4->clear();
+    ui->labelY_id_d_84_2_3->clear();
+    ui->labelY_id_d_84_2_2->clear();
+    ui->labelY_id_d_84_2_1->clear();
+    ui->labelX_84_errorIn->clear();
+    ui->labelX_84_errorType->clear();
+    ui->labelX_od_d_84_4->clear();
+    ui->labelX_od_d_84_3->clear();
+    ui->labelX_od_d_84_2->clear();
+    ui->labelX_od_d_84_1->clear();
+}
+
+
+void StudyForm::resetPageDecoder1511() {
+    ui->labelY_id_d_1511_15->clear();
+    ui->labelY_id_d_1511_14->clear();
+    ui->labelY_id_d_1511_13->clear();
+    ui->labelY_id_d_1511_12->clear();
+    ui->labelY_id_d_1511_11->clear();
+    ui->labelY_id_d_1511_10->clear();
+    ui->labelY_id_d_1511_9->clear();
+    ui->labelY_id_d_1511_8->clear();
+    ui->labelY_id_d_1511_7->clear();
+    ui->labelY_id_d_1511_6->clear();
+    ui->labelY_id_d_1511_5->clear();
+    ui->labelY_id_d_1511_4->clear();
+    ui->labelY_id_d_1511_3->clear();
+    ui->labelY_id_d_1511_2->clear();
+    ui->labelY_id_d_1511_1->clear();
+    ui->labelY_id_d_1511_2_15->clear();
+    ui->labelY_id_d_1511_2_14->clear();
+    ui->labelY_id_d_1511_2_13->clear();
+    ui->labelY_id_d_1511_2_12->clear();
+    ui->labelY_id_d_1511_2_11->clear();
+    ui->labelY_id_d_1511_2_10->clear();
+    ui->labelY_id_d_1511_2_9->clear();
+    ui->labelY_id_d_1511_2_8->clear();
+    ui->labelY_id_d_1511_2_7->clear();
+    ui->labelY_id_d_1511_2_6->clear();
+    ui->labelY_id_d_1511_2_5->clear();
+    ui->labelY_id_d_1511_2_4->clear();
+    ui->labelY_id_d_1511_2_3->clear();
+    ui->labelY_id_d_1511_2_2->clear();
+    ui->labelY_id_d_1511_2_1->clear();
+    ui->labelX_1511_errorIn->clear();
+    ui->labelX_1511_errorType->clear();
+    ui->labelX_od_d_1511_11->clear();
+    ui->labelX_od_d_1511_10->clear();
+    ui->labelX_od_d_1511_9->clear();
+    ui->labelX_od_d_1511_8->clear();
+    ui->labelX_od_d_1511_7->clear();
+    ui->labelX_od_d_1511_6->clear();
+    ui->labelX_od_d_1511_5->clear();
+    ui->labelX_od_d_1511_4->clear();
+    ui->labelX_od_d_1511_3->clear();
+    ui->labelX_od_d_1511_2->clear();
+    ui->labelX_od_d_1511_1->clear();
+}
+
+
+void StudyForm::resetPageDecoder1611() {
+    ui->labelY_id_d_1611_15->clear();
+    ui->labelY_id_d_1611_14->clear();
+    ui->labelY_id_d_1611_13->clear();
+    ui->labelY_id_d_1611_12->clear();
+    ui->labelY_id_d_1611_11->clear();
+    ui->labelY_id_d_1611_10->clear();
+    ui->labelY_id_d_1611_9->clear();
+    ui->labelY_id_d_1611_8->clear();
+    ui->labelY_id_d_1611_7->clear();
+    ui->labelY_id_d_1611_6->clear();
+    ui->labelY_id_d_1611_5->clear();
+    ui->labelY_id_d_1611_4->clear();
+    ui->labelY_id_d_1611_3->clear();
+    ui->labelY_id_d_1611_2->clear();
+    ui->labelY_id_d_1611_1->clear();
+    ui->labelY_id_d_1611_2_15->clear();
+    ui->labelY_id_d_1611_2_14->clear();
+    ui->labelY_id_d_1611_2_13->clear();
+    ui->labelY_id_d_1611_2_12->clear();
+    ui->labelY_id_d_1611_2_11->clear();
+    ui->labelY_id_d_1611_2_10->clear();
+    ui->labelY_id_d_1611_2_9->clear();
+    ui->labelY_id_d_1611_2_8->clear();
+    ui->labelY_id_d_1611_2_7->clear();
+    ui->labelY_id_d_1611_2_6->clear();
+    ui->labelY_id_d_1611_2_5->clear();
+    ui->labelY_id_d_1611_2_4->clear();
+    ui->labelY_id_d_1611_2_3->clear();
+    ui->labelY_id_d_1611_2_2->clear();
+    ui->labelY_id_d_1611_2_1->clear();
+    ui->labelX_1611_errorIn->clear();
+    ui->labelX_1611_errorType->clear();
+    ui->labelX_od_d_1611_11->clear();
+    ui->labelX_od_d_1611_10->clear();
+    ui->labelX_od_d_1611_9->clear();
+    ui->labelX_od_d_1611_8->clear();
+    ui->labelX_od_d_1611_7->clear();
+    ui->labelX_od_d_1611_6->clear();
+    ui->labelX_od_d_1611_5->clear();
+    ui->labelX_od_d_1611_4->clear();
+    ui->labelX_od_d_1611_3->clear();
+    ui->labelX_od_d_1611_2->clear();
+    ui->labelX_od_d_1611_1->clear();
+}
+
+
+void StudyForm::resetPageDecoder1511d() {
+    ui->labelY_id_d_d1511_15->clear();
+    ui->labelY_id_d_d1511_14->clear();
+    ui->labelY_id_d_d1511_13->clear();
+    ui->labelY_id_d_d1511_12->clear();
+    ui->labelY_id_d_d1511_11->clear();
+    ui->labelY_id_d_d1511_10->clear();
+    ui->labelY_id_d_d1511_9->clear();
+    ui->labelY_id_d_d1511_8->clear();
+    ui->labelY_id_d_d1511_7->clear();
+    ui->labelY_id_d_d1511_6->clear();
+    ui->labelY_id_d_d1511_5->clear();
+    ui->labelY_id_d_d1511_4->clear();
+    ui->labelY_id_d_d1511_3->clear();
+    ui->labelY_id_d_d1511_2->clear();
+    ui->labelY_id_d_d1511_1->clear();
+    ui->labelY_id_d_d1511_2_15->clear();
+    ui->labelY_id_d_d1511_2_14->clear();
+    ui->labelY_id_d_d1511_2_13->clear();
+    ui->labelY_id_d_d1511_2_12->clear();
+    ui->labelY_id_d_d1511_2_11->clear();
+    ui->labelY_id_d_d1511_2_10->clear();
+    ui->labelY_id_d_d1511_2_9->clear();
+    ui->labelY_id_d_d1511_2_8->clear();
+    ui->labelY_id_d_d1511_2_7->clear();
+    ui->labelY_id_d_d1511_2_6->clear();
+    ui->labelY_id_d_d1511_2_5->clear();
+    ui->labelY_id_d_d1511_2_4->clear();
+    ui->labelY_id_d_d1511_2_3->clear();
+    ui->labelY_id_d_d1511_2_2->clear();
+    ui->labelY_id_d_d1511_2_1->clear();
+    ui->labelX_d1511_errorIn->clear();
+    ui->labelX_d1511_errorType->clear();
+    ui->labelX_od_d_d1511_11->clear();
+    ui->labelX_od_d_d1511_10->clear();
+    ui->labelX_od_d_d1511_9->clear();
+    ui->labelX_od_d_d1511_8->clear();
+    ui->labelX_od_d_d1511_7->clear();
+    ui->labelX_od_d_d1511_6->clear();
+    ui->labelX_od_d_d1511_5->clear();
+    ui->labelX_od_d_d1511_4->clear();
+    ui->labelX_od_d_d1511_3->clear();
+    ui->labelX_od_d_d1511_2->clear();
+    ui->labelX_od_d_d1511_1->clear();
 }
