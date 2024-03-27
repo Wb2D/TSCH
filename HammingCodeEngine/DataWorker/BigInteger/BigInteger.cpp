@@ -1,14 +1,19 @@
-#include "HammingCodeEngine/DataWorker\Converter\BigInteger\BigInteger.h"
+#include "HammingCodeEngine/DataWorker/BigInteger/BigInteger.h"
 
 
 
-
+/*!
+ * \brief Конструктор класса, преобразующий строку в объект BigInteger.
+ * \param number Строка, содержащая целое число.
+ * \return Отсутствуют.
+*/
 BigInteger::BigInteger(QString number) {
     for(const QChar &digit : number) {
         data.push_front(digit.digitValue());
     }
     removeZeros();
 }
+
 
 /*!
  * \brief Метод возвращает строковое представление числа.

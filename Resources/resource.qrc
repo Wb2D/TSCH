@@ -9,5 +9,10 @@
         <file>encode.png</file>
         <file>action1.png</file>
         <file>action2.png</file>
+        <file>decoding.png</file>
+        <file>encoding.png</file>
+        <file>error.png</file>
+        <file>exit.png</file>
+        <file>back.png</file>
     </qresource>
 </RCC>

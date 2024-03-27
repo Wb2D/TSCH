@@ -54,7 +54,6 @@ private slots:
 protected:
     void mousePressEvent(QMouseEvent*) override;
     void mouseMoveEvent(QMouseEvent*) override;
-    //void mouseDoubleClickEvent(QMouseEvent*) override;
     void mouseReleaseEvent(QMouseEvent *event) override;
 
 private:
@@ -70,8 +69,6 @@ private:
     DatabaseWorker *dbObj; ///< объект подключения к бд
     bool aFlag; ///< был ли совершен клик в допустимой области
     QPoint mPosition;
-    //QRect wGeometry;
-    //bool wFlag; ///< флаг окна: оконное или во весь экран
 };
 
 

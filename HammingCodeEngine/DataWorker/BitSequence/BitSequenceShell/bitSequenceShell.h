@@ -1,5 +1,5 @@
-#ifndef ENCODEDBITSEQUENCE_H
-#define ENCODEDBITSEQUENCE_H
+#ifndef BitSequenceShell_H
+#define BitSequenceShell_H
 
 #include <QDateTime>
 #include <QVector>
@@ -12,7 +12,7 @@
 
 
 /*!
- * \brief Класс EncodedBitSequence является оберткой для объекта BitSequence.
+ * \brief Класс BitSequenceShell является оберткой для объекта BitSequence.
  * \author Wb2D
  * \date 22 сентября 2023
  * \details Он добавляет к исходному классу информацию о примененном методе кодирования,
@@ -20,15 +20,15 @@
  * затраченном на кодирование.
 */
 
-class EncodedBitSequence {
+class BitSequenceShell {
 public:
-    EncodedBitSequence() : data(), method(0), size(0) {    }
-    EncodedBitSequence(const BitSequence&, const int&, const int&, const bool&);
-    EncodedBitSequence(const QVector<QPair<BitSequence, BitSequence>> &data, const int &method,
+    BitSequenceShell() : data(), method(0), size(0) {    }
+    BitSequenceShell(const BitSequence&, const int&, const int&, const bool&);
+    BitSequenceShell(const QVector<QPair<BitSequence, BitSequence>> &data, const int &method,
                        const int &size) : data(data), method(method), size(size) {   }
-    EncodedBitSequence(const EncodedBitSequence &obj)
+    BitSequenceShell(const BitSequenceShell &obj)
         : data(obj.data), method(obj.method),  size(obj.size) {    }
-    EncodedBitSequence& operator=(const EncodedBitSequence&);
+    BitSequenceShell& operator=(const BitSequenceShell&);
     QPair<BitSequence, BitSequence>& operator[](int index) { return data[index]; }
     const QPair<BitSequence, BitSequence>& operator[](int index) const { return data[index]; }
     void setData(const QVector<QPair<BitSequence, BitSequence>> &data) { this->data = data; }
@@ -51,4 +51,4 @@ private:
 };
 
 
-#endif // ENCODEDBITSEQUENCE_H
+#endif // BitSequenceShell_H

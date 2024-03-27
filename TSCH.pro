@@ -13,22 +13,22 @@ CONFIG += c++11
 SOURCES += \
     DBWorker\dbworker.cpp \
     ErrorTracker\errortracker.cpp \
-    HammingCodeEngine/Decoder/HammingCode/Decoder1511/decoder1511.cpp \
-    HammingCodeEngine/Decoder/HammingCode/Decoder1611/decoder1611.cpp \
-    HammingCodeEngine/Decoder/HammingCode/Decoder84/decoder84.cpp \
-    HammingCodeEngine/Decoder/HammingCode/DecoderDecimal1511/decoderDecimal1511.cpp \
-    HammingCodeEngine\Decoder\HammingCode\Decoder74\decoder74.cpp \
-    HammingCodeEngine\DataWorker\BitSequence\EncodedBitSequence\encodedBitSequence.cpp \
-    HammingCodeEngine\DataWorker\BitSequence\bitSequence.cpp \
-    HammingCodeEngine\DataWorker\Converter\BigInteger\BigInteger.cpp \
-    HammingCodeEngine\DataWorker\Converter\BigInteger\EncodedBigInteger\encodedBigInteger.cpp \
     HammingCodeEngine\DataWorker\Converter\converter.cpp \
     HammingCodeEngine\DataWorker\NumberGenerator\numberGenerator.cpp \
-    HammingCodeEngine\Encoder\HammingCode\Encoder1511\encoder1511.cpp \
-    HammingCodeEngine\Encoder\HammingCode\Encoder1611\encoder1611.cpp \
+    HammingCodeEngine\DataWorker\BitSequence\bitSequence.cpp \
+    HammingCodeEngine\DataWorker\BitSequence\BitSequenceShell\bitSequenceShell.cpp \
+    HammingCodeEngine\DataWorker\BigInteger\BigInteger.cpp \
+    HammingCodeEngine\DataWorker\BigInteger/BigIntegerShell\bigIntegerShell.cpp \
     HammingCodeEngine\Encoder\HammingCode\Encoder74\Encoder74.cpp \
     HammingCodeEngine\Encoder\HammingCode\Encoder84\encoder84.cpp \
+    HammingCodeEngine\Encoder\HammingCode\Encoder1511\encoder1511.cpp \
+    HammingCodeEngine\Encoder\HammingCode\Encoder1611\encoder1611.cpp \
     HammingCodeEngine\Encoder\HammingCode\EncoderDecimal1511\encoderDecimal1511.cpp \
+    HammingCodeEngine\Decoder\HammingCode\Decoder74\decoder74.cpp \
+    HammingCodeEngine\Decoder/HammingCode\Decoder84/decoder84.cpp \
+    HammingCodeEngine\Decoder\HammingCode\Decoder1511\decoder1511.cpp \
+    HammingCodeEngine\Decoder\HammingCode\Decoder1611\decoder1611.cpp \
+    HammingCodeEngine\Decoder\HammingCode\DecoderDecimal1511\decoderDecimal1511.cpp \
     Src\frame.cpp \
     Src\global.cpp \
     Src\notificationform.cpp \
@@ -40,22 +40,22 @@ SOURCES += \
 HEADERS += \
     DBWorker\dbworker.h \
     ErrorTracker\errortracker.h \
-    HammingCodeEngine/Decoder/HammingCode/Decoder1511/decoder1511.h \
-    HammingCodeEngine/Decoder/HammingCode/Decoder1611/decoder1611.h \
-    HammingCodeEngine/Decoder/HammingCode/Decoder84/decoder84.h \
-    HammingCodeEngine/Decoder/HammingCode/DecoderDecimal1511/decoderDecimal1511.h \
-    HammingCodeEngine\Decoder\HammingCode\Decoder74\decoder74.h \
-    HammingCodeEngine\DataWorker\BitSequence\EncodedBitSequence\encodedBitSequence.h \
-    HammingCodeEngine\DataWorker\BitSequence\bitSequence.h \
-    HammingCodeEngine\DataWorker\Converter\BigInteger\BigInteger.h \
-    HammingCodeEngine\DataWorker\Converter\BigInteger\EncodedBigInteger\encodedBigInteger.h \
     HammingCodeEngine\DataWorker\Converter\converter.h \
     HammingCodeEngine\DataWorker\NumberGenerator\numberGenerator.h \
-    HammingCodeEngine\Encoder\HammingCode\Encoder1511\encoder1511.h \
-    HammingCodeEngine\Encoder\HammingCode\Encoder1611\encoder1611.h \
+    HammingCodeEngine\DataWorker\BitSequence\bitSequence.h \
+    HammingCodeEngine\DataWorker\BitSequence\BitSequenceShell/bitSequenceShell.h \
+    HammingCodeEngine\DataWorker\BigInteger\BigInteger.h \
+    HammingCodeEngine\DataWorker/BigInteger\BigIntegerShell/bigIntegerShell.h \
     HammingCodeEngine\Encoder\HammingCode\Encoder74\Encoder74.h \
     HammingCodeEngine\Encoder\HammingCode\Encoder84\encoder84.h \
+    HammingCodeEngine\Encoder\HammingCode\Encoder1511\encoder1511.h \
+    HammingCodeEngine\Encoder\HammingCode\Encoder1611\encoder1611.h \
     HammingCodeEngine\Encoder\HammingCode\EncoderDecimal1511\encoderDecimal1511.h \
+    HammingCodeEngine\Decoder\HammingCode\Decoder74\decoder74.h \
+    HammingCodeEngine\Decoder\HammingCode\Decoder84/decoder84.h \
+    HammingCodeEngine\Decoder\HammingCode\Decoder1511/decoder1511.h \
+    HammingCodeEngine\Decoder\HammingCode\Decoder1611/decoder1611.h \
+    HammingCodeEngine\Decoder\HammingCode\DecoderDecimal1511\decoderDecimal1511.h \
     Include\clickableLabel.h \
     Include\global.h \
     Include\notificationform.h \

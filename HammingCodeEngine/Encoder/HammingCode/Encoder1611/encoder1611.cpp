@@ -9,8 +9,8 @@
  * \param data Исходная битовая последовательность.
  * \return Закодированная битовая последовательность.
 */
-EncodedBitSequence Encoder1611:: start(const BitSequence &data) {
-    EncodedBitSequence result;
+BitSequenceShell Encoder1611:: start(const BitSequence &data) {
+    BitSequenceShell result;
     int eSize = data.length();
     if (eSize % 11) {
         eSize += 11  - (eSize % 11);

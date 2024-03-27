@@ -44,7 +44,6 @@ QString DatabaseWorker::hashing(const QString &data) const {
  * Также в случае возникновнения ошибки устанавливается значение G_ERROR.
  * \param Отсутствуют.
  * \return Возвращает true в случае успешного подключения, иначе false.
- * \todo Обезопасить данные для подключения.
 */
 bool DatabaseWorker::connectToDB() {
     QFile file("config.json"); ///< открываю файл config.json для чтения
@@ -96,7 +95,6 @@ bool DatabaseWorker::authorizationInDB(const QString &login, const QString &pass
     }
     QSqlQuery query;
     query.prepare("SELECT COUNT(*) FROM users WHERE login = :login AND password = :password");
-    // добавить хэширование
     query.bindValue(":login", login);
     query.bindValue(":password", hashing(password));
     if(!query.exec()) { ///< Неверный запрос

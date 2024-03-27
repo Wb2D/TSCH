@@ -7,7 +7,7 @@
 #include <QDebug>
 
 #include "HammingCodeEngine/DataWorker/BitSequence/bitSequence.h"
-#include "HammingCodeEngine/DataWorker/Converter/BigInteger\BigInteger.h"
+#include "HammingCodeEngine/DataWorker/BigInteger\BigInteger.h"
 
 
 

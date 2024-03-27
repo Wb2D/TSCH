@@ -3,12 +3,14 @@
 
 
 
+
 const QRegularExpression StudyForm::LEADING_REGEX("^0+");
 const QRegularExpression StudyForm::BINARY_REGEX("^[01]+$");
 const QRegularExpression StudyForm::QUATERNARY_REGEX("^[0-3]+$");
 const QRegularExpression StudyForm::OCTAL_REGEX("^[0-7]+$");
 const QRegularExpression StudyForm::DECIMAL_REGEX("^[0-9]+$");
 const QRegularExpression StudyForm::HEXADECIMAL_REGEX("^[0-9A-F]+$");
+
 
 /*!
  * \brief Конструктор класса StudyForm, где создается окно для обучения.
@@ -21,11 +23,7 @@ StudyForm::StudyForm(QWidget *parent) :
     ui->setupUi(this);
     setWindowOpacity(0.98);
     mPosition = QPoint();
-    //wFlag = false;
     aFlag = false;
-    //wGeometry = QRect();
-    //sizeGrip = new QSizeGrip(this);
-    //ui->gridLayout_9->addWidget(sizeGrip, ui->gridLayout_9->columnCount(), Qt::AlignBottom | Qt::AlignRight);
     encodeInputFlag = NO_MODE;
     encodeTypeFlag = NO_TYPE;
     encodeNumberFlag = NO_SYSTEM;
@@ -37,13 +35,13 @@ StudyForm::StudyForm(QWidget *parent) :
     decodeNumberFlag = NO_SYSTEM;
     decodeAlgFlag = NO_ALG;
     bitSeq = BitSequence();
-    clearEncodedBitSeq = EncodedBitSequence();
-    modEncodedBitSeq = EncodedBitSequence();
+    clearEncodedBitSeq = BitSequenceShell();
+    modEncodedBitSeq = BitSequenceShell();
     bigInt = BigInteger();
-    clearEncodedBigInt = EncodedBigInteger();
-    modEncodedBigInt = EncodedBigInteger();
-    decodedBitData = QPair<EncodedBitSequence, QVector<BitSequence>>();
-    decodedIntData = QPair<EncodedBigInteger, QVector<BigInteger>>();
+    clearEncodedBigInt = BigIntegerShell();
+    modEncodedBigInt = BigIntegerShell();
+    decodedBitData = QPair<BitSequenceShell, QVector<BitSequence>>();
+    decodedIntData = QPair<BigIntegerShell, QVector<BigInteger>>();
     ui->frame_6->setStackedWidget(ui->stackedWidget);
     ui->frame_4->setStackedWidget(ui->stackedWidget);
     ui->frame_5->setStackedWidget(ui->stackedWidget);
@@ -157,7 +155,7 @@ void StudyForm::setUser(const QString &user) {
 */
 void StudyForm::mousePressEvent(QMouseEvent *event) {
     event->ignore();
-    if (event->button() == Qt::LeftButton /*&& !wFlag*/) {
+    if (event->button() == Qt::LeftButton) {
         if (event->y() < 30 && event->x() < this->width() - 120) {
             mPosition = event->globalPos() - frameGeometry().topLeft();
             aFlag = true;
@@ -192,30 +190,6 @@ void StudyForm::mouseReleaseEvent(QMouseEvent *event) {
         aFlag = false;
     }
 }
-
-
-//void StudyForm::mouseDoubleClickEvent(QMouseEvent *event) {
-//    if (event->button() == Qt::LeftButton && event->y() < 30) {
-//        QPropertyAnimation *animation = new QPropertyAnimation(this, "geometry");
-//        animation->setDuration(500);
-//        animation->setEasingCurve(QEasingCurve::InOutQuad);
-//        animation->setStartValue(this->geometry());
-//        //his->setUpdatesEnabled(false);
-//        if (wFlag) {
-//            animation->setEndValue(this->wGeometry);
-//        } else {
-//            this->wGeometry = this->geometry();
-//            animation->setEndValue(QApplication::desktop()->availableGeometry());
-//        }
-//        connect(animation, &QPropertyAnimation::finished, this, [=]() {
-//            //this->setUpdatesEnabled(true);
-//            this->sizeGrip->setEnabled(wFlag);
-//            this->wFlag ^=true;
-//            delete animation;
-//        });
-//        animation->start();
-//    }
-//}
 
 
 /*!
@@ -355,7 +329,7 @@ void StudyForm::on_pushSliderDataType_clicked() {
 
 
 /*!
- * \brief Обработчик нажатия кнопки "Выбор системы счисления".
+ * \brief Обработчик нажатия кнопки "Выбор системы счисления" при кодировании.
  * \details Обрабатывает нажатие кнопки выбора системы счисления.
  * \param Отсутствуют.
  * \return Отсутствуют.
@@ -989,7 +963,7 @@ void StudyForm::setBitsNoise(const int &index, const bool &onlyMode) {
 
 
 /*!
- * \brief Метод для сброса выбранного алгоритма.
+ * \brief Метод для сброса выбранного алгоритма кодирования.
  * \param Отсутствуют.
  * \return Отсутствуют.
 */
@@ -1019,7 +993,7 @@ void StudyForm::resetEncoderNS() {
 
 
 /*!
- * \brief Метод для включения/выключения выбора алгоритмов.
+ * \brief Метод для включения/выключения выбора алгоритмов при кодировании.
  * \param Flag Включение/выключение.
  * \return Отсутствуют.
 */
@@ -1703,8 +1677,10 @@ void StudyForm::on_pushButtonAutoNoise_clicked() {
                     break;
                 }
                 case TO_CUSTOM: {
-                    /// \todo Сделать окно с возможностью множественного выбора.
-                    /// Либо разрешить множественное выделение текущего листВиджета
+                    QList<QListWidgetItem*> selectedItems = ui->listWidget_2->selectedItems();
+                    for (const auto& item : selectedItems) {
+                        listSeq.push_back(ui->listWidget_2->row(item));
+                    }
                     break;
                 }
                 default: {
@@ -1974,7 +1950,7 @@ void StudyForm::on_pushButtonCopyData_clicked() {
  * \return Отсутствуют.
 */
 void StudyForm::on_pushButtonDecode_clicked() {
-    if(decodeTypeFlag == NO_TYPE) {
+    if(decodeTypeFlag == NO_TYPE || decodeNumberFlag == NO_SYSTEM) {
         NotificationForm *notification = new NotificationForm("Декодирование невозможно. Выберите тип данных.");
         this->setEnabled(false);
         notification->show();
@@ -1998,36 +1974,36 @@ void StudyForm::on_pushButtonDecode_clicked() {
                         notification->deleteLater();
                         this->setEnabled(true);
                     });
-                    break;
+                    return;
                 }
                 case ALG_74: {
                     Converter::toBinary(seq, data, 2);
                     setListSeq(7, seq, ui->listWidget_3);
-                    decodedBitData = Decoder74::start(EncodedBitSequence(seq, ALG_74, 7, true));
+                    decodedBitData = Decoder74::start(BitSequenceShell(seq, ALG_74, 7, true));
                     break;
                 }
                 case ALG_84: {
                     Converter::toBinary(seq, data, 2);
                     setListSeq(8, seq, ui->listWidget_3);
-                    decodedBitData = Decoder84::start(EncodedBitSequence(seq, ALG_84, 8, true));
+                    decodedBitData = Decoder84::start(BitSequenceShell(seq, ALG_84, 8, true));
                     break;
                 }
                 case ALG_1511: {
                     Converter::toBinary(seq, data, 2);
                     setListSeq(15, seq, ui->listWidget_3);
-                    decodedBitData = Decoder1511::start(EncodedBitSequence(seq, ALG_1511, 15, true));
+                    decodedBitData = Decoder1511::start(BitSequenceShell(seq, ALG_1511, 15, true));
                     break;
                 }
                 case ALG_1611: {
                     Converter::toBinary(seq, data, 2);
                     setListSeq(16, seq, ui->listWidget_3);
-                    decodedBitData = Decoder1611::start(EncodedBitSequence(seq, ALG_1611, 16, true));
+                    decodedBitData = Decoder1611::start(BitSequenceShell(seq, ALG_1611, 16, true));
                     break;
                 }
                 case ALG_1511d: {
                     BigInteger tmp(data);
                     setListInt(15, tmp, ui->listWidget_3);
-                    decodedIntData = DecoderDecimal1511::start(EncodedBigInteger(tmp, ALG_1511d, 15, true));
+                    decodedIntData = DecoderDecimal1511::start(BigIntegerShell(tmp, ALG_1511d, 15, true));
                     break;
                 }
                 }
@@ -2046,7 +2022,6 @@ void StudyForm::on_pushButtonDecode_clicked() {
                         }
                         case QUATERNARY: {
                             output = Converter::toQuaternary(output, 2);
-                            //output = decimal.d
                             break;
                         }
                         case OCTAL: {
@@ -2383,6 +2358,11 @@ void StudyForm::on_pushSliderDataType_2_clicked() {
 }
 
 
+/*!
+* \brief Метод для включения/выключения выбора алгоритмов при декодировани.
+* \param Flag Включение/выключение.
+* \return Отсутствуют.
+*/
 void StudyForm::setEnabledNS_2(const bool &flag) {
     ui->horizontalSliderNS2_2->setEnabled(flag);
     ui->horizontalSliderNS4_2->setEnabled(flag);
@@ -2392,6 +2372,12 @@ void StudyForm::setEnabledNS_2(const bool &flag) {
 }
 
 
+/*!
+ * \brief Обработчик нажатия кнопки "Выбор системы счисления" при декодировании.
+ * \details Обрабатывает нажатие кнопки выбора системы счисления.
+ * \param Отсутствуют.
+ * \return Отсутствуют.
+*/
 void StudyForm::on_pushSliderNS_2_clicked() {
     resetAlgo_2();
     QSlider* senderSlider = qobject_cast<QSlider*>(sender());
@@ -2430,6 +2416,11 @@ void StudyForm::on_pushSliderNS_2_clicked() {
 }
 
 
+/*!
+ * \brief Метод для сброса системы счисления числовых данных при декодировании.
+ * \param Отсутствуют.
+ * \return Отсутствуют.
+*/
 void StudyForm::resetEncoderNS_2() {
     ui->horizontalSliderNS2_2->setValue(0);
     ui->horizontalSliderNS4_2->setValue(0);
@@ -2439,6 +2430,11 @@ void StudyForm::resetEncoderNS_2() {
 }
 
 
+/*!
+ * \brief Метод для сброса выбранного алгоритма декодирования.
+ * \param Отсутствуют.
+ * \return Отсутствуют.
+*/
 void StudyForm::resetAlgo_2() {
     ui->horizontalSliderEncoder74_2->setValue(0);
     ui->horizontalSliderEncoder84_2->setValue(0);
@@ -2448,6 +2444,11 @@ void StudyForm::resetAlgo_2() {
 }
 
 
+/*!
+ * \brief Обработчик нажатия кнопки "Выбор алгоритма декодирования".
+ * \param Отсутствуют.
+ * \return Отсутствуют.
+*/
 void StudyForm::on_pushSliderDecoder_clicked() {
     resetDecoderData();
     QSlider *senderSlider = qobject_cast<QSlider*>(sender());
@@ -2480,6 +2481,11 @@ void StudyForm::on_pushSliderDecoder_clicked() {
 }
 
 
+/*!
+ * \brief Метод для сброса содержимого всех вкладок декодирования.
+ * \param Отсутствуют.
+ * \return Отсутствуют.
+*/
 void StudyForm::resetDecoderData() {
     ui->textEditData_3->clear();
     ui->listWidget_3->clear();
@@ -2491,6 +2497,11 @@ void StudyForm::resetDecoderData() {
 }
 
 
+/*!
+ * \brief Метод для сброса содержимого вкладки декодирования 7-4.
+ * \param Отсутствуют.
+ * \return Отсутствуют.
+*/
 void StudyForm::resetPageDecoder74() {
     ui->labelY_id_d_74_7->clear();
     ui->labelY_id_d_74_6->clear();
@@ -2515,6 +2526,11 @@ void StudyForm::resetPageDecoder74() {
 }
 
 
+/*!
+ * \brief Метод для сброса содержимого вкладки декодирования 8-4.
+ * \param Отсутствуют.
+ * \return Отсутствуют.
+*/
 void StudyForm::resetPageDecoder84() {
     ui->labelY_id_d_84_8->clear();
     ui->labelY_id_d_84_7->clear();
@@ -2541,6 +2557,11 @@ void StudyForm::resetPageDecoder84() {
 }
 
 
+/*!
+ * \brief Метод для сброса содержимого вкладки декодирования 15-11.
+ * \param Отсутствуют.
+ * \return Отсутствуют.
+*/
 void StudyForm::resetPageDecoder1511() {
     ui->labelY_id_d_1511_15->clear();
     ui->labelY_id_d_1511_14->clear();
@@ -2588,6 +2609,11 @@ void StudyForm::resetPageDecoder1511() {
 }
 
 
+/*!
+ * \brief Метод для сброса содержимого вкладки декодирования 16-11.
+ * \param Отсутствуют.
+ * \return Отсутствуют.
+*/
 void StudyForm::resetPageDecoder1611() {
     ui->labelY_id_d_1611_15->clear();
     ui->labelY_id_d_1611_14->clear();
@@ -2635,6 +2661,11 @@ void StudyForm::resetPageDecoder1611() {
 }
 
 
+/*!
+ * \brief Метод для сброса содержимого вкладки десятичного декодирования 15-11.
+ * \param Отсутствуют.
+ * \return Отсутствуют.
+*/
 void StudyForm::resetPageDecoder1511d() {
     ui->labelY_id_d_d1511_15->clear();
     ui->labelY_id_d_d1511_14->clear();
@@ -2680,5 +2711,3 @@ void StudyForm::resetPageDecoder1511d() {
     ui->labelX_od_d_d1511_2->clear();
     ui->labelX_od_d_d1511_1->clear();
 }
-
-

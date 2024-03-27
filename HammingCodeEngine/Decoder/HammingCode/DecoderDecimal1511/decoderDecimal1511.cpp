@@ -9,8 +9,8 @@
  * \param data Закодированная битовая последовательность для декодирования.
  * \return Пара, содержащая декодированную битовую последовательность и вектор синдромов.
 */
-QPair<EncodedBigInteger, QVector<BigInteger>> DecoderDecimal1511::start(const EncodedBigInteger &data) {
-    EncodedBigInteger result;
+QPair<BigIntegerShell, QVector<BigInteger>> DecoderDecimal1511::start(const BigIntegerShell &data) {
+    BigIntegerShell result;
     QVector<BigInteger> syndroms;
     for (int i = 0; i < data.getAmount(); ++i) {
         BigInteger eData = data[i].second;
@@ -20,7 +20,7 @@ QPair<EncodedBigInteger, QVector<BigInteger>> DecoderDecimal1511::start(const En
     }
     result.setMethod(4);
     result.setSize(15);
-    return QPair<EncodedBigInteger, QVector<BigInteger>>(result, syndroms);
+    return QPair<BigIntegerShell, QVector<BigInteger>>(result, syndroms);
 }
 
 

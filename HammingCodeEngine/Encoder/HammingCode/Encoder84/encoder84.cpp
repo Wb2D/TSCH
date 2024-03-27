@@ -9,8 +9,8 @@
  * \param data Исходная битовая последовательность.
  * \return Закодированная битовая последовательность.
 */
-EncodedBitSequence Encoder84::start(const BitSequence &data) {
-   EncodedBitSequence result;
+BitSequenceShell Encoder84::start(const BitSequence &data) {
+   BitSequenceShell result;
     int eSize = data.length();
     if (eSize % 4) {
         eSize += 4 - (eSize % 4);

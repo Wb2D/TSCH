@@ -14,11 +14,9 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     setWindowOpacity(0.975);
     mPosition = QPoint();
-    //wGeometry = QRect();
     dbObj = new DatabaseWorker();
     aFlag = false;
     mFlag = NO_MODE;
-    //wFlag = false;
 }
 
 
@@ -79,38 +77,6 @@ void MainWindow::mouseReleaseEvent(QMouseEvent *event) {
         aFlag = false; /// cброс флага части окна
     }
 }
-
-
-///*!
-// * \brief Обработчик двойного щелчка мыши.
-// * \details Разворчаивает окно во весь экран или возврашает его к последнему размеру.
-// * \param[in] event Событие двойного щелчка мыши.
-// * \return Отсутствуют.
-//*/
-//void MainWindow::mouseDoubleClickEvent(QMouseEvent *event) {
-//    if (event->button() == Qt::LeftButton && event->y() < 30) {
-//        QPropertyAnimation *animation = new QPropertyAnimation(this, "geometry");
-//        animation->setDuration(500);
-//        animation->setEasingCurve(QEasingCurve::InOutQuad);
-//        animation->setStartValue(this->geometry());
-//        ui->centralwidget->setUpdatesEnabled(false);
-//        ui->statusbar->setUpdatesEnabled(false);
-//        if (wFlag) {
-//            animation->setEndValue(this->wGeometry);
-//        } else {
-//            this->wGeometry = this->geometry();
-//            animation->setEndValue(QApplication::desktop()->availableGeometry());
-//        }
-//        connect(animation, &QPropertyAnimation::finished, this, [=]() {
-//            ui->centralwidget->setUpdatesEnabled(true);
-//            ui->statusbar->setUpdatesEnabled(true);
-//            this->statusBar()->setSizeGripEnabled(wFlag);
-//            this->wFlag ^=true;
-//            delete animation;
-//        });
-//        animation->start();
-//    }
-//}
 
 
 /*!

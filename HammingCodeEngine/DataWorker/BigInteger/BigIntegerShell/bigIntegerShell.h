@@ -1,18 +1,18 @@
-#ifndef ENCODEDBIGINTEGER_H
-#define ENCODEDBIGINTEGER_H
+#ifndef BigIntegerShell_H
+#define BigIntegerShell_H
 
 #include <QDateTime>
 #include <QVector>
 #include <QPair>
 #include <QString>
 
-#include "HammingCodeEngine/DataWorker/Converter/BigInteger/BigInteger.h"
+#include "HammingCodeEngine/DataWorker/BigInteger/BigInteger.h"
 
 
 
 
 /*!
- * \brief Класс EncodedBigInteger является оберткой для закодированного числа BigInteger.
+ * \brief Класс BigIntegerShell является оберткой для закодированного числа BigInteger.
  * \author Wb2D.
  * \date 23 сентября 2023
  * \details Этот класс включает информацию о закодированном числе, используемом в методе 
@@ -20,15 +20,15 @@
  * разбита исходная последовательность.
 */
 
-class EncodedBigInteger {
+class BigIntegerShell {
 public:
-    EncodedBigInteger() : data(), method(0), size(0) {     }
-    EncodedBigInteger(const BigInteger&, const int&, const int&, const bool&);
-    EncodedBigInteger(const QVector<QPair<BigInteger, BigInteger>> &data, const int &method,
+    BigIntegerShell() : data(), method(0), size(0) {     }
+    BigIntegerShell(const BigInteger&, const int&, const int&, const bool&);
+    BigIntegerShell(const QVector<QPair<BigInteger, BigInteger>> &data, const int &method,
                       const int &size) : data(data), method(method), size(size) {    }
-    EncodedBigInteger(const EncodedBigInteger &obj)
+    BigIntegerShell(const BigIntegerShell &obj)
         : data(obj.data), method(obj.method), size(obj.size) {    }
-    EncodedBigInteger& operator=(const EncodedBigInteger&);
+    BigIntegerShell& operator=(const BigIntegerShell&);
     const QPair<BigInteger, BigInteger>& operator[](int index) const { return data[index]; }
     void addData(const QPair<BigInteger, BigInteger> &pair) { data.push_back(pair); }
     void setData(const QVector<QPair<BigInteger, BigInteger>> &data) { this->data = data; }
@@ -50,4 +50,4 @@ private:
 };
 
 
-#endif // ENCODEDBIGINTEGER_H
+#endif // BigIntegerShell_H

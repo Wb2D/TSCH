@@ -8,8 +8,8 @@
  * \param data Закодированная битовая последовательность для декодирования.
  * \return Пара, содержащая декодированную битовую последовательность и вектор синдромов.
 */
-QPair<EncodedBitSequence, QVector<BitSequence>> Decoder1511::start(const EncodedBitSequence &data) {
-    EncodedBitSequence result;
+QPair<BitSequenceShell, QVector<BitSequence>> Decoder1511::start(const BitSequenceShell &data) {
+    BitSequenceShell result;
     QVector<BitSequence> syndroms;
     for (int i = 0; i < data.getAmount(); ++i) {
         BitSequence eData = data[i].second;
@@ -19,7 +19,7 @@ QPair<EncodedBitSequence, QVector<BitSequence>> Decoder1511::start(const Encoded
     }
     result.setMethod(3);
     result.setSize(15);
-    return QPair<EncodedBitSequence, QVector<BitSequence>>(result, syndroms);
+    return QPair<BitSequenceShell, QVector<BitSequence>>(result, syndroms);
 }
 
 

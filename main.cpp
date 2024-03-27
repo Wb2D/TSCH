@@ -46,7 +46,7 @@ int main(int argc, char *argv[]) {
 //    Converter::toBinary(test1, number1, 10);
 //    qDebug() << number1 << " " << test1.toString();
 
-//    EncodedBitSequence eTest1 = Encoder74::start(test1);
+//    BitSequenceShell eTest1 = Encoder74::start(test1);
 //    qDebug() << eTest1.getFirst() << " " << eTest1.getSecond();
 
 //    qDebug() << "AFTER ERROR";
@@ -55,7 +55,7 @@ int main(int argc, char *argv[]) {
 
 //    qDebug() << "AFTER DECODE";
 
-//    QPair<EncodedBitSequence, QVector<int>> dTest1 = Decoder74::start(eTest1);
+//    QPair<BitSequenceShell, QVector<int>> dTest1 = Decoder74::start(eTest1);
 //    qDebug() << dTest1.first.getFirst() << " " << dTest1.first.getSecond();
 
     return 0;

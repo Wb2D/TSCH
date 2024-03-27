@@ -9,8 +9,8 @@
  * \param data Исходная битовая последовательность.
  * \return Закодированная битовая последовательность.
 */
-EncodedBigInteger EncoderDecimal1511::start(const BigInteger &data) {
-    EncodedBigInteger result;
+BigIntegerShell EncoderDecimal1511::start(const BigInteger &data) {
+    BigIntegerShell result;
     int eSize = data.length();
     if (eSize % 11) {
         eSize += 11 - (eSize % 11);

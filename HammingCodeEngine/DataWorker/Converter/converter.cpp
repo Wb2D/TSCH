@@ -72,11 +72,10 @@ void Converter::toBinary(BitSequence &bitSequency, const QString &number, const 
 
 
 /*!
- * \brief Метод конвертирует число в 4 систему счисления.
- * \param bitSequence BigInteger в который будет записан результат.
- * \param number Число в формате строки.
- * \param base Основание системы счисления исходного числа.
- * \return Отсутствуют.
+ * \brief Переводит число из указанной системы счисления в четверичную систему счисления.
+ * \param number Число в исходной системе счисления.
+ * \param base Основание исходной системы счисления.
+ * \return Представление числа в формате строки.
 */
 QString Converter::toQuaternary(const QString &number, const int &base) {
     QString result;
@@ -94,11 +93,10 @@ QString Converter::toQuaternary(const QString &number, const int &base) {
 
 
 /*!
- * \brief Метод конвертирует число в 8 систему счисления.
- * \param bitSequence BigInteger в который будет записан результат.
- * \param number Число в формате строки.
- * \param base Основание системы счисления исходного числа.
- * \return Отсутствуют.
+ * \brief Переводит число из указанной системы счисления в восьмеричную систему счисления.
+ * \param number Число в исходной системе счисления.
+ * \param base Основание исходной системы счисления.
+ * \return Представление числа в формате строки.
 */
 QString Converter::toOctal(const QString &number, const int &base) {
     QString result;
@@ -116,11 +114,10 @@ QString Converter::toOctal(const QString &number, const int &base) {
 
 
 /*!
- * \brief Метод конвертирует число в 16 систему счисления.
- * \param bitSequence BigInteger в который будет записан результат.
- * \param number Число в формате строки.
- * \param base Основание системы счисления исходного числа.
- * \return Отсутствуют.
+ * \brief Переводит число из указанной системы счисления в шестнадцатеричную систему счисления.
+ * \param number Число в исходной системе счисления.
+ * \param base Основание исходной системы счисления.
+ * \return Представление числа в формате строки.
 */
 QString Converter::toHexadecimal(const QString &number, const int &base) {
     QString result;
@@ -138,11 +135,9 @@ QString Converter::toHexadecimal(const QString &number, const int &base) {
 
 
 /*!
- * \brief Метод конвертирует число в 16 систему счисления.
- * \param bitSequence BigInteger в который будет записан результат.
- * \param number Число в формате строки.
- * \param base Основание системы счисления исходного числа.
- * \return Отсутствуют.
+ * \brief Переводит битовую последовательность в восьмеричную текст.
+ * \param data Исходная битовая последовательность.
+ * \return Полученный текст в формате строки.
 */
 QString Converter::toText(const QString &data) {
     QString binary = data;
@@ -178,6 +173,11 @@ void Converter::toBinary(BitSequence &bitSequency, const QString &text) {
 }
 
 
+/*!
+ * \brief Метод конвертирует символ в двоичное представление.
+ * \param ch Символ текста.
+ * \return Двоичное представление.
+*/
 BitSequence Converter::charToByte(const QChar &ch) {
     BitSequence asciiCode;
     Converter::toBinary(asciiCode, QString::number(ch.toLatin1()), 10);

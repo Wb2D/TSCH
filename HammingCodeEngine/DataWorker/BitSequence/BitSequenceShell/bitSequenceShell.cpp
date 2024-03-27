@@ -1,13 +1,17 @@
-#include "HammingCodeEngine/DataWorker/BitSequence/EncodedBitSequence/encodedBitSequence.h"
+#include "HammingCodeEngine/DataWorker/BitSequence/BitSequenceShell/bitSequenceShell.h"
 
 
 
 
 /*!
- * \brief Конструктор создает пару значений из BitSequence, где заплнен только один элемент
+ * \brief Конструктор BitSequenceShell, создающий оболочку для битовой последовательности.
+ * \param seq Исходная битовая последовательность.
+ * \param method Метод кодирования.
+ * \param size Размер подпоследовательности.
+ * \param flag Флаг, указывающий на тип данных в оболочке (true - вторая половина, false - первая половина).
  * \return Отсутствуют.
 */
-EncodedBitSequence::EncodedBitSequence(const BitSequence &seq, const int &method, const int &size, const bool &flag) {
+BitSequenceShell::BitSequenceShell(const BitSequence &seq, const int &method, const int &size, const bool &flag) {
     this->method = method;
     this->size = size;
     int eSize = seq.length();
@@ -26,11 +30,11 @@ EncodedBitSequence::EncodedBitSequence(const BitSequence &seq, const int &method
 
 
 /*!
- * \brief Оператор присваивания копирует данные из другого объекта EncodedBitSequence.
- * \param obj Другой объект EncodedBitSequence.
- * \return Ссылка на текущий объект EncodedBitSequence.
+ * \brief Оператор присваивания копирует данные из другого объекта BitSequenceShell.
+ * \param obj Другой объект BitSequenceShell.
+ * \return Ссылка на текущий объект BitSequenceShell.
 */
-EncodedBitSequence& EncodedBitSequence::operator=(const EncodedBitSequence &obj) {
+BitSequenceShell& BitSequenceShell::operator=(const BitSequenceShell &obj) {
     if (this != &obj) {
         data = obj.data;
         method = obj.method;
@@ -45,11 +49,11 @@ EncodedBitSequence& EncodedBitSequence::operator=(const EncodedBitSequence &obj)
  * \param i Индекс последовательности.
  * \return Отсутствуют.
 */
-void EncodedBitSequence::addError(const int &i, const int &j) {
+void BitSequenceShell::addError(const int &i, const int &j) {
     if(i < data.size() && j < size) {
         data[i].second.reverse(j);
     } else {
-        qDebug() << "ERROR : EncodedBitSequence -> addError -> (index out of range)";
+        qDebug() << "ERROR : BitSequenceShell -> addError -> (index out of range)";
     }
 }
 
@@ -59,7 +63,7 @@ void EncodedBitSequence::addError(const int &i, const int &j) {
  * \param Отсутствуют.
  * \return Отсутствуют.
 */
-QString EncodedBitSequence::getFirst() const {
+QString BitSequenceShell::getFirst() const {
     QString result;
     for(const auto &i : data) {
         result.push_front(i.first.toString());
@@ -73,7 +77,7 @@ QString EncodedBitSequence::getFirst() const {
  * \param Отсутствуют.
  * \return Отсутствуют.
 */
-QString EncodedBitSequence::getSecond() const {
+QString BitSequenceShell::getSecond() const {
     QString result;
     for(const auto &i : data) {
         result.push_front(i.second.toString());

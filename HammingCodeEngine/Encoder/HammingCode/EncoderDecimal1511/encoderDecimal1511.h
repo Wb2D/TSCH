@@ -4,8 +4,8 @@
 #include <QElapsedTimer>
 #include <QPair>
 
-#include "HammingCodeEngine/DataWorker/Converter/BigInteger/BigInteger.h"
-#include "HammingCodeEngine/DataWorker/Converter/BigInteger/EncodedBigInteger/encodedBigInteger.h"
+#include "HammingCodeEngine/DataWorker/BigInteger/BigInteger.h"
+#include "HammingCodeEngine/DataWorker/BigInteger/BigIntegerShell/bigIntegerShell.h"
 
 
 
@@ -30,7 +30,7 @@
 
 class EncoderDecimal1511 {
 public:
-    static EncodedBigInteger start(const BigInteger &data);
+    static BigIntegerShell start(const BigInteger &data);
 
 private:
     static void encode(const BigInteger &data, BigInteger &result);

@@ -5,7 +5,7 @@
 #include <QVector>
 
 #include "HammingCodeEngine/DataWorker/Converter/converter.h"
-#include "HammingCodeEngine/DataWorker/BitSequence/EncodedBitSequence/encodedBitSequence.h"
+#include "HammingCodeEngine/DataWorker/BitSequence/BitSequenceShell/bitSequenceShell.h"
 
 
 
@@ -21,7 +21,7 @@
 
 class Decoder84 {
 public:
-    static QPair<EncodedBitSequence, QVector<BitSequence>> start(const EncodedBitSequence &data);
+    static QPair<BitSequenceShell, QVector<BitSequence>> start(const BitSequenceShell &data);
 
 private:
     static BitSequence decode(const BitSequence &data, BitSequence &result);

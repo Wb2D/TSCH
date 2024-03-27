@@ -11,15 +11,14 @@
 #include <QPair>
 #include <QList>
 #include <QTimer>
-//#include <QSizeGrip>
 
 #include "Include/notificationform.h"
 #include "Include/clickableLabel.h"
 
 #include "HammingCodeEngine/DataWorker/BitSequence/bitSequence.h"
-#include "HammingCodeEngine/DataWorker/BitSequence/EncodedBitSequence/encodedBitSequence.h"
-#include "HammingCodeEngine/DataWorker/Converter/BigInteger/BigInteger.h"
-#include "HammingCodeEngine/DataWorker/Converter/BigInteger/EncodedBigInteger/encodedBigInteger.h"
+#include "HammingCodeEngine/DataWorker/BitSequence/BitSequenceShell/bitSequenceShell.h"
+#include "HammingCodeEngine/DataWorker/BigInteger/BigInteger.h"
+#include "HammingCodeEngine/DataWorker/BigInteger/BigIntegerShell/bigIntegerShell.h"
 #include "HammingCodeEngine/DataWorker/Converter/converter.h"
 #include "HammingCodeEngine/DataWorker/NumberGenerator/numberGenerator.h"
 
@@ -189,20 +188,16 @@ private:
     } noiseImpactFlag;
 
     Ui::StudyForm *ui;
-    //QSizeGrip *sizeGrip;
     QPoint mPosition;
-    //bool wFlag;
     bool aFlag;
     BitSequence bitSeq;
-    EncodedBitSequence clearEncodedBitSeq;
-    EncodedBitSequence modEncodedBitSeq;
+    BitSequenceShell clearEncodedBitSeq;
+    BitSequenceShell modEncodedBitSeq;
     BigInteger bigInt;
-    EncodedBigInteger clearEncodedBigInt;
-    EncodedBigInteger modEncodedBigInt;
-    QPair<EncodedBitSequence, QVector<BitSequence>> decodedBitData;
-    QPair<EncodedBigInteger, QVector<BigInteger>> decodedIntData;
-    //EncodedBigInteger e
-    //QRect wGeometry;
+    BigIntegerShell clearEncodedBigInt;
+    BigIntegerShell modEncodedBigInt;
+    QPair<BitSequenceShell, QVector<BitSequence>> decodedBitData;
+    QPair<BigIntegerShell, QVector<BigInteger>> decodedIntData;
     static const int BLUR_RADIUS_1 = 8;
     static const int BLUR_RADIUS_2 = 4;
 };

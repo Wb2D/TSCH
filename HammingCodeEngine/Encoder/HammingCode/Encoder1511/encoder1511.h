@@ -5,7 +5,7 @@
 #include <QPair>
 
 #include "HammingCodeEngine/DataWorker/BitSequence/bitSequence.h"
-#include "HammingCodeEngine/DataWorker/BitSequence/EncodedBitSequence/encodedBitSequence.h"
+#include "HammingCodeEngine/DataWorker/BitSequence/BitSequenceShell/bitSequenceShell.h"
 
 
 
@@ -29,7 +29,7 @@
 
 class Encoder1511 {
 public:
-    static EncodedBitSequence start(const BitSequence &data);
+    static BitSequenceShell start(const BitSequence &data);
 
 private:
     static void encode(const BitSequence &data, BitSequence &result);

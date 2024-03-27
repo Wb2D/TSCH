@@ -5,7 +5,7 @@
 #include <QVector>
 
 #include "HammingCodeEngine/DataWorker/Converter/converter.h"
-#include "HammingCodeEngine/DataWorker/Converter/BigInteger/EncodedBigInteger/encodedBigInteger.h"
+#include "HammingCodeEngine/DataWorker/BigInteger/BigIntegerShell/bigIntegerShell.h"
 
 
 
@@ -21,7 +21,7 @@
 
 class DecoderDecimal1511 {
 public:
-    static QPair<EncodedBigInteger, QVector<BigInteger>> start(const EncodedBigInteger &data);
+    static QPair<BigIntegerShell, QVector<BigInteger>> start(const BigIntegerShell &data);
 
 private:
     static BigInteger decode(const BigInteger &data, BigInteger &result);
