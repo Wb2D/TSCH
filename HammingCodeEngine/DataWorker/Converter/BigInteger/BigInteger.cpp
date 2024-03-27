@@ -3,6 +3,13 @@
 
 
 
+BigInteger::BigInteger(QString number) {
+    for(const QChar &digit : number) {
+        data.push_front(digit.digitValue());
+    }
+    removeZeros();
+}
+
 /*!
  * \brief Метод возвращает строковое представление числа.
  * \param Отсутствуют.
@@ -47,6 +54,65 @@ BigInteger BigInteger::div2() const {
     return result;
 }
 
+
+/*!
+ * \brief Метод выполняет деление числа на 4.
+ * \param Отсутствуют.
+ * \return Результат деления числа на 4.
+*/
+BigInteger BigInteger::div4(int &remainder) const {
+    BigInteger result = *this;
+    int carry = 0;
+    for(int i = result.data.size() - 1; i >= 0; --i) {
+        int current = result.data[i];
+        int tmp = (carry * 10 + current) / 4;
+        carry = (carry * 10 + current) % 4;
+        result.data[i] = tmp;
+    }
+    result.removeZeros();
+    remainder = carry;
+    return result;
+}
+
+
+/*!
+ * \brief Метод выполняет деление числа на 8.
+ * \param Отсутствуют.
+ * \return Результат деления числа на 8.
+*/
+BigInteger BigInteger::div8(int &remainder) const {
+    BigInteger result = *this;
+    int carry = 0;
+    for(int i = result.data.size() - 1; i >= 0; --i) {
+        int current = result.data[i];
+        int tmp = (carry * 10 + current) / 8;
+        carry = (carry * 10 + current) % 8;
+        result.data[i] = tmp;
+    }
+    result.removeZeros();
+    remainder = carry;
+    return result;
+}
+
+
+/*!
+ * \brief Метод выполняет деление числа на 16.
+ * \param Отсутствуют.
+ * \return Результат деления числа на 16.
+*/
+BigInteger BigInteger::div16(int &remainder) const {
+    BigInteger result = *this;
+    int carry = 0;
+    for(int i = result.data.size() - 1; i >= 0; --i) {
+        int current = result.data[i];
+        int tmp = (carry * 10 + current) / 16;
+        carry = (carry * 10 + current) % 16;
+        result.data[i] = tmp;
+    }
+    result.removeZeros();
+    remainder = carry;
+    return result;
+}
 
 /*!
  * \brief Оператор сложения двух чисел.

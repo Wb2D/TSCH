@@ -3,7 +3,7 @@
 
 
 
-
+const QRegularExpression StudyForm::LEADING_REGEX("^0+");
 const QRegularExpression StudyForm::BINARY_REGEX("^[01]+$");
 const QRegularExpression StudyForm::QUATERNARY_REGEX("^[0-3]+$");
 const QRegularExpression StudyForm::OCTAL_REGEX("^[0-7]+$");
@@ -2031,6 +2031,44 @@ void StudyForm::on_pushButtonDecode_clicked() {
                     break;
                 }
                 }
+                if (decodeTypeFlag == TEXT) {
+                    QString output = decodedBitData.first.getFirst().remove(LEADING_REGEX);
+                    output = Converter::toText(output);
+                    ui->textEditData_3->setText(output);
+                } else if (decodeTypeFlag == NUMERIC) {
+                    if (decodeAlgFlag == ALG_1511d && decodeNumberFlag == DECIMAL) {
+                        ui->textEditData_3->setText(decodedIntData.first.getFirst().remove(LEADING_REGEX));
+                    } else {
+                        QString output = decodedBitData.first.getFirst().remove(LEADING_REGEX);
+                        switch (decodeNumberFlag) {
+                        case BINARY: {
+                            break;
+                        }
+                        case QUATERNARY: {
+                            output = Converter::toQuaternary(output, 2);
+                            //output = decimal.d
+                            break;
+                        }
+                        case OCTAL: {
+                            output = Converter::toOctal(output, 2);
+                            break;
+                        }
+                        case DECIMAL: {
+                            BigInteger decimal = Converter::toDecimal(output, 2);
+                            output = decimal.toString();
+                            break;
+                        }
+                        case HEXADECIMAL: {
+                            output = Converter::toHexadecimal(output, 2);
+                            break;
+                        }
+                        default: {
+                            break;
+                        }
+                        }
+                         ui->textEditData_3->setText(output);
+                    }
+                }
             } else {
                 NotificationForm *notification = new NotificationForm("Декодирование невозможно. Введены неверные входные данные.");
                 this->setEnabled(false);
@@ -2642,3 +2680,5 @@ void StudyForm::resetPageDecoder1511d() {
     ui->labelX_od_d_d1511_2->clear();
     ui->labelX_od_d_d1511_1->clear();
 }
+
+

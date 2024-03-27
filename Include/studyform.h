@@ -139,6 +139,7 @@ private:
     void resetPageDecoder1511d();
     void resetDecoderData();
 
+    static const QRegularExpression LEADING_REGEX;
     static const QRegularExpression BINARY_REGEX;
     static const QRegularExpression QUATERNARY_REGEX;
     static const QRegularExpression OCTAL_REGEX;

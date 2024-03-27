@@ -22,15 +22,13 @@
 class BigInteger {
 public:
     BigInteger() { }
-    BigInteger(QString number) {
-        for(const QChar &digit : number) {
-            data.push_front(digit.digitValue());
-        }
-        removeZeros();
-    }
+    BigInteger(QString number);
 
     QString toString() const;
     BigInteger div2() const;
+    BigInteger div4(int&) const;
+    BigInteger div8(int&) const;
+    BigInteger div16(int&) const;
     BigInteger operator+(const BigInteger &number) const;
     BigInteger operator*(const BigInteger &number) const;
     bool isEven() const;

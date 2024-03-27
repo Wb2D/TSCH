@@ -2,6 +2,11 @@
 
 
 
+BitSequence::BitSequence(const QString &data) {
+    for(const QChar &ch : data) {
+        this->append(ch == '0' ? false : true);
+    }
+}
 
 /*!
  * \brief Конструктор копирования объекта BitSequence.
@@ -135,7 +140,7 @@ void BitSequence::append(const BitSequence &data) {
 
 
 /*!
- * \brief Метод возвращает строковое представление последовательности битов.
+ * \brief Метод возвращает строковое представление последовательности бит.
  * \param Отсутствуют.
  * \return Строковое представление последовательности битов.
 */
@@ -149,7 +154,7 @@ QString BitSequence::toString() const {
 
 
 /*!
- * \brief Метод возвращает строковое представление последовательности битов.
+ * \brief Метод возвращает десятичное представление последовательности бит.
  * \param Отсутствуют.
  * \return Строковое представление последовательности битов.
 */
@@ -162,6 +167,29 @@ int BitSequence::toDecimal() const {
         } else {
             result += bitArray[i] * pow;
             pow *= 2;
+        }
+    }
+    return result;
+}
+
+
+/*!
+ * \brief Метод возвращает десятичное представление последовательности бит
+ * в формате BigInteger.
+ * \param Отсутствуют.
+ * \return Строковое представление последовательности битов.
+*/
+BigInteger BitSequence::toBigInt() const {
+    BigInteger result = BigInteger();
+    BigInteger base = BigInteger("2");
+    BigInteger pow = base;
+    for (int i = 0; i < bitCount; ++i) {
+        BigInteger digit = BigInteger(QString(bitArray[i]));
+        if(!i) {
+            result = result + digit;
+        } else {
+            result = result + digit * pow;
+            pow = pow * base;
         }
     }
     return result;

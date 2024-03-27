@@ -39,6 +39,7 @@ BitSequence Decoder1511::decode(const BitSequence &data, BitSequence &result) {
             data[12] + data[13] + data[14] + data[3]) % 2);
     syndrome.append(int(data[8] + data[9] + data[10] + data[11] +
             data[12] + data[13] + data[14] + data[7]) % 2);
+
     int error = syndrome.toDecimal();
     result.append(data[2]);
     result.append(data[4]);

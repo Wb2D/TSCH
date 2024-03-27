@@ -23,13 +23,17 @@
 
 class Converter {
 public:
-    static void toBinary(BitSequence &bitSequency, const QString &number, const int &base);
-    static void toBinary(BitSequence &bitSequency, const QString &number); ///< воспринимается, как текст
-    static BigInteger toDecimal(const QString &number, const int &base);
+    static void toBinary(BitSequence&, const QString&, const int&);
+    static void toBinary(BitSequence&, const QString&); ///< воспринимается, как текст
+    static BigInteger toDecimal(const QString&, const int&);
+    static QString toQuaternary(const QString&, const int&);
+    static QString toOctal(const QString&, const int&);
+    static QString toHexadecimal(const QString&, const int&);
+    static QString toText(const QString&);
 
 private:
-    static int charToDecimal(QChar ch);
-    static BitSequence charToByte(const QChar &ch);
+    static int charToDecimal(const QChar&);
+    static BitSequence charToByte(const QChar&);
 
     static const QMap<char, int> charToDigit; ///< словарь соответсвий
 };

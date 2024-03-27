@@ -40,7 +40,7 @@ const QMap<char, int> Converter::charToDigit = {
  * \param ch Символ числа.
  * \return Число в десятичной системе счисления.
 */
-int Converter::charToDecimal(QChar ch) {
+int Converter::charToDecimal(const QChar &ch) {
     int result = -1;
     if(ch.isDigit()) {
         return ch.digitValue();
@@ -72,7 +72,100 @@ void Converter::toBinary(BitSequence &bitSequency, const QString &number, const 
 
 
 /*!
- * \brief Метод конвертирует текста в двоичное представление.
+ * \brief Метод конвертирует число в 4 систему счисления.
+ * \param bitSequence BigInteger в который будет записан результат.
+ * \param number Число в формате строки.
+ * \param base Основание системы счисления исходного числа.
+ * \return Отсутствуют.
+*/
+QString Converter::toQuaternary(const QString &number, const int &base) {
+    QString result;
+    if (base < 2 || base > 36) {
+        qDebug() << "ERROR : Converter -> wrong base";
+    }
+    BigInteger decimalNumber = toDecimal(number, base);
+    while(!decimalNumber.isZero()) {
+        int remainder = 0;
+        decimalNumber = decimalNumber.div4(remainder);
+        result.push_front(charToDigit.key(remainder));
+    }
+    return result;
+}
+
+
+/*!
+ * \brief Метод конвертирует число в 8 систему счисления.
+ * \param bitSequence BigInteger в который будет записан результат.
+ * \param number Число в формате строки.
+ * \param base Основание системы счисления исходного числа.
+ * \return Отсутствуют.
+*/
+QString Converter::toOctal(const QString &number, const int &base) {
+    QString result;
+    if (base < 2 || base > 36) {
+        qDebug() << "ERROR : Converter -> wrong base";
+    }
+    BigInteger decimalNumber = toDecimal(number, base);
+    while(!decimalNumber.isZero()) {
+        int remainder = 0;
+        decimalNumber = decimalNumber.div8(remainder);
+        result.push_front(charToDigit.key(remainder));
+    }
+    return result;
+}
+
+
+/*!
+ * \brief Метод конвертирует число в 16 систему счисления.
+ * \param bitSequence BigInteger в который будет записан результат.
+ * \param number Число в формате строки.
+ * \param base Основание системы счисления исходного числа.
+ * \return Отсутствуют.
+*/
+QString Converter::toHexadecimal(const QString &number, const int &base) {
+    QString result;
+    if (base < 2 || base > 36) {
+        qDebug() << "ERROR : Converter -> wrong base";
+    }
+    BigInteger decimalNumber = toDecimal(number, base);
+    while(!decimalNumber.isZero()) {
+        int remainder = 0;
+        decimalNumber = decimalNumber.div16(remainder);
+        result.push_front(charToDigit.key(remainder));
+    }
+    return result;
+}
+
+
+/*!
+ * \brief Метод конвертирует число в 16 систему счисления.
+ * \param bitSequence BigInteger в который будет записан результат.
+ * \param number Число в формате строки.
+ * \param base Основание системы счисления исходного числа.
+ * \return Отсутствуют.
+*/
+QString Converter::toText(const QString &data) {
+    QString binary = data;
+    while(binary.length() % 8) {
+        binary.push_front("0");
+    }
+    QString result;
+    for (int i = 0; i < binary.size(); i += 8) {
+        QString byte = binary.mid(i, 8);
+        bool flag;
+        char character = static_cast<char>(byte.toInt(&flag, 2));
+        if (flag) {
+            result.append(character);
+        } else {
+            return QString();
+        }
+    }
+    return result;
+}
+
+
+/*!
+ * \brief Метод конвертирует текст в двоичное представление.
  * \param bitSequence Последовательность битов, в которую будет записан результат.
  * \param text Входной текст.
  * \return Отсутствуют.

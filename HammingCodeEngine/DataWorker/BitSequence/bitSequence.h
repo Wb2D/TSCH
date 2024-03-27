@@ -4,6 +4,7 @@
 #include <QDebug>
 #include <QString>
 
+#include "HammingCodeEngine/DataWorker/Converter/BigInteger/BigInteger.h"
 
 
 
@@ -20,6 +21,7 @@
 class BitSequence {
 public:
     BitSequence() : bitArray(NULL), bitCount(0), arraySize(0) {}
+    BitSequence(const QString&);
     BitSequence(const BitSequence&);
     BitSequence& operator=(const BitSequence&);
     ~BitSequence();
@@ -32,6 +34,7 @@ public:
     void append(const BitSequence&);
     QString toString() const;
     int toDecimal() const;
+    BigInteger toBigInt() const;
     BitSequence subsequence(int, int) const;
 
 private:
