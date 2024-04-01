@@ -33255,18 +33255,18 @@ QFrame[enabled=&quot;true&quot;] {
                        <property name="minimumSize">
                         <size>
                          <width>45</width>
-                         <height>43</height>
+                         <height>45</height>
                         </size>
                        </property>
                        <property name="maximumSize">
                         <size>
-                         <width>42</width>
-                         <height>42</height>
+                         <width>45</width>
+                         <height>45</height>
                         </size>
                        </property>
                        <property name="styleSheet">
                         <string notr="true">QPushButton {
-	border-radius: 12px;
+	border-radius: 20px;
 	background-color: rgba(120, 30, 135, 0.5);
 	subcontrol-position: center;
 }
@@ -33278,10 +33278,15 @@ QPushButton:pressed {
                        <property name="text">
                         <string/>
                        </property>
+                       <property name="icon">
+                        <iconset resource="../Resources/resource.qrc">
+                         <normaloff>:/copy.png</normaloff>
+                         <disabledoff>:/copy.png</disabledoff>:/copy.png</iconset>
+                       </property>
                        <property name="iconSize">
                         <size>
-                         <width>40</width>
-                         <height>40</height>
+                         <width>59</width>
+                         <height>59</height>
                         </size>
                        </property>
                       </widget>
@@ -49303,7 +49308,7 @@ QSlider::handle:horizontal {
                          <string notr="true">QLabel {
 	 background-color:  rgba(40, 40, 60, 0.9);
 	color: white;
-	 border: 2px solid rgba(120, 30, 135, 1);
+	 border: 2px solid rgba(150, 30, 70, 1);
 	 border-radius: 5px;
 }</string>
                         </property>
@@ -49354,7 +49359,7 @@ QSlider::handle:horizontal {
                          <string notr="true">QLabel {
 	 background-color:  rgba(40, 40, 60, 0.9);
 	color: white;
-	 border: 2px solid rgba(150, 30, 70, 1);
+	 border: 2px solid rgba(120, 30, 135, 1);
 	 border-radius: 5px;
 }</string>
                         </property>
@@ -49507,7 +49512,7 @@ QSlider::handle:horizontal {
                          <string notr="true">QLabel {
 	 background-color:  rgba(40, 40, 60, 0.9);
 	color: white;
-	 border: 2px solid rgba(120, 30, 135, 1);
+	 border: 2px solid rgba(150, 30, 70, 1);
 	 border-radius: 5px;
 }</string>
                         </property>
@@ -49558,7 +49563,7 @@ QSlider::handle:horizontal {
                          <string notr="true">QLabel {
 	 background-color:  rgba(40, 40, 60, 0.9);
 	color: white;
-	 border: 2px solid rgba(150, 30, 70, 1);
+	 border: 2px solid rgba(120, 30, 135, 1);
 	 border-radius: 5px;
 }</string>
                         </property>
@@ -49609,7 +49614,7 @@ QSlider::handle:horizontal {
                          <string notr="true">QLabel {
 	 background-color:  rgba(40, 40, 60, 0.9);
 	color: white;
-	 border: 2px solid rgba(120, 30, 135, 1);
+	 border: 2px solid rgba(150, 30, 70, 1);
 	 border-radius: 5px;
 }</string>
                         </property>
@@ -50126,7 +50131,7 @@ QSlider::handle:horizontal {
                          <string notr="true">QLabel {
 	 background-color:  rgba(40, 40, 60, 0.9);
 	color: white;
-	 border: 2px solid rgba(120, 30, 135, 1);
+	 border: 2px solid rgba(150, 30, 70, 1);
 	 border-radius: 5px;
 }</string>
                         </property>
@@ -50177,7 +50182,7 @@ QSlider::handle:horizontal {
                          <string notr="true">QLabel {
 	 background-color:  rgba(40, 40, 60, 0.9);
 	color: white;
-	 border: 2px solid rgba(150, 30, 70, 1);
+	 border: 2px solid rgba(120, 30, 135, 1);
 	 border-radius: 5px;
 }</string>
                         </property>
@@ -50330,7 +50335,7 @@ QSlider::handle:horizontal {
                          <string notr="true">QLabel {
 	 background-color:  rgba(40, 40, 60, 0.9);
 	color: white;
-	 border: 2px solid rgba(120, 30, 135, 1);
+	 border: 2px solid rgba(150, 30, 70, 1);
 	 border-radius: 5px;
 }</string>
                         </property>
@@ -50381,7 +50386,7 @@ QSlider::handle:horizontal {
                          <string notr="true">QLabel {
 	 background-color:  rgba(40, 40, 60, 0.9);
 	color: white;
-	 border: 2px solid rgba(150, 30, 70, 1);
+	 border: 2px solid rgba(120, 30, 135, 1);
 	 border-radius: 5px;
 }</string>
                         </property>
@@ -50432,7 +50437,7 @@ QSlider::handle:horizontal {
                          <string notr="true">QLabel {
 	 background-color:  rgba(40, 40, 60, 0.9);
 	color: white;
-	 border: 2px solid rgba(120, 30, 135, 1);
+	 border: 2px solid rgba(150, 30, 70, 1);
 	 border-radius: 5px;
 }</string>
                         </property>
@@ -55910,7 +55915,8 @@ QPushButton:pressed {
           </property>
           <property name="icon">
            <iconset resource="../Resources/resource.qrc">
-            <normaloff>:/decoding.png</normaloff>:/decoding.png</iconset>
+            <normaloff>:/decoding.png</normaloff>
+            <disabledoff>:/decoding.png</disabledoff>:/decoding.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -55949,7 +55955,8 @@ QPushButton:pressed {
           </property>
           <property name="icon">
            <iconset resource="../Resources/resource.qrc">
-            <normaloff>:/back.png</normaloff>:/back.png</iconset>
+            <normaloff>:/back.png</normaloff>
+            <disabledoff>:/back.png</disabledoff>:/back.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -55988,7 +55995,8 @@ QPushButton:pressed {
           </property>
           <property name="icon">
            <iconset resource="../Resources/resource.qrc">
-            <normaloff>:/encoding.png</normaloff>:/encoding.png</iconset>
+            <normaloff>:/encoding.png</normaloff>
+            <disabledoff>:/decoding.png</disabledoff>:/encoding.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -56046,7 +56054,8 @@ QPushButton:pressed {
           </property>
           <property name="icon">
            <iconset resource="../Resources/resource.qrc">
-            <normaloff>:/exit.png</normaloff>:/exit.png</iconset>
+            <normaloff>:/exit.png</normaloff>
+            <disabledoff>:/exit.png</disabledoff>:/exit.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -56085,7 +56094,8 @@ QPushButton:pressed {
           </property>
           <property name="icon">
            <iconset resource="../Resources/resource.qrc">
-            <normaloff>:/error.png</normaloff>:/error.png</iconset>
+            <normaloff>:/error.png</normaloff>
+            <disabledoff>:/error.png</disabledoff>:/error.png</iconset>
           </property>
           <property name="iconSize">
            <size>

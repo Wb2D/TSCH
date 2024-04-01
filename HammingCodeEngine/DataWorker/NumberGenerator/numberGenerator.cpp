@@ -38,7 +38,7 @@ QString NumberGenerator::generate(const int &amount) {
     QString result;
     QRandomGenerator rg = QRandomGenerator::securelySeeded();
     while(result.length() != amount) {
-        result.push_back(static_cast<QChar>(rg.bounded(32, 127)));
+        result.push_back(static_cast<QChar>(rg.bounded(33, 127)));
     }
     return result;
 }

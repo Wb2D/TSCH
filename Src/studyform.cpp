@@ -707,13 +707,13 @@ void StudyForm::setBitsEncoding(const int &index) {
             ui->labelX_id_1611_10->setText(data.at(1));
             ui->labelX_id_1611_9->setText(data.at(2));
             ui->labelX_id_1611_8->setText(data.at(3));
-            ui->labelX_id_1611_7->setText(data.at(3));
-            ui->labelX_id_1611_6->setText(data.at(3));
-            ui->labelX_id_1611_5->setText(data.at(3));
-            ui->labelX_id_1611_4->setText(data.at(3));
-            ui->labelX_id_1611_3->setText(data.at(3));
-            ui->labelX_id_1611_2->setText(data.at(3));
-            ui->labelX_id_1611_1->setText(data.at(3));
+            ui->labelX_id_1611_7->setText(data.at(4));
+            ui->labelX_id_1611_6->setText(data.at(5));
+            ui->labelX_id_1611_5->setText(data.at(6));
+            ui->labelX_id_1611_4->setText(data.at(7));
+            ui->labelX_id_1611_3->setText(data.at(8));
+            ui->labelX_id_1611_2->setText(data.at(9));
+            ui->labelX_id_1611_1->setText(data.at(10));
             ui->labelY_id_1611_16->setText(encodedData.at(0));
             ui->labelY_id_1611_15->setText(encodedData.at(1));
             ui->labelY_id_1611_14->setText(encodedData.at(2));
@@ -1950,7 +1950,7 @@ void StudyForm::on_pushButtonCopyData_clicked() {
  * \return Отсутствуют.
 */
 void StudyForm::on_pushButtonDecode_clicked() {
-    if(decodeTypeFlag == NO_TYPE || decodeNumberFlag == NO_SYSTEM) {
+    if(decodeTypeFlag == NO_TYPE || (decodeNumberFlag == NO_SYSTEM && decodeTypeFlag != TEXT)) {
         NotificationForm *notification = new NotificationForm("Декодирование невозможно. Выберите тип данных.");
         this->setEnabled(false);
         notification->show();
@@ -2197,33 +2197,35 @@ void StudyForm::setBitsDecoding(const int &index) {
         }
         case ALG_1611: {
             syndromIndex = decodedBitData.second.at(index).subsequence(1, 4).toDecimal();
-            ui->labelY_id_d_1611_15->setText(eData.at(0));
-            ui->labelY_id_d_1611_14->setText(eData.at(1));
-            ui->labelY_id_d_1611_13->setText(eData.at(2));
-            ui->labelY_id_d_1611_12->setText(eData.at(3));
-            ui->labelY_id_d_1611_11->setText(eData.at(4));
-            ui->labelY_id_d_1611_10->setText(eData.at(5));
-            ui->labelY_id_d_1611_9->setText(eData.at(6));
-            ui->labelY_id_d_1611_8->setText(eData.at(7));
-            ui->labelY_id_d_1611_7->setText(eData.at(8));
-            ui->labelY_id_d_1611_6->setText(eData.at(9));
-            ui->labelY_id_d_1611_5->setText(eData.at(10));
-            ui->labelY_id_d_1611_4->setText(eData.at(11));
-            ui->labelY_id_d_1611_3->setText(eData.at(12));
-            ui->labelY_id_d_1611_2->setText(eData.at(13));
-            ui->labelY_id_d_1611_1->setText(eData.at(14));
-            ui->labelY_id_d_1611_2_15->setText(eData.at(0));
-            ui->labelY_id_d_1611_2_14->setText(eData.at(1));
-            ui->labelY_id_d_1611_2_13->setText(eData.at(2));
-            ui->labelY_id_d_1611_2_12->setText(eData.at(3));
-            ui->labelY_id_d_1611_2_11->setText(eData.at(4));
-            ui->labelY_id_d_1611_2_10->setText(eData.at(5));
+            ui->labelY_id_d_1611_16->setText(eData.at(0));
+            ui->labelY_id_d_1611_15->setText(eData.at(1));
+            ui->labelY_id_d_1611_14->setText(eData.at(2));
+            ui->labelY_id_d_1611_13->setText(eData.at(3));
+            ui->labelY_id_d_1611_12->setText(eData.at(4));
+            ui->labelY_id_d_1611_11->setText(eData.at(5));
+            ui->labelY_id_d_1611_10->setText(eData.at(6));
+            ui->labelY_id_d_1611_9->setText(eData.at(7));
+            ui->labelY_id_d_1611_8->setText(eData.at(8));
+            ui->labelY_id_d_1611_7->setText(eData.at(9));
+            ui->labelY_id_d_1611_6->setText(eData.at(10));
+            ui->labelY_id_d_1611_5->setText(eData.at(11));
+            ui->labelY_id_d_1611_4->setText(eData.at(12));
+            ui->labelY_id_d_1611_3->setText(eData.at(13));
+            ui->labelY_id_d_1611_2->setText(eData.at(14));
+            ui->labelY_id_d_1611_1->setText(eData.at(15));
+            ui->labelY_id_d_1611_2_16->setText(eData.at(0));
+            ui->labelY_id_d_1611_2_15->setText(eData.at(1));
+            ui->labelY_id_d_1611_2_14->setText(eData.at(2));
+            ui->labelY_id_d_1611_2_13->setText(eData.at(3));
+            ui->labelY_id_d_1611_2_12->setText(eData.at(4));
+            ui->labelY_id_d_1611_2_11->setText(eData.at(5));
+            ui->labelY_id_d_1611_2_10->setText(eData.at(6));
             ui->labelY_id_d_1611_2_9->setText(syndrom.at(0));
-            ui->labelY_id_d_1611_2_8->setText(eData.at(7));
-            ui->labelY_id_d_1611_2_7->setText(eData.at(8));
-            ui->labelY_id_d_1611_2_6->setText(eData.at(9));
+            ui->labelY_id_d_1611_2_8->setText(eData.at(8));
+            ui->labelY_id_d_1611_2_7->setText(eData.at(9));
+            ui->labelY_id_d_1611_2_6->setText(eData.at(10));
             ui->labelY_id_d_1611_2_5->setText(syndrom.at(1));
-            ui->labelY_id_d_1611_2_4->setText(eData.at(11));
+            ui->labelY_id_d_1611_2_4->setText(eData.at(12));
             ui->labelY_id_d_1611_2_3->setText(syndrom.at(2));
             ui->labelY_id_d_1611_2_2->setText(syndrom.at(3));
             ui->labelY_id_d_1611_2_1->setText(syndrom.at(4));

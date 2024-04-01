@@ -14,5 +14,7 @@
         <file>error.png</file>
         <file>exit.png</file>
         <file>back.png</file>
+        <file>test.png</file>
+        <file>copy.png</file>
     </qresource>
 </RCC>

@@ -115,18 +115,30 @@ void MainWindow::advanceMode(const QString &status, const QString &login) {
         break;
     }
     case TEST_MODE: {
-        /// \todo здесь будет режим тестирования
+        TestForm *testForm = new TestForm();
+        QObject::connect(testForm, &TestForm::closed, this, [=]() {
+            this->show();
+            testForm->deleteLater();
+        });
+        QObject::connect(testForm, &TestForm::exited, this, [=]() {
+            this->close();
+            testForm->deleteLater();
+        });
+        testForm->setStatus(status);
+        testForm->setUser(login);
+        this->hide();
+        testForm->show();
         break;
     }
     case STUDY_MODE: {
         StudyForm *studyForm = new StudyForm();
         QObject::connect(studyForm, &StudyForm::closed, this, [=]() {
             this->show();
-            delete studyForm;
+            studyForm->deleteLater();
         });
         QObject::connect(studyForm, &StudyForm::exited, this, [=]() {
             this->close();
-            delete studyForm;
+            studyForm->deleteLater();
         });
         studyForm->setStatus(status);
         studyForm->setUser(login);
@@ -136,6 +148,7 @@ void MainWindow::advanceMode(const QString &status, const QString &login) {
     }
     }
 }
+
 
 /*!
  * \brief Обработчик нажатия кнопки "Вход".
@@ -325,17 +338,17 @@ void MainWindow::on_pushButtonReg_clicked() {
  * \param Отсутствуют.
  * \return Отсутствуют.
 */
-void MainWindow::on_pushButtonsMode_clicked() { /// выбор: обучение или тестирование
+void MainWindow::on_pushButtonsMode_clicked() {
     QPushButton *clickedButton = qobject_cast<QPushButton*>(sender());
     if (clickedButton == ui->pushButtonStudy) {
-        if(mFlag == NO_MODE) {
+        if(ui->pushButtonStudy->isChecked()) {
             mFlag = STUDY_MODE;
         } else {
             mFlag = NO_MODE;
         }
         ui->pushButtonTest->setChecked(false);
     } else if (clickedButton == ui->pushButtonTest) {
-        if(mFlag == NO_MODE) {
+        if (ui->pushButtonTest->isChecked()) {
             mFlag = TEST_MODE;
         } else {
             mFlag = NO_MODE;

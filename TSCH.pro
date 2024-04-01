@@ -18,14 +18,14 @@ SOURCES += \
     HammingCodeEngine\DataWorker\BitSequence\bitSequence.cpp \
     HammingCodeEngine\DataWorker\BitSequence\BitSequenceShell\bitSequenceShell.cpp \
     HammingCodeEngine\DataWorker\BigInteger\BigInteger.cpp \
-    HammingCodeEngine\DataWorker\BigInteger/BigIntegerShell\bigIntegerShell.cpp \
+    HammingCodeEngine\DataWorker\BigInteger\BigIntegerShell\bigIntegerShell.cpp \
     HammingCodeEngine\Encoder\HammingCode\Encoder74\Encoder74.cpp \
     HammingCodeEngine\Encoder\HammingCode\Encoder84\encoder84.cpp \
     HammingCodeEngine\Encoder\HammingCode\Encoder1511\encoder1511.cpp \
     HammingCodeEngine\Encoder\HammingCode\Encoder1611\encoder1611.cpp \
     HammingCodeEngine\Encoder\HammingCode\EncoderDecimal1511\encoderDecimal1511.cpp \
     HammingCodeEngine\Decoder\HammingCode\Decoder74\decoder74.cpp \
-    HammingCodeEngine\Decoder/HammingCode\Decoder84/decoder84.cpp \
+    HammingCodeEngine\Decoder\HammingCode\Decoder84\decoder84.cpp \
     HammingCodeEngine\Decoder\HammingCode\Decoder1511\decoder1511.cpp \
     HammingCodeEngine\Decoder\HammingCode\Decoder1611\decoder1611.cpp \
     HammingCodeEngine\Decoder\HammingCode\DecoderDecimal1511\decoderDecimal1511.cpp \
@@ -36,6 +36,7 @@ SOURCES += \
     main.cpp \
     Src\mainwindow.cpp \
     Src\studyform.cpp \
+    Src\testform.cpp \
 
 HEADERS += \
     DBWorker\dbworker.h \
@@ -45,7 +46,7 @@ HEADERS += \
     HammingCodeEngine\DataWorker\BitSequence\bitSequence.h \
     HammingCodeEngine\DataWorker\BitSequence\BitSequenceShell/bitSequenceShell.h \
     HammingCodeEngine\DataWorker\BigInteger\BigInteger.h \
-    HammingCodeEngine\DataWorker/BigInteger\BigIntegerShell/bigIntegerShell.h \
+    HammingCodeEngine\DataWorker\BigInteger\BigIntegerShell/bigIntegerShell.h \
     HammingCodeEngine\Encoder\HammingCode\Encoder74\Encoder74.h \
     HammingCodeEngine\Encoder\HammingCode\Encoder84\encoder84.h \
     HammingCodeEngine\Encoder\HammingCode\Encoder1511\encoder1511.h \
@@ -63,12 +64,14 @@ HEADERS += \
     Include\mainwindow.h \
     Include\studyform.h \
     Include\dialogmail.h \
+    Include\testform.h \
 
 FORMS += \
     Ui\notificationform.ui \
     Ui\dialogmail.ui \
     Ui\mainwindow.ui \
     Ui\studyform.ui \
+    Ui\testform.ui \
 
 # Default rules for deployment.
 qnx: target.path = \tmp\$${TARGET}\bin

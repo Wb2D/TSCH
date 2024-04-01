@@ -12,6 +12,7 @@
 #include <QScreen>
 
 #include "Include/studyform.h"
+#include "Include/testform.h"
 #include "Include/dialogmail.h"
 #include "Include/notificationform.h"
 #include "DBWorker/dbworker.h"
@@ -60,7 +61,7 @@ private:
     void advanceMode(const QString&, const QString&);
 
     enum ModeFlag {
-        NO_MODE,
+        NO_MODE = 0,
         STUDY_MODE,
         TEST_MODE,
     } mFlag; ///< флаг режима;

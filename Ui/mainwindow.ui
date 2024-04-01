@@ -1372,31 +1372,18 @@ QPushButton:checked {
        <layout class="QGridLayout" name="gridLayout_5">
         <item row="0" column="0">
          <layout class="QGridLayout" name="gridLayout_6">
-          <item row="0" column="0">
-           <spacer name="horizontalSpacer_9">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
           <item row="0" column="1">
            <widget class="QPushButton" name="pushButtonMinimize">
             <property name="minimumSize">
              <size>
               <width>50</width>
-              <height>20</height>
+              <height>25</height>
              </size>
             </property>
             <property name="maximumSize">
              <size>
               <width>50</width>
-              <height>20</height>
+              <height>25</height>
              </size>
             </property>
             <property name="font">
@@ -1417,7 +1404,7 @@ QPushButton:checked {
 
 QPushButton:hover {
     background-color: rgba(255, 255, 255, 100); /* Белый цвет с менее яркой прозрачностью */
-    border-radius: 5px; /* Увеличенный радиус скругления краев */
+    border-radius: 12px; /* Увеличенный радиус скругления краев */
 }
 
 QPushButton:pressed {
@@ -1429,18 +1416,31 @@ QPushButton:pressed {
             </property>
            </widget>
           </item>
+          <item row="0" column="0">
+           <spacer name="horizontalSpacer_9">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
           <item row="0" column="2">
            <widget class="QPushButton" name="pushButtonClose">
             <property name="minimumSize">
              <size>
               <width>50</width>
-              <height>20</height>
+              <height>25</height>
              </size>
             </property>
             <property name="maximumSize">
              <size>
               <width>50</width>
-              <height>20</height>
+              <height>25</height>
              </size>
             </property>
             <property name="font">
@@ -1459,7 +1459,7 @@ QPushButton:pressed {
 /* При наведении на кнопку */
 QPushButton:hover {
     background-color: rgba(255, 0, 0, 100); /* Красный цвет с небольшой прозрачностью */
-    border-radius: 5px; /* Увеличенный радиус скругления краев */
+    border-radius: 12px; /* Увеличенный радиус скругления краев */
 }
 
 QPushButton:pressed {
