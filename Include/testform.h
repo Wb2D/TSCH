@@ -4,6 +4,8 @@
 #include <QWidget>
 #include <QMouseEvent>
 
+#include "Include/askiihelper.h"
+
 #include "HammingCodeEngine/DataWorker/NumberGenerator/numberGenerator.h"
 #include "HammingCodeEngine/DataWorker/Converter/converter.h"
 
@@ -51,8 +53,11 @@ private slots:
     void on_pushButtonExit_clicked();
     void on_pushButtonResult_clicked();
 
+    void on_pushButtonHelp_clicked();
+
 private:
     Ui::TestForm *ui;
+    AskiiHelper *askiiHelper;
 
     QPoint mPosition;
     bool aFlag;

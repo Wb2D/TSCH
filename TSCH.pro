@@ -37,6 +37,7 @@ SOURCES += \
     Src\mainwindow.cpp \
     Src\studyform.cpp \
     Src\testform.cpp \
+    Src\askiihelper.cpp \
 
 HEADERS += \
     DBWorker\dbworker.h \
@@ -65,6 +66,7 @@ HEADERS += \
     Include\studyform.h \
     Include\dialogmail.h \
     Include\testform.h \
+    Include\askiihelper.h
 
 FORMS += \
     Ui\notificationform.ui \
@@ -72,6 +74,7 @@ FORMS += \
     Ui\mainwindow.ui \
     Ui\studyform.ui \
     Ui\testform.ui \
+    Ui\askiihelper.ui \
 
 # Default rules for deployment.
 qnx: target.path = \tmp\$${TARGET}\bin

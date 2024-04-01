@@ -21,6 +21,10 @@ TestForm::TestForm(QWidget *parent) :
     setWindowOpacity(0.98);
     mPosition = QPoint();
     aFlag = false;
+    askiiHelper = new AskiiHelper();
+    QObject::connect(askiiHelper, &AskiiHelper::closed, this, [=]() {
+        askiiHelper->hide();
+    });
     QString data = QString("Дано следующее число в шестнадцатеричной системе счисления: ");
     QString number = Converter::toHexadecimal(NumberGenerator::generate(2, 11), 2);
     BitSequence seq;
@@ -75,6 +79,7 @@ TestForm::TestForm(QWidget *parent) :
  * \return Отсутствуют.
 */
 TestForm::~TestForm() {
+    delete askiiHelper;
     delete ui;
 }
 
@@ -225,5 +230,10 @@ void TestForm::on_pushButtonResult_clicked() {
     /// \todo считать время
     ui->lineEditResult->setText(QString::number(amount) + " / " + "3");
     ui->stackedWidget->setCurrentIndex(1);
+}
+
+
+void TestForm::on_pushButtonHelp_clicked() {
+    askiiHelper->show();
 }
 

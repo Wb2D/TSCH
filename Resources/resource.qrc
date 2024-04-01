@@ -16,5 +16,6 @@
         <file>back.png</file>
         <file>test.png</file>
         <file>copy.png</file>
+        <file>askii.png</file>
     </qresource>
 </RCC>
