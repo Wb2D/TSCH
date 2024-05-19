@@ -12,6 +12,16 @@ AskiiHelper::AskiiHelper(QWidget *parent)
     setWindowOpacity(0.975);
     mPosition = QPoint();
     aFlag = false;
+    connect(ui->lineSearch, &QLineEdit::textChanged, this, [=]() {
+       ui->tableWidget->clearSelection();
+       QString data = ui->lineSearch->text();
+       if (!data.isEmpty()) {
+           auto items = ui->tableWidget->findItems(data, Qt::MatchStartsWith | Qt::MatchCaseSensitive);
+           if (!items.isEmpty()) {
+               items.first()->setSelected(true);
+           }
+       }
+    });
 }
 
 

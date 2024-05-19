@@ -23,7 +23,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>TSCH</string>
   </property>
   <property name="styleSheet">
    <string notr="true">#TestForm {
@@ -261,7 +261,7 @@ QLabel {
                  <enum>QLineEdit::Normal</enum>
                 </property>
                 <property name="alignment">
-                 <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                 <set>Qt::AlignCenter</set>
                 </property>
                </widget>
               </item>
@@ -624,7 +624,7 @@ QLabel {
                  <enum>QLineEdit::Normal</enum>
                 </property>
                 <property name="alignment">
-                 <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                 <set>Qt::AlignCenter</set>
                 </property>
                </widget>
               </item>
@@ -908,7 +908,7 @@ QLabel {
                  <enum>QLineEdit::Normal</enum>
                 </property>
                 <property name="alignment">
-                 <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                 <set>Qt::AlignCenter</set>
                 </property>
                </widget>
               </item>
@@ -2718,7 +2718,8 @@ QPushButton:pressed {
         </property>
         <property name="icon">
          <iconset resource="../Resources/resource.qrc">
-          <normaloff>:/test.png</normaloff>:/test.png</iconset>
+          <normaloff>:/test.png</normaloff>
+          <disabledoff>:/test.png</disabledoff>:/test.png</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -2773,7 +2774,8 @@ QPushButton:pressed {
         </property>
         <property name="icon">
          <iconset resource="../Resources/resource.qrc">
-          <normaloff>:/askii.png</normaloff>:/askii.png</iconset>
+          <normaloff>:/askii.png</normaloff>
+          <disabledoff>:/askii.png</disabledoff>:/askii.png</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -2828,7 +2830,8 @@ QPushButton:pressed {
         </property>
         <property name="icon">
          <iconset resource="../Resources/resource.qrc">
-          <normaloff>:/back.png</normaloff>:/back.png</iconset>
+          <normaloff>:/back.png</normaloff>
+          <disabledoff>:/back.png</disabledoff>:/back.png</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -2883,7 +2886,8 @@ QPushButton:pressed {
         </property>
         <property name="icon">
          <iconset resource="../Resources/resource.qrc">
-          <normaloff>:/exit.png</normaloff>:/exit.png</iconset>
+          <normaloff>:/exit.png</normaloff>
+          <disabledoff>:/exit.png</disabledoff>:/exit.png</iconset>
         </property>
         <property name="iconSize">
          <size>

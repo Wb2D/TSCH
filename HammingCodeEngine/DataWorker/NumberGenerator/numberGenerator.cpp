@@ -1,4 +1,4 @@
-#include "HammingCodeEngine\DataWorker\NumberGenerator\numberGenerator.h"
+#include "../../TSCH/HammingCodeEngine/DataWorker/NumberGenerator/numberGenerator.h"
 
 
 
@@ -14,7 +14,7 @@ const QString NumberGenerator::arr = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 */
 QString NumberGenerator::generate(const int &base, const int &digits) {
     if (base < 0 || base > 36) {
-        qDebug() << "ERROR : NumberGenerator -> generate -> wrong base";
+        return "";
     }
     QRandomGenerator rg = QRandomGenerator::securelySeeded();
     QString result;
@@ -37,7 +37,7 @@ QString NumberGenerator::generate(const int &base, const int &digits) {
 QString NumberGenerator::generate(const int &amount) {
     QString result;
     QRandomGenerator rg = QRandomGenerator::securelySeeded();
-    while(result.length() != amount) {
+    while(result.length() != amount && amount > 0) {
         result.push_back(static_cast<QChar>(rg.bounded(33, 127)));
     }
     return result;
@@ -51,8 +51,12 @@ QString NumberGenerator::generate(const int &amount) {
  * \return Случайное целое число в заданном диапазоне.
 */
 int NumberGenerator::number(const int &left, const int &right) {
-    QRandomGenerator rg = QRandomGenerator::securelySeeded();
-    return rg.bounded(left, right + 1);
+    if(left == right) {
+        return left;
+    } else {
+        QRandomGenerator rg = QRandomGenerator::securelySeeded();
+        return rg.bounded(left, right + 1);
+    }
 }
 
 

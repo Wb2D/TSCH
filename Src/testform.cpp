@@ -70,6 +70,7 @@ TestForm::TestForm(QWidget *parent) :
     }
     data += " В качестве ответа введите закодированную последовательность бит.";
     ui->labelTask3->setText(data);
+    startTime = QTime::currentTime();
 }
 
 
@@ -227,7 +228,13 @@ void TestForm::on_pushButtonResult_clicked() {
     } else {
         ui->lineEditAns3->setText(WRONG_ANS);
     }
-    /// \todo считать время
+    int diff = startTime.secsTo(QTime::currentTime());
+    QString spentTime = QString();
+    if (diff / 60 > 0) {
+        spentTime += QString::number(diff / 60) + "мин  ";
+    }
+    spentTime += QString::number(diff % 60) + " сек";
+    ui->lineEditTime->setText(spentTime);
     ui->lineEditResult->setText(QString::number(amount) + " / " + "3");
     ui->stackedWidget->setCurrentIndex(1);
 }

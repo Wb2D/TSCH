@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QMouseEvent>
+#include <QTime>
 
 #include "Include/askiihelper.h"
 
@@ -64,6 +65,8 @@ private:
     QString answer1;
     QString answer2;
     QString answer3;
+
+    QTime startTime;
 
     static const QString TRUE_ANS;
     static const QString WRONG_ANS;

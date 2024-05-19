@@ -29,7 +29,7 @@
    </font>
   </property>
   <property name="windowTitle">
-   <string/>
+   <string>TSCH</string>
   </property>
   <property name="styleSheet">
    <string notr="true">#StudyForm {
@@ -55996,7 +55996,7 @@ QPushButton:pressed {
           <property name="icon">
            <iconset resource="../Resources/resource.qrc">
             <normaloff>:/encoding.png</normaloff>
-            <disabledoff>:/decoding.png</disabledoff>:/encoding.png</iconset>
+            <disabledoff>:/encoding.png</disabledoff>:/encoding.png</iconset>
           </property>
           <property name="iconSize">
            <size>

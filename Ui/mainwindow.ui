@@ -41,7 +41,7 @@
    <enum>Qt::NoContextMenu</enum>
   </property>
   <property name="windowTitle">
-   <string/>
+   <string>TSCH</string>
   </property>
   <property name="windowOpacity">
    <double>1.000000000000000</double>
@@ -699,7 +699,7 @@ QPushButton:hover {
 </string>
                       </property>
                       <property name="text">
-                       <string> Возникли проблемы</string>
+                       <string/>
                       </property>
                      </widget>
                     </item>

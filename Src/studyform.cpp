@@ -485,7 +485,7 @@ void StudyForm::on_pushButtonAutoGen_clicked() {
 */
 void StudyForm::on_pushButtonEncode_clicked() {
     if(encodeTypeFlag == NO_TYPE) {
-        NotificationForm *notification = new NotificationForm("Кодирование невозможна. Выберите тип данных.");
+        NotificationForm *notification = new NotificationForm("Кодирование невозможно. Выберите тип данных.");
         this->setEnabled(false);
         notification->show();
         QObject::connect(notification, &NotificationForm::finished, this, [=]() {
@@ -1337,6 +1337,7 @@ void StudyForm::resetEncoderData() {
  * \return Отсутствуют.
 */
 void StudyForm::on_pushButtonEncoding_clicked() {
+    ui->label_3->setText("Кодирование");
     ui->stackedWidget->setCurrentIndex(0);
 }
 
@@ -1348,6 +1349,7 @@ void StudyForm::on_pushButtonEncoding_clicked() {
  * \return Отсутствуют.
 */
 void StudyForm::on_pushButtonNoise_clicked() {
+    ui->label_3->setText("Искажение");
     ui->stackedWidget->setCurrentIndex(1);
 }
 
@@ -1358,6 +1360,7 @@ void StudyForm::on_pushButtonNoise_clicked() {
  * \return Отсутствуют.
 */
 void StudyForm::on_pushButtonDecoding_clicked() {
+    ui->label_3->setText("Декодирование");
     ui->stackedWidget->setCurrentIndex(2);
 }
 
